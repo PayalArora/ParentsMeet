@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ParentsMeet</string>
+    <string name="font_regular" translatable="false">fonts/segoeui.ttf</string>
+    <string name="font_bold" translatable="false">fonts/segoeui_bold.ttf</string>
+    <string name="font_bold_italic" translatable="false">fonts/segoeui_bold_italic.ttf</string>
+    <string name="font_italic" translatable="false">fonts/segoeui_italic.ttf</string>
+    <string name="input_field_icon" translatable="false">Input Field Icon</string>
+    <string name="input_field_secondary_icon" translatable="false">Input Field Secondary Icon</string>
+    <string name="email_id">Email Address</string>
+    <string name="password">Password</string>
+    <string name="no_account_create_new_account">No Account? Signup</string>
+    <string name="forget_your_password">Forgot Password?</string>
+    <string name="welcome">Welcome</string>
+    <string name="forgot_pass">Forgot Password</string>
+    <string name="login">Login</string>
+    <string name="or_login_with">Or</string>
+    <string name="keep_login">Keep me logged in</string>
+
+    <string name="err_invalid_email_id">Please enter valid Email Id</string>
+    <string name="err_invalid_password">Please enter valid password</string>
+    <string name="forgot_pass_description">Enter cellphone number or email to recieve a code to reset your password</string>
+    <string name="code">Code</string>
+    <string name="reset_pass">Reset Password</string>
+</resources>

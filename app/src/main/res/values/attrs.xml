@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="binding" format="string" />
+    <declare-styleable name="CustomTextView">
+        <attr name="myFont" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="VInputField">
+        <attr name="label" format="string" />
+        <attr name="android:src" />
+        <attr name="secondaryIcon" format="reference" />
+        <attr name="password" format="boolean" />
+        <attr name="android:inputType" />
+        <attr name="myFont" />
+        <attr name="android:maxLength" />
+        <attr name="android:text" />
+        <attr name="android:enabled" />
+        <attr name="android:singleLine" />
+    </declare-styleable>
+
+    <declare-styleable name="VDropDown">
+        <attr name="android:text" />
+        <attr name="android:src" />
+    </declare-styleable>
+
+    <declare-styleable name="VDatePicker">
+        <attr name="android:hint" />
+        <attr name="android:src" />
+    </declare-styleable>
+
+    <declare-styleable name="VInputDisplay">
+        <attr name="android:src" />
+        <attr name="android:text" />
+        <attr name="android:hint" />
+    </declare-styleable>
+
+    <declare-styleable name="VMenuItem">
+        <attr name="android:src" />
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="size" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="BarcodeReader">
+        <attr name="auto_focus" format="boolean" />
+        <attr name="use_flash" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="VImageView">
+        <attr name="topRight" format="dimension" />
+        <attr name="topLeft" format="dimension" />
+        <attr name="bottomRight" format="dimension" />
+        <attr name="bottomLeft" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="VaycoRatingBar">
+        <attr name="rating" format="integer" />
+    </declare-styleable>
+
+
+</resources>

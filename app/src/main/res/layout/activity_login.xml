@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/background_gradient"
+        >
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="@dimen/_300dp"
+            android:layout_height="@dimen/_200dp"
+            android:layout_marginTop="@dimen/main_logo_top_margin"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_logo"
+            android:padding="@dimen/ten_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/main_logo_bottom_margin"
+            android:background="@drawable/background_top_curve_white_filled_with_border"
+            android:paddingStart="@dimen/twenty_six_dp"
+            android:paddingEnd="@dimen/twenty_six_dp"
+            android:paddingBottom="@dimen/dp_sixty_four"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_logo">
+
+            <com.logicsquare.parentsmeet.views.VInputField
+                android:id="@+id/etEmailId"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="@dimen/thirty_two_dp"
+                android:layout_marginTop="@dimen/_70dp"
+                app:label="@string/email_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_email"
+                android:inputType="textEmailAddress"/>
+
+            <com.logicsquare.parentsmeet.views.VInputField
+                android:id="@+id/etPassword"
+                android:layout_width="@dimen/zero_dp"
+                android:layout_height="@dimen/thirty_two_dp"
+                android:layout_marginTop="@dimen/forty_four_dp"
+                app:label="@string/password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etEmailId"
+                app:password="true"
+                android:src="@drawable/ic_lock"
+                app:secondaryIcon="@drawable/icon_view"
+                android:inputType="textPassword"/>
+
+            <com.logicsquare.parentsmeet.views.VTextView
+                android:id="@+id/btnForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/twelve_dp"
+                android:textSize="@dimen/_14sp"
+                android:text="@string/forget_your_password"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+            <com.logicsquare.parentsmeet.views.VButton
+                android:id="@+id/btnLogin"
+                style="@style/PrimaryButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/twenty_one"
+                android:text="@string/login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtKeepLogin"
+                tools:ignore="TextContrastCheck" />
+            <CheckBox
+                android:id="@+id/check_keepme"
+                android:layout_width="@dimen/fifteen_dp"
+                android:layout_height="@dimen/fifteen_dp"
+                android:button="@null"
+                android:background="@drawable/custom_checkbox"
+                android:layout_marginTop="@dimen/fifty_five_dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword"
+                />
+            <com.logicsquare.parentsmeet.views.VTextView
+                android:id="@+id/txtKeepLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fifty_dp"
+                app:layout_constraintLeft_toRightOf="@+id/check_keepme"
+                android:textSize="@dimen/_17sp"
+                android:paddingHorizontal="@dimen/five_dp"
+                android:text="@string/keep_login"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword" />
+
+            <com.logicsquare.parentsmeet.views.VTextView
+                android:id="@+id/tvOr"
+                style="@style/OrStyle"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:text="@string/or_login_with"
+                android:textSize="@dimen/_14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+                tools:ignore="TextContrastCheck" />
+
+
+            <com.logicsquare.parentsmeet.views.VTextView
+                android:id="@+id/tvNoAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sixteen_sp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvOr"
+                android:text="@string/no_account_create_new_account"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+            />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
