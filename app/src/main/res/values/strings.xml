@@ -33,9 +33,9 @@
     <string name="forgot_pass_description">Enter cellphone number or email to recieve a code to reset your password</string>
     <string name="code">Code</string>
     <string name="reset_pass">Reset Password</string>
-    <string name="create_account">Create an account</string>
+    <string name="create_account">Create An Account</string>
     <string name="verify_account">Verify your account</string>
-    <string name="i_am">I am </string>
+    <string name="i_am">I Am </string>
     <string name="mom">Mom </string>
     <string name="dad">Dad </string>
     <string name="other">Other </string>

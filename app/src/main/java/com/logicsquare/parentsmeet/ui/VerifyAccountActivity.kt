@@ -2,6 +2,8 @@ package com.logicsquare.parentsmeet.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ActivityVerifyAccountBinding
@@ -15,6 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class VerifyAccountActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVerifyAccountBinding
@@ -26,7 +29,110 @@ class VerifyAccountActivity : AppCompatActivity() {
         setContentView(binding.root)
         sharedPref = SharedPref(this)
         getOtp()
+        initEditText()
         setListener()
+    }
+
+    private fun initEditText() {
+        binding.edtCode1.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (s.length == 1) {
+                    binding.edtCode2.requestFocus()
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int, before: Int,
+                count: Int
+            ) {
+            }
+        })
+
+        binding.edtCode2.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (s.length == 1) {
+                    binding.edtCode3.requestFocus()
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int, before: Int,
+                count: Int
+            ) {
+            }
+        })
+
+        binding.edtCode3.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (s.length == 1) {
+                    binding.edtCode4.requestFocus()
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int, before: Int,
+                count: Int
+            ) {
+            }
+        })
+
+        binding.edtCode4.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (s.length == 1) {
+                    binding.edtCode5.requestFocus()
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int, before: Int,
+                count: Int
+            ) {
+            }
+        })
+
+        binding.edtCode5.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                if (s.length == 1) {
+                    binding.edtCode6.requestFocus()
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int, before: Int,
+                count: Int
+            ) {
+            }
+        })
     }
 
     private fun setListener() {
