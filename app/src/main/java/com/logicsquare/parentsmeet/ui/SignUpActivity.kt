@@ -24,13 +24,15 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class SignUpActivity : AppCompatActivity(), OnDateSetListener {
 
     private lateinit var sharedPref: SharedPref
     private lateinit var binding: ActivitySignupBinding
-    private var relation: String = ""
+    private var relation: String = "mom"
     private val myCalendar: Calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,9 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sharedPref = SharedPref(this)
+
+        binding.tvMom.setTextColor(this.getColor(R.color.blue_1))
+
         setSpinnerAdapter()
         setListener()
     }
@@ -57,8 +62,12 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
             ) {
                 if (position > 0) {
                     relation = others[position]
-                    var textView:TextView = view.findViewById(R.id.text1)
+                    var textView: TextView = view.findViewById(R.id.text1)
                     textView.setTextColor(view.context.getColor(R.color.blue_1))
+                    binding.tvMom.setTextColor(view.context.getColor(R.color.black))
+                    binding.tvDad.setTextColor(view.context.getColor(R.color.black))
+                } else if (!relation.equals("dad", true)) {
+                    binding.tvMom.setTextColor(view.context.getColor(R.color.blue_1))
                 }
             }
 
@@ -76,12 +85,13 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
 
     private fun setListener() {
         binding.btnSignIn.setOnClickListener {
-            if (validateData())
+            if (validateData()) {
                 signIn()
+            }
         }
 
         binding.ivBack.setOnClickListener {
-           finish()
+            finish()
         }
 
         binding.edtDob.setOnClickListener {
@@ -110,10 +120,14 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
     }
 
     private fun validateData(): Boolean {
-        if (binding.edtFName.getText().isNullOrEmpty()) {
+        if (binding.edtFName.getText().isNullOrEmpty() || binding.edtFName.getText()
+                .contains(Regex("\\d+")) || binding.edtFName.getText().length !in 3..24
+        ) {
             showToast(getString(R.string.err_invalid_first_name))
             return false
-        } else if (binding.edtLName.getText().isNullOrEmpty()) {
+        } else if (binding.edtLName.getText().isNullOrEmpty() || binding.edtLName.getText()
+                .contains(Regex("\\d+")) || binding.edtLName.getText().length !in 3..24
+        ) {
             showToast(getString(R.string.err_invalid_last_name))
             return false
         } else if (binding.etEmailId.getText()
@@ -121,7 +135,9 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         ) {
             showToast(getString(R.string.err_invalid_email_id))
             return false
-        } else if (binding.edtCellphone.getText().isNullOrEmpty()) {
+        } else if (binding.edtCellphone.getText()
+                .isNullOrEmpty()
+        ) {
             showToast(getString(R.string.err_invalid_cellphone))
             return false
         } else if (binding.etPassword.getText().isNullOrEmpty() || binding.edtConfirmPwd.getText()
@@ -129,11 +145,22 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         ) {
             showToast(getString(R.string.err_invalid_password))
             return false
-        } else if (binding.etPassword.getText() != binding.edtConfirmPwd.getText()) {
+        } else if (binding.etPassword.getText() != binding.edtConfirmPwd.getText() || binding.edtFName.getText().length !in 9..19 || !isValidPassword(
+                binding.etPassword.getText()
+            )
+        ) {
             showToast(getString(R.string.err_invalid_password))
             return false
         }
         return true
+    }
+
+    private fun isValidPassword(password: String): Boolean {
+        val pattern: Pattern
+        val regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$"
+        pattern = Pattern.compile(regex)
+        val matcher: Matcher = pattern.matcher(password)
+        return matcher.matches()
     }
 
     private fun signIn() {
