@@ -7,8 +7,15 @@
     <string name="input_field_icon" translatable="false">Input Field Icon</string>
     <string name="input_field_secondary_icon" translatable="false">Input Field Secondary Icon</string>
     <string name="email_id">Email Address</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="dob">Date of birth</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account_btn">Create Account</string>
+    <string name="cellphone">Cellphone</string>
     <string name="no_account_create_new_account">No Account? Signup</string>
+    <string name="already_have_an_account">Already Have an Account?<font color='#0C6877'> Sign in</font></string>
     <string name="forget_your_password">Forgot Password?</string>
     <string name="welcome">Welcome</string>
     <string name="forgot_pass">Forgot Password</string>
@@ -16,11 +23,37 @@
     <string name="or_login_with">Or</string>
     <string name="keep_login">Keep me logged in</string>
 
+    <string name="err_invalid_code">Please enter valid Code</string>
+    <string name="err_invalid_first_name">Please enter valid First Name</string>
+    <string name="err_invalid_last_name">Please enter valid Last Name</string>
     <string name="err_invalid_email_id">Please enter valid Email Id</string>
+    <string name="err_invalid_cellphone">Please enter valid Cellphone</string>
     <string name="err_invalid_password">Please enter valid password</string>
     <string name="forgot_pass_description">Enter cellphone number or email to recieve a code to reset your password</string>
     <string name="code">Code</string>
     <string name="reset_pass">Reset Password</string>
+    <string name="create_account">Create an account</string>
+    <string name="verify_account">Verify your account</string>
+    <string name="i_am">I am </string>
+    <string name="mom">Mom </string>
+    <string name="dad">Dad </string>
+    <string name="other">Other </string>
+    <string name="number">Number </string>
+    <string name="submit">Submit </string>
+    <string name="special_character">Special character </string>
+    <string name="uppercase_letter">Uppercase Letter </string>
+    <string name="lowercase_letter">Lowercase Letter </string>
+    <string name="pwd_must_be">Password must be 8 character or more and include</string>
+    <string name="verify_label">For added safety we need to verify your account. Please enter the code we have texted you below </string>
+
+    <string-array name="Others">
+        <item>Other</item>
+        <item>uncle</item>
+        <item>aunty</item>
+        <item>grandFather</item>
+        <item>grandMother</item>
+    </string-array>
+
     <string name="enter_code">Enter Code</string>
     <string name="code_description">For added safety, we need to verify your account. Please enter the code we have texted you below.</string>
 </resources>

@@ -1,11 +1,10 @@
 package com.logicsquare.parentsmeet.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.logicsquare.parentsmeet.R
+import androidx.appcompat.app.AppCompatActivity
 import com.logicsquare.parentsmeet.utils.SharedPref
 
 class SplashActivity : AppCompatActivity() {
