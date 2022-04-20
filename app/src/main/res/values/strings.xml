@@ -14,7 +14,8 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="create_account_btn">Create Account</string>
     <string name="cellphone">Cellphone</string>
-    <string name="no_account_create_new_account">No Account? Signup</string>
+    <string name="no_account_create_new_account">No Account? <font color='#0C6877'> Signup </font></string>
+
     <string name="already_have_an_account">Already Have an Account?<font color='#0C6877'> Sign in</font></string>
     <string name="forget_your_password">Forgot Password?</string>
     <string name="welcome">Welcome</string>
