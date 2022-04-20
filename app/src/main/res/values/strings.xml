@@ -21,4 +21,6 @@
     <string name="forgot_pass_description">Enter cellphone number or email to recieve a code to reset your password</string>
     <string name="code">Code</string>
     <string name="reset_pass">Reset Password</string>
-  c</resources>
+    <string name="enter_code">Enter Code</string>
+    <string name="code_description">For added safety, we need to verify your account. Please enter the code we have texted you below.</string>
+</resources>
