@@ -133,11 +133,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/iv_down"
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:text="@string/other" />
 
                     <ImageView
+                        android:id="@+id/iv_down"
                         android:layout_width="12dp"
                         android:layout_height="12dp"
                         android:layout_alignParentRight="true"
