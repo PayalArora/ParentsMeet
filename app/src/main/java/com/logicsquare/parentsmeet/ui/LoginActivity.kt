@@ -38,7 +38,16 @@ class LoginActivity : AppCompatActivity() {
         binding.txtKeepLogin.setOnClickListener {
             binding.checkKeepme.performClick()
         }
+
+        binding.tvNoAcc.setOnClickListener {
+            openSignInActivity()
+        }
     }
+
+    private fun openSignInActivity() {
+        startActivity(Intent(this,SignUpActivity::class.java))
+    }
+
     private fun isInputValid(): Boolean {
         if (binding.etEmailId.getText().isBlank() || !isEmailIdValid(binding.etEmailId.getText())) {
             showToast(getString(R.string.err_invalid_email_id))
@@ -49,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
         }
         return true
     }
+
     private fun loginWithUserIdPassword() {
         val loginRequest = LoginRequest()
         loginRequest.handle = binding.etEmailId.getText()
@@ -76,11 +86,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleResponse(response: Response<LoginResponse?>) {
         if (response.isSuccessful) {
-                sharedPref.apply {
-                    saveUser(response.body()?.user)
-                    saveToken(response.body()?.token)
-                    saveKeepMe(binding.checkKeepme.isChecked)
-                }
+            sharedPref.apply {
+                saveUser(response.body()?.user)
+                saveToken(response.body()?.token)
+                saveKeepMe(binding.checkKeepme.isChecked)
+            }
             startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
             finish()
         } else {
