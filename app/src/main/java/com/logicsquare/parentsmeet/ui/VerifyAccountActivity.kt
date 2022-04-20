@@ -12,10 +12,7 @@ import com.logicsquare.parentsmeet.model.OtpRequest
 import com.logicsquare.parentsmeet.model.SubmitOtpRequest
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
-import com.logicsquare.parentsmeet.utils.SharedPref
-import com.logicsquare.parentsmeet.utils.gone
-import com.logicsquare.parentsmeet.utils.showToast
-import com.logicsquare.parentsmeet.utils.visible
+import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -185,6 +182,8 @@ class VerifyAccountActivity : AppCompatActivity() {
                         saveToken(response.body()?.token)
                     }
                     startActivity(Intent(this@VerifyAccountActivity, DashboardActivity::class.java))
+                } else {
+                    handleErrorResponse(response.errorBody(), this@VerifyAccountActivity)
                 }
                 binding.progressBar.gone()
             }

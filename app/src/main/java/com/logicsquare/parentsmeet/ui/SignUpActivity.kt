@@ -58,7 +58,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         binding.spinnerOther.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
-                view: View, position: Int, id: Long
+                view: View, position: Int, id: Long,
             ) {
                 if (position > 0) {
                     relation = others[position]
@@ -100,6 +100,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                 myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             )
+            dialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 568025136000L);
             dialog.show()
 
         }
@@ -189,13 +190,15 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         call.enqueue(object : Callback<LoginResponse?> {
             override fun onResponse(
                 call: Call<LoginResponse?>,
-                response: Response<LoginResponse?>
+                response: Response<LoginResponse?>,
             ) {
                 if (response.isSuccessful) {
                     if (response.body()?.error!! && !response.body()?.reason.isNullOrEmpty()) {
                         showToast(response.body()?.reason)
                     }
                     handleResponse(response)
+                } else{
+                    handleErrorResponse(response.errorBody(), this@SignUpActivity)
                 }
                 binding.progressBar.gone()
             }
@@ -214,9 +217,6 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
             startActivity(intent)
             finish()
         } else {
-            if (!response.body()?.reason.isNullOrEmpty()) {
-                showToast(response.body()?.reason)
-            }
             handleErrorResponse(response.errorBody(), this@SignUpActivity)
         }
     }
