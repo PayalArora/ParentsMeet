@@ -33,7 +33,15 @@
         <activity
             android:name=".ui.SignUpActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".ui.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.SetPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.VerifyAccountActivity"
             android:exported="false" />

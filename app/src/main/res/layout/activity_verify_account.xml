@@ -153,12 +153,10 @@
             <com.logicsquare.parentsmeet.views.VButton
                 android:id="@+id/btn_verify"
                 style="@style/PrimaryButtonStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
                 android:text="@string/submit"
                 tools:ignore="TextContrastCheck" />
 

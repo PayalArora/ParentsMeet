@@ -10,8 +10,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_gradient">
-
+      >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/background_gradient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="@dimen/_400dp"/>
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
@@ -109,7 +115,7 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray_2"
                     android:text="@string/mom" />
 
                 <TextView
@@ -119,11 +125,12 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray_2"
                     android:text="@string/dad" />
 
                 <RelativeLayout
                     android:layout_width="0dp"
+                    android:id="@+id/spinner_layout"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center">
@@ -183,7 +190,7 @@
             <com.logicsquare.parentsmeet.views.VInputField
                 android:id="@+id/etEmailId"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:inputType="textEmailAddress"
                 android:src="@drawable/ic_email"

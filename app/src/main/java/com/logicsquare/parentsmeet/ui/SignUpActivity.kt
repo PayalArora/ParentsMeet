@@ -42,8 +42,10 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         sharedPref = SharedPref(this)
 
         binding.tvMom.setTextColor(this.getColor(R.color.blue_1))
-
         setSpinnerAdapter()
+        binding.spinnerLayout.setOnClickListener {
+            binding.spinnerOther.performClick()
+        }
         setListener()
     }
 
@@ -64,8 +66,8 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                     relation = others[position]
                     var textView: TextView = view.findViewById(R.id.text1)
                     textView.setTextColor(view.context.getColor(R.color.blue_1))
-                    binding.tvMom.setTextColor(view.context.getColor(R.color.black))
-                    binding.tvDad.setTextColor(view.context.getColor(R.color.black))
+                    binding.tvMom.setTextColor(view.context.getColor(R.color.gray_2))
+                    binding.tvDad.setTextColor(view.context.getColor(R.color.gray_2))
                 } else if (!relation.equals("dad", true)) {
                     binding.tvMom.setTextColor(view.context.getColor(R.color.blue_1))
                 }
@@ -108,13 +110,13 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         binding.ivDad.setOnClickListener {
             relation = getString(R.string.dad).toLowerCase()
             binding.tvDad.setTextColor(this.getColor(R.color.blue_1))
-            binding.tvMom.setTextColor(this.getColor(R.color.black))
+            binding.tvMom.setTextColor(this.getColor(R.color.gray_2))
             binding.spinnerOther.setSelection(0)
         }
         binding.ivMom.setOnClickListener {
             relation = getString(R.string.mom).toLowerCase()
             binding.tvMom.setTextColor(this.getColor(R.color.blue_1))
-            binding.tvDad.setTextColor(this.getColor(R.color.black))
+            binding.tvDad.setTextColor(this.getColor(R.color.gray_2))
             binding.spinnerOther.setSelection(0)
         }
 
@@ -146,7 +148,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         ) {
             showToast(getString(R.string.err_invalid_password))
             return false
-        } else if (binding.etPassword.getText() != binding.edtConfirmPwd.getText() || binding.edtFName.getText().length !in 9..19 || !isValidPassword(
+        } else if (binding.etPassword.getText() != binding.edtConfirmPwd.getText() || binding.etPassword.getText().length !in 9..19 || !isValidPassword(
                 binding.etPassword.getText()
             )
         ) {

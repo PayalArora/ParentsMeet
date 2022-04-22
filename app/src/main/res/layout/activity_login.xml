@@ -9,11 +9,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_height="wrap_content"
-
-        android:background="@drawable/background_gradient"
         >
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/background_gradient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="@dimen/_400dp"/>
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="@dimen/_300dp"
@@ -33,7 +40,7 @@
             android:background="@drawable/background_top_curve_white_filled_with_border"
             android:paddingStart="@dimen/twenty_six_dp"
             android:paddingEnd="@dimen/twenty_six_dp"
-            android:paddingBottom="@dimen/dp_sixty_four"
+            android:paddingBottom="@dimen/twenty_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

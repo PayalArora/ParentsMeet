@@ -40,6 +40,8 @@ fun isEmailIdValid(emailId: String): Boolean {
     val matcher = pattern.matcher(emailId)
     return matcher.find()
 }
+
+
 fun handleErrorResponse(body: ResponseBody?, context: Context) {
     try {
         body?.let {

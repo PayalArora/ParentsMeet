@@ -6,7 +6,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.logicsquare.parentsmeet.R
-import com.logicsquare.parentsmeet.databinding.ActivityVerifyAccountBinding
+import com.logicsquare.parentsmeet.databinding.ForgotPasswordActivityBinding
+import com.logicsquare.parentsmeet.databinding.ResetPasswordBinding
 import com.logicsquare.parentsmeet.model.LoginResponse
 import com.logicsquare.parentsmeet.model.OtpRequest
 import com.logicsquare.parentsmeet.model.SubmitOtpRequest
@@ -18,21 +19,26 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class VerifyAccountActivity : AppCompatActivity() {
+class ResetPasswordActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityVerifyAccountBinding
+    private lateinit var binding: ResetPasswordBinding
     private lateinit var sharedPref: SharedPref
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityVerifyAccountBinding.inflate(layoutInflater)
+        binding = ResetPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
         sharedPref = SharedPref(this)
-        getOtp()
         initEditText()
         setListener()
     }
 
+    private fun setListener() {
+        binding.btnResetPassword.setOnClickListener {
+            if (validateData())
+                submitOtp()
+        }
+    }
     private fun initEditText() {
         binding.edtCode1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
@@ -134,14 +140,6 @@ class VerifyAccountActivity : AppCompatActivity() {
             }
         })
     }
-
-    private fun setListener() {
-        binding.btnVerify.setOnClickListener {
-            if (validateData())
-                submitOtp()
-        }
-    }
-
     private fun validateData(): Boolean {
         if (binding.edtCode1.text.toString().isNullOrEmpty() ||
             binding.edtCode2.text.toString().isNullOrEmpty() ||
@@ -163,7 +161,7 @@ class VerifyAccountActivity : AppCompatActivity() {
             .plus(binding.edtCode3.text.toString()).plus(binding.edtCode4.text.toString())
             .plus(binding.edtCode5.text.toString()).plus(binding.edtCode6.text.toString())
         submitOtpRequest.handle = intent.getStringExtra("email")!!
-        submitOtpRequest.sendTo = "email"
+        submitOtpRequest.sendTo = intent.getStringExtra("sendto")!!
 
         binding.progressBar.visible()
 
@@ -176,42 +174,16 @@ class VerifyAccountActivity : AppCompatActivity() {
                 call: Call<LoginResponse?>,
                 response: Response<LoginResponse?>
             ) {
+                binding.progressBar.gone()
                 if (response.isSuccessful) {
-                    sharedPref.apply {
-                        saveUser(response.body()?.user)
-                        saveToken(response.body()?.token)
-                    }
-                    startActivity(Intent(this@VerifyAccountActivity, DashboardActivity::class.java))
+                    var intent = Intent(this@ResetPasswordActivity, SetPasswordActivity::class.java)
+                    intent.putExtra("email",  submitOtpRequest.handle)
+                    intent.putExtra("sendto", submitOtpRequest.sendTo )
+                    intent.putExtra("otp",  submitOtpRequest.otp)
+                    startActivity(intent)
                 } else {
-                    handleErrorResponse(response.errorBody(), this@VerifyAccountActivity)
+                    handleErrorResponse(response.errorBody(), this@ResetPasswordActivity)
                 }
-                binding.progressBar.gone()
-            }
-
-            override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
-                binding.progressBar.gone()
-                showToast(t.localizedMessage)
-            }
-        })
-    }
-
-    private fun getOtp() {
-        var otpRequest = OtpRequest()
-        otpRequest.sendTo = "email"
-        otpRequest.handle = intent.getStringExtra("email")!!
-
-        binding.progressBar.visible()
-
-        val call: Call<LoginResponse?> =
-            APIClient.client.create(APIInterface::class.java).getOtp(
-                otpRequest
-            )
-        call.enqueue(object : Callback<LoginResponse?> {
-            override fun onResponse(
-                call: Call<LoginResponse?>,
-                response: Response<LoginResponse?>
-            ) {
-                binding.progressBar.gone()
             }
 
             override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {

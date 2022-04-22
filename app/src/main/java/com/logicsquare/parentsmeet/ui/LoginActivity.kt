@@ -1,7 +1,9 @@
 package com.logicsquare.parentsmeet.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -42,6 +44,10 @@ class LoginActivity : AppCompatActivity() {
         binding.tvNoAcc.setOnClickListener {
             openSignInActivity()
         }
+
+        binding.btnForgotPassword.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, ForgotPasswordActivity::class.java))
+        }
     }
 
     private fun openSignInActivity() {
@@ -63,6 +69,12 @@ class LoginActivity : AppCompatActivity() {
         val loginRequest = LoginRequest()
         loginRequest.handle = binding.etEmailId.getText()
         loginRequest.password = binding.etPassword.getText()
+        loginRequest.deviceDetails.name = Build.BRAND
+        loginRequest.deviceDetails.deviceId = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
+        loginRequest.allowNotification = false
         binding.progressBar.visible()
         val call: Call<LoginResponse?> = APIClient.client.create(APIInterface::class.java).login(
             loginRequest
