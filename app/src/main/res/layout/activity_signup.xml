@@ -132,6 +132,8 @@
                     android:layout_width="0dp"
                     android:id="@+id/spinner_layout"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/spinner"
+                    android:padding="@dimen/five_dp"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -140,8 +142,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/iv_down"
                         android:background="@android:color/transparent"
+                        android:layout_toLeftOf="@+id/iv_down"
                         android:gravity="center"
                         android:text="@string/other" />
 

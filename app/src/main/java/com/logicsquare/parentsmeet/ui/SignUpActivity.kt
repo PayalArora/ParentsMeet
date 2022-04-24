@@ -62,8 +62,18 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                 parent: AdapterView<*>,
                 view: View, position: Int, id: Long,
             ) {
+                var textView: TextView = view.findViewById(R.id.text1)
+                textView.setTextColor(view.context.getColor(R.color.gray_2))
                 if (position > 0) {
-                    relation = others[position]
+                    if (position == 1){
+                        relation == "uncle"
+                    } else if  (position == 2){
+                        relation == "aunty"
+                    } else if (position == 3){
+                        relation == "grandFather"
+                    } else if (position == 4){
+                        relation == "grandMother"
+                    }
                     var textView: TextView = view.findViewById(R.id.text1)
                     textView.setTextColor(view.context.getColor(R.color.blue_1))
                     binding.tvMom.setTextColor(view.context.getColor(R.color.gray_2))

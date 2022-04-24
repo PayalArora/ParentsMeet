@@ -34,7 +34,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             if (validateData()) {
                 var otpRequest = OtpRequest()
                 otpRequest.sendTo = mSendTo
-                otpRequest.handle = binding.txtEmail.text.toString()
+                otpRequest.handle = binding.txtEmail.text.toString().trim()
                 getOtp(otpRequest)
             }
         }
@@ -52,6 +52,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
         } else if (android.util.Patterns.PHONE.matcher(binding.txtEmail.text.toString()).matches()){
             mSendTo = "phone"
             return true
+        } else{
+            showToast(getString(R.string.err_invalid_email_phone))
         }
         return false
     }

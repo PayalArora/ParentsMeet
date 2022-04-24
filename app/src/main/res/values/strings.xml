@@ -54,10 +54,10 @@
 
     <string-array name="Others">
         <item>Other</item>
-        <item>uncle</item>
-        <item>aunty</item>
-        <item>grandFather</item>
-        <item>grandMother</item>
+        <item>Uncle</item>
+        <item>Aunty</item>
+        <item>GrandFather</item>
+        <item>GrandMother</item>
     </string-array>
 
     <string name="enter_code">Enter Code</string>

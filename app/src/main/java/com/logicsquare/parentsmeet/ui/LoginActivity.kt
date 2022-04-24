@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.etPassword.setPasswordMode()
         sharedPref = SharedPref(this)
         setListener()
     }
@@ -67,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginWithUserIdPassword() {
         val loginRequest = LoginRequest()
-        loginRequest.handle = binding.etEmailId.getText()
+        loginRequest.handle = binding.etEmailId.getText().trim()
         loginRequest.password = binding.etPassword.getText()
         loginRequest.deviceDetails.name = Build.BRAND
         loginRequest.deviceDetails.deviceId = Settings.Secure.getString(

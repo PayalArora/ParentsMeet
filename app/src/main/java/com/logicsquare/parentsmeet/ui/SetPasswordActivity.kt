@@ -1,5 +1,6 @@
 package com.logicsquare.parentsmeet.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.logicsquare.parentsmeet.R
@@ -69,9 +70,10 @@ class SetPasswordActivity : AppCompatActivity() {
             ) {
                 binding.progressBar.gone()
                 if (response.isSuccessful) {
-                    finish()
+                    startActivity(Intent(this@SetPasswordActivity, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK))
                 } else {
                     handleErrorResponse(response.errorBody(), this@SetPasswordActivity)
+                    finish()
                 }
             }
 
