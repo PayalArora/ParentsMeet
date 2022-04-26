@@ -3,7 +3,6 @@ package com.logicsquare.parentsmeet.ui
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -78,7 +77,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                     textView.setTextColor(view.context.getColor(R.color.blue_1))
                     binding.tvMom.setTextColor(view.context.getColor(R.color.gray_2))
                     binding.tvDad.setTextColor(view.context.getColor(R.color.gray_2))
-                }else if (!relation.equals("dad", true)) {
+                } else if (!relation.equals("dad", true)) {
                     binding.tvMom.setTextColor(view.context.getColor(R.color.blue_1))
                 }  else if(relation.equals("dad", true)){
                     binding.tvDad.setTextColor(view.context.getColor(R.color.blue_1))
