@@ -6,17 +6,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.logicsquare.parentsmeet.R
-import com.logicsquare.parentsmeet.databinding.ForgotPasswordActivityBinding
 import com.logicsquare.parentsmeet.databinding.ResetPasswordBinding
-import com.logicsquare.parentsmeet.model.LoginResponse
-import com.logicsquare.parentsmeet.model.OtpRequest
-import com.logicsquare.parentsmeet.model.SubmitOtpRequest
-import com.logicsquare.parentsmeet.network.APIClient
-import com.logicsquare.parentsmeet.network.APIInterface
-import com.logicsquare.parentsmeet.utils.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.logicsquare.parentsmeet.utils.SharedPref
+import com.logicsquare.parentsmeet.utils.showToast
 
 
 class ResetPasswordActivity : AppCompatActivity() {
@@ -35,8 +27,16 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     private fun setListener() {
         binding.btnResetPassword.setOnClickListener {
-            if (validateData())
-                submitOtp()
+            if (validateData()){
+                var intent = Intent(this@ResetPasswordActivity, SetPasswordActivity::class.java)
+                intent.putExtra("email", getIntent().getStringExtra("email")!!)
+                intent.putExtra("sendto", getIntent().getStringExtra("sendto")!!)
+                val otp = binding.edtCode1.text.toString().plus(binding.edtCode2.text.toString())
+                    .plus(binding.edtCode3.text.toString()).plus(binding.edtCode4.text.toString())
+                    .plus(binding.edtCode5.text.toString()).plus(binding.edtCode6.text.toString())
+                intent.putExtra("otp", otp)
+                startActivity(intent)
+            }
         }
     }
     private fun initEditText() {
@@ -151,46 +151,6 @@ class ResetPasswordActivity : AppCompatActivity() {
             showToast(getString(R.string.err_invalid_code))
             return false
         }
-
         return true
     }
-
-    private fun submitOtp(){
-        var submitOtpRequest = SubmitOtpRequest()
-        submitOtpRequest.otp = binding.edtCode1.text.toString().plus(binding.edtCode2.text.toString())
-            .plus(binding.edtCode3.text.toString()).plus(binding.edtCode4.text.toString())
-            .plus(binding.edtCode5.text.toString()).plus(binding.edtCode6.text.toString())
-        submitOtpRequest.handle = intent.getStringExtra("email")!!
-        submitOtpRequest.sendTo = intent.getStringExtra("sendto")!!
-
-        binding.progressBar.visible()
-
-        val call: Call<LoginResponse?> =
-            APIClient.client.create(APIInterface::class.java).submitOtp(
-                submitOtpRequest
-            )
-        call.enqueue(object : Callback<LoginResponse?> {
-            override fun onResponse(
-                call: Call<LoginResponse?>,
-                response: Response<LoginResponse?>
-            ) {
-                binding.progressBar.gone()
-                if (response.isSuccessful) {
-                    var intent = Intent(this@ResetPasswordActivity, SetPasswordActivity::class.java)
-                    intent.putExtra("email",  submitOtpRequest.handle)
-                    intent.putExtra("sendto", submitOtpRequest.sendTo )
-                    intent.putExtra("otp",  submitOtpRequest.otp)
-                    startActivity(intent)
-                } else {
-                    handleErrorResponse(response.errorBody(), this@ResetPasswordActivity)
-                }
-            }
-
-            override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
-                binding.progressBar.gone()
-                showToast(t.localizedMessage)
-            }
-        })
-    }
-
 }

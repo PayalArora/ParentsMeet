@@ -62,14 +62,26 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                 parent: AdapterView<*>,
                 view: View, position: Int, id: Long,
             ) {
+                var textView: TextView = view.findViewById(R.id.text1)
+                textView.setTextColor(view.context.getColor(R.color.gray_2))
                 if (position > 0) {
-                    relation = others[position]
+                    if (position == 1){
+                        relation == "uncle"
+                    } else if  (position == 2){
+                        relation == "aunty"
+                    } else if (position == 3){
+                        relation == "grandFather"
+                    } else if (position == 4){
+                        relation == "grandMother"
+                    }
                     var textView: TextView = view.findViewById(R.id.text1)
                     textView.setTextColor(view.context.getColor(R.color.blue_1))
                     binding.tvMom.setTextColor(view.context.getColor(R.color.gray_2))
                     binding.tvDad.setTextColor(view.context.getColor(R.color.gray_2))
-                } else if (!relation.equals("dad", true)) {
+                }else if (!relation.equals("dad", true)) {
                     binding.tvMom.setTextColor(view.context.getColor(R.color.blue_1))
+                }  else if(relation.equals("dad", true)){
+                    binding.tvDad.setTextColor(view.context.getColor(R.color.blue_1))
                 }
             }
 
@@ -77,6 +89,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
 
             }
         }
+        binding.spinnerOther.setPopupBackgroundDrawable(getDrawable(R.drawable.spinner))
     }
 
     private fun setDob() {
@@ -303,4 +316,6 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         myCalendar.set(Calendar.DAY_OF_MONTH, day)
         setDob()
     }
+
 }
+

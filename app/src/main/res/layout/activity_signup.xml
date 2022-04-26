@@ -105,6 +105,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/five_dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -132,17 +133,24 @@
                     android:layout_width="0dp"
                     android:id="@+id/spinner_layout"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:background="@drawable/spinner"
+                    android:padding="@dimen/five_dp"
+                    android:layout_weight="1.1"
                     android:gravity="center">
 
                     <Spinner
                         android:id="@+id/spinner_other"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/iv_down"
                         android:background="@android:color/transparent"
+                        android:layout_toLeftOf="@+id/iv_down"
                         android:gravity="center"
+                        android:prompt="@string/other"
+                        android:overlapAnchor="false"
+                        android:dropDownVerticalOffset="20dp"
+                        android:theme="@style/MatchSpinnerTheme"
                         android:text="@string/other" />
 
                     <ImageView

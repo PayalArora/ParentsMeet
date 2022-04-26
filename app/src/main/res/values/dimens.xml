@@ -75,4 +75,5 @@
     <dimen name="_400dp">400dp</dimen>
     <dimen name="_30dp">30dp</dimen>
     <dimen name="_25dp">25dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
 </resources>

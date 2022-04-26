@@ -75,7 +75,7 @@
             <com.logicsquare.parentsmeet.views.VTextView
                 android:id="@+id/btnForgotPassword"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_30dp"
                 android:layout_marginTop="@dimen/twelve_dp"
                 android:textSize="@dimen/_14sp"
                 android:text="@string/forget_your_password"
@@ -100,7 +100,7 @@
                 android:layout_height="@dimen/fifteen_dp"
                 android:button="@null"
                 android:background="@drawable/custom_checkbox"
-                android:layout_marginTop="@dimen/fifty_five_dp"
+                android:layout_marginTop="@dimen/forty_four_dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword"
                 />
