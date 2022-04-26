@@ -3,14 +3,14 @@ package com.logicsquare.parentsmeet.ui
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ActivitySignupBinding
@@ -92,6 +92,56 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
             }
         }
 
+        binding.etPassword.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+                if (ifContainsDigit(binding.etPassword.text.toString())) {
+                    setDrawableLeft(binding.tvDigit, true)
+                    setTextColor(binding.tvDigit, R.color.blue_1)
+                } else {
+                    setDrawableLeft(binding.tvDigit, false)
+                    setTextColor(binding.tvDigit, R.color.black)
+                }
+
+                if (ifContainsUpperCase(binding.etPassword.text.toString())) {
+                    setDrawableLeft(binding.tvUpperCase, true)
+                    setTextColor(binding.tvUpperCase, R.color.blue_1)
+                } else {
+                    setDrawableLeft(binding.tvUpperCase, false)
+                    setTextColor(binding.tvUpperCase, R.color.black)
+                }
+
+                if (ifContainsLowerCase(binding.etPassword.text.toString())) {
+                    setDrawableLeft(binding.tvLowerCase, true)
+                    setTextColor(binding.tvLowerCase, R.color.blue_1)
+                } else {
+                    setDrawableLeft(binding.tvLowerCase, false)
+                    setTextColor(binding.tvLowerCase, R.color.black)
+                }
+
+                if (ifContainsSpecialChar(binding.etPassword.text.toString())) {
+                    setDrawableLeft(binding.tvSpecialChar, true)
+                    setTextColor(binding.tvSpecialChar, R.color.blue_1)
+                } else {
+                    setDrawableLeft(binding.tvSpecialChar, false)
+                    setTextColor(binding.tvSpecialChar, R.color.black)
+                }
+            }
+        })
+
         binding.ivBack.setOnClickListener {
             finish()
         }
@@ -102,7 +152,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                 myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             )
-            dialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 568025136000L);
+            dialog.datePicker.maxDate = System.currentTimeMillis() - 568025136000L;
             dialog.show()
 
         }
@@ -121,6 +171,29 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         }
 
     }
+
+    private fun setDrawableLeft(textView: TextView, showEnabled: Boolean) {
+        if (showEnabled) {
+            textView.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.dot_selected,
+                0,
+                0,
+                0
+            )
+        } else {
+            textView.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.dot,
+                0,
+                0,
+                0
+            )
+        }
+    }
+
+    private fun setTextColor(textView: TextView, color: Int) {
+        textView.setTextColor(getColor(color))
+    }
+
 
     private fun validateData(): Boolean {
         if (binding.edtFName.getText().isNullOrEmpty() || binding.edtFName.getText()
@@ -143,13 +216,14 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         ) {
             showToast(getString(R.string.err_invalid_cellphone))
             return false
-        } else if (binding.etPassword.getText().isNullOrEmpty() || binding.edtConfirmPwd.getText()
+        } else if (binding.etPassword.text.isNullOrEmpty() || binding.edtConfirmPwd.text
                 .isNullOrEmpty()
         ) {
             showToast(getString(R.string.err_invalid_password))
             return false
-        } else if (binding.etPassword.getText() != binding.edtConfirmPwd.getText() || binding.etPassword.getText().length !in 9..19 || !isValidPassword(
-                binding.etPassword.getText()
+        } else if (binding.etPassword.text.toString() != binding.edtConfirmPwd.text
+                .toString() || binding.etPassword.text.length !in 9..19 || !isValidPassword(
+                binding.etPassword.text.toString()
             )
         ) {
             showToast(getString(R.string.err_invalid_password))
@@ -173,7 +247,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         signUpRequest.email = binding.etEmailId.getText()
         signUpRequest.phoneCountryCode = "+91"
         signUpRequest.phone = binding.edtCellphone.getText()
-        signUpRequest.password = binding.etPassword.getText()
+        signUpRequest.password = binding.etPassword.getText().toString()
         signUpRequest.relation = relation
         signUpRequest.deviceDetails.name = Build.BRAND
         signUpRequest.deviceDetails.deviceId = Settings.Secure.getString(
@@ -199,7 +273,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                         showToast(response.body()?.reason)
                     }
                     handleResponse(response)
-                } else{
+                } else {
                     handleErrorResponse(response.errorBody(), this@SignUpActivity)
                 }
                 binding.progressBar.gone()
