@@ -78,8 +78,10 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
                     textView.setTextColor(view.context.getColor(R.color.blue_1))
                     binding.tvMom.setTextColor(view.context.getColor(R.color.gray_2))
                     binding.tvDad.setTextColor(view.context.getColor(R.color.gray_2))
-                } else if (!relation.equals("dad", true)) {
+                }else if (!relation.equals("dad", true)) {
                     binding.tvMom.setTextColor(view.context.getColor(R.color.blue_1))
+                }  else if(relation.equals("dad", true)){
+                    binding.tvDad.setTextColor(view.context.getColor(R.color.blue_1))
                 }
             }
 
@@ -87,6 +89,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
 
             }
         }
+        binding.spinnerOther.setPopupBackgroundDrawable(getDrawable(R.drawable.spinner))
     }
 
     private fun setDob() {
@@ -239,4 +242,6 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         myCalendar.set(Calendar.DAY_OF_MONTH, day)
         setDob()
     }
+
 }
+
