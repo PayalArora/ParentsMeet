@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_mommy"
+        android:icon="@drawable/ic_mommy"
+        android:title="@string/mommy"/>
+
+    <item
+        android:id="@+id/menu_kids"
+        android:icon="@drawable/ic_kids"
+        android:title="@string/kids"/>
+
+    <item
+        android:id="@+id/menu_meet"
+        android:icon="@drawable/ic_meet"
+        android:title="@string/meet"/>
+    <item
+        android:id="@+id/menu_calender"
+        android:visible="true"
+        android:icon="@drawable/ic_calender"
+        android:title="@string/calender"/>
+    <item
+        android:id="@+id/menu_messages"
+        android:visible="false"
+        android:icon="@drawable/ic_messages"
+        android:title="@string/ic_messages"/>
+</menu>

@@ -64,4 +64,10 @@
     <string name="code_description">For added safety, we need to verify your account. Please enter the code we have texted you below.</string>
     <string name="check_code">Check your text message for the code and enter below your reset password.</string>
     <string name="reset">Reset</string>
+    <string name="mommy">Mommy</string>
+    <string name="kids">Kids</string>
+    <string name="meet">Meet</string>
+    <string name="calender">Calender</string>
+    <string name="ic_messages">Messages</string>
+    <string name="connections">Please use your real name as we would like to help you create real connections.</string>
 </resources>
