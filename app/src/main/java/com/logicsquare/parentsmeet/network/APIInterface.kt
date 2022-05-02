@@ -18,5 +18,11 @@ interface APIInterface {
 
     @POST("/api/v1/verify/otp")
     fun submitOtp(@Body otpRequest: SubmitOtpRequest): Call<LoginResponse?>
+
+    @GET("api/v1/user/details")
+    fun getProfile(@Header("Authorization") Authorization:String): Call<ProfileResponse?>
+
+    @POST("api/v1/kid/details")
+    fun addKid(@Header("Authorization") Authorization:String,@Body addKidRequest: AddKidRequest): Call<AddKidsResponse?>
 }
 

@@ -32,7 +32,6 @@ class SharedPref(context: Context) {
             editor.putString(PHONE_COUNTRY,""+user.phoneCountryCode).apply()
             editor.putString(USERTYPE, user.userType).apply()
             editor.putString(RELATION, user.relation).apply()
-
         }
     }
 
