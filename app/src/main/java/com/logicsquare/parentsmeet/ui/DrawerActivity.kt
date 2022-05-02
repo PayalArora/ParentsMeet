@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ActivityDrawerBinding
@@ -39,6 +40,10 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
         binding = ActivityDrawerBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.ivAdd.setOnClickListener {
+            showBottomSheetDialog()
+        }
+
+        binding.tvAdd.setOnClickListener {
             showBottomSheetDialog()
         }
 
@@ -119,6 +124,7 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
     }
 
     private fun addKid() {
+        bottomSheetBinding.btnAddKid.visibility = VISIBLE
         bottomSheetBinding.progressBar.visible()
         val token = "Bearer ${SharedPref(this).getToken()}"
         var addKidRequest = AddKidRequest()
@@ -183,6 +189,7 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
     }
 
     private fun showKidsData(kidsItem: KidsItem) {
+        bottomSheetBinding.btnAddKid.visibility = GONE
         bottomSheetBinding.llAddKid.visibility = GONE
         bottomSheetBinding.llViewKid.visibility = VISIBLE
 
