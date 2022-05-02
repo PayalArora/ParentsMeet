@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/thirty_two_dp">
+    android:layout_height="@dimen/_32dp">
 
     <ImageView
         android:id="@+id/ivPrimaryIcon"
-        android:layout_width="@dimen/twenty_dp"
-        android:layout_height="@dimen/twenty_dp"
+        android:layout_width="@dimen/_20dp"
+        android:layout_height="@dimen/_20dp"
         android:contentDescription="@string/input_field_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,11 +16,11 @@
 
     <com.logicsquare.parentsmeet.views.VTextView
         android:id="@+id/tvLabel"
-        android:layout_width="@dimen/zero_dp"
+        android:layout_width="@dimen/_0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:background="@color/white"
-        android:padding="@dimen/zero_dp"
+        android:padding="@dimen/_0dp"
         android:gravity="center_vertical|start"
         android:singleLine="true"
         android:textColor="@color/gray_3"
@@ -32,7 +32,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/one_dp"
+        android:layout_height="@dimen/_1dp"
         android:background="@color/light_silver_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/ivSecondaryIcon"
-        android:layout_width="@dimen/twenty_dp"
-        android:layout_height="@dimen/twenty_dp"
+        android:layout_width="@dimen/_20dp"
+        android:layout_height="@dimen/_20dp"
         android:contentDescription="@string/input_field_secondary_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

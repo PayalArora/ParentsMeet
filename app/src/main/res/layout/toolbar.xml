@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_100dp"
+    android:background="@drawable/background_gradient"
+    android:orientation="horizontal"
+    android:padding="@dimen/_10dp">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_60dp">
+    <ImageView
+        android:layout_width="@dimen/_40dp"
+        android:layout_height="@dimen/_40dp"
+        android:src="@drawable/logo"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/_10dp" />
+
+    <TextView
+        android:id="@+id/toolbarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/notificationOption"
+        android:layout_width="@dimen/_30dp"
+        android:layout_height="@dimen/_30dp"
+        android:layout_gravity="right"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/five_dp"
+        android:layout_marginRight="@dimen/five_dp"
+        android:src="@drawable/ic_notifications"
+
+        android:layout_toLeftOf="@+id/menuOption" />
+
+    <ImageView
+        android:id="@+id/menuOption"
+        android:layout_width="@dimen/_30dp"
+        android:layout_height="@dimen/_30dp"
+        android:padding="@dimen/_8dp"
+       android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_menu" />
+</RelativeLayout>
+</RelativeLayout>

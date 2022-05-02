@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:text="@string/name"
+            android:textColor="@color/black_2" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:text="@string/age"
+            android:textColor="@color/black_2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/five_dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@color/gray_4"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="@dimen/_25dp"
+                android:layout_height="@dimen/_20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:background="@color/dark_green" />
+
+            <ImageView
+                android:layout_width="@dimen/_20dp"
+                android:layout_height="@dimen/_20dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/view"
+                android:src="@drawable/ic_baseline_keyboard_arrow_down_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="@color/black_2"
+                android:textSize="@dimen/_14sp" />
+
+
+        </RelativeLayout>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@color/gray_4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/_10dp"
+            android:textColor="@color/black_2" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:text="@string/gender"
+            android:textColor="@color/black_2"
+            android:textSize="@dimen/_14sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:text="@string/grade"
+            android:textColor="@color/black_2"
+            android:textSize="@dimen/_14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@color/gray_4"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_10dp"
+                android:textColor="@color/black_2"
+                android:textSize="@dimen/_14sp" />
+
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_weight="1"
+            android:background="@color/gray_4"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/_10dp"
+            android:textColor="@color/black_2" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/preferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_25dp"
+        android:text="@string/preferrences"
+        android:textColor="@color/green_1"
+        android:textSize="@dimen/_16sp"
+        android:textStyle="bold"
+
+        />
+
+
+    <TextView
+        android:id="@+id/games"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:text="@string/games"
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/_14sp"
+        android:textStyle="bold" />
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:id="@+id/chipGames"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_curve_rectangle_white_filled"
+        android:layout_marginTop="16dp"
+        app:chipSpacing="8dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tagGames"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tag"
+            android:layout_margin="@dimen/_5dp"
+            app:closeIcon="@null"
+            android:textColor="@color/gray_2"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipCornerRadius="@dimen/point_5dp"
+            app:closeIconVisible="true" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/activities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:text="@string/activities"
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/_14sp"
+        android:textStyle="bold" />
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:id="@+id/chipActivities"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_curve_rectangle_white_filled"
+        android:layout_marginTop="16dp"
+        app:chipSpacing="8dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tagActivities"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tag"
+            android:layout_margin="@dimen/_5dp"
+            app:closeIcon="@null"
+            android:textColor="@color/gray_2"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipCornerRadius="@dimen/point_5dp"
+            app:closeIconVisible="true" />
+
+    </com.google.android.material.chip.ChipGroup>
+    <TextView
+        android:id="@+id/special_need"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:text="@string/need"
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/_14sp"
+        android:textStyle="bold" />
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:id="@+id/chipNeeds"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_curve_rectangle_white_filled"
+        android:layout_marginTop="16dp"
+        app:chipSpacing="8dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tagNeeds"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tag"
+            app:closeIcon="@null"
+            app:chipBackgroundColor="@android:color/transparent"
+            app:chipCornerRadius="@dimen/point_5dp"
+            android:textColor="@color/gray_2"
+            android:layout_margin="@dimen/_5dp"
+
+            app:closeIconVisible="true" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.logicsquare.parentsmeet.views.VButton
+        android:id="@+id/btnSave"
+        style="@style/PrimaryButtonStyle"
+        android:layout_width="@dimen/_200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20dp"
+        android:text="@string/save" />
+</LinearLayout>

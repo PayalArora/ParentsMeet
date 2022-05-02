@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_1">#FFF9FA</color>
     <color name="border_1">#E3E3E3</color>
     <color name="app_theme">#68FFCC</color>
     <color name="app_primary">#539FA9</color>
@@ -29,5 +30,8 @@
 
     <color name="dark_grey">#07294C</color>
     <color name="black_1">#2D2D2D</color>
+    <color name="black_2">#080808</color>
     <color name="dark_green">#094549</color>
+    <color name="green_1">#2F8390</color>
+    <color name="green_2">#65A2AC</color>
 </resources>

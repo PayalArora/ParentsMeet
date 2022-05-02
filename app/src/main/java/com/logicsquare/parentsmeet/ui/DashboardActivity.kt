@@ -15,6 +15,7 @@ class DashboardActivity : AppCompatActivity(){
         setContentView(binding.root)
         binding.navigationView.menu.getItem(0).isCheckable=false
         loadFragment(SettingsFragment())
+        binding.toolbar.toolbarText.text = getString(R.string.settings)
         setListeners()
     }
 
