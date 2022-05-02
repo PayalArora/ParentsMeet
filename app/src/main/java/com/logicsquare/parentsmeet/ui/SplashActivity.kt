@@ -13,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         sharedPref = SharedPref(this)
-        if (SharedPref(this).getKeepMe()) {
+        if (SharedPref(this).getKeepMe() && SharedPref(this).isLoggedIn()) {
             startActivity(Intent(this, DashboardActivity::class.java))
         } else {
             Handler(Looper.getMainLooper()).postDelayed({

@@ -1,5 +1,6 @@
 package com.logicsquare.parentsmeet.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ class DashboardActivity : AppCompatActivity(){
         binding.navigationView.menu.getItem(0).isCheckable=false
         loadFragment(SettingsFragment())
         binding.toolbar.toolbarText.text = getString(R.string.settings)
+        binding.toolbar.menuOption.setOnClickListener { startActivity(Intent(this@DashboardActivity, DrawerActivity::class.java)) }
         setListeners()
     }
 

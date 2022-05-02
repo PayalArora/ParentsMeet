@@ -1,5 +1,6 @@
 package com.logicsquare.parentsmeet.utils
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.Toast
@@ -51,4 +52,21 @@ fun handleErrorResponse(body: ResponseBody?, context: Context) {
     } catch (e: Exception) {
         e.printStackTrace()
     }
+}
+
+// -------- Progress Bar -----//
+fun Fragment.hideProgressBar() {
+    ProgressUtil.hideLoading()
+}
+
+fun Activity.hideProgressBar() {
+    ProgressUtil.hideLoading()
+}
+
+fun Fragment.showProgressBar() {
+    ProgressUtil.showLoading(requireActivity())
+}
+
+fun Activity.showProgressBar() {
+    ProgressUtil.showLoading(this)
 }
