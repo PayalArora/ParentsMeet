@@ -12,17 +12,26 @@
         android:orientation="horizontal"
         android:padding="30dp">
 
+        <LinearLayout
+            android:layout_width="150dp"
+            android:background="@drawable/bg_image"
+            android:gravity="center"
+            android:layout_height="190dp">
+
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="220dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/add_icon" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_add_kid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_marginStart="20dp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatEditText
@@ -96,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_marginStart="20dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -109,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/name"
+                    android:textStyle="bold"
                     android:textColor="@color/blue_1" />
 
                 <TextView
@@ -138,6 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/age"
+                    android:textStyle="bold"
                     android:textColor="@color/blue_1" />
 
                 <TextView
@@ -167,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/gender"
+                    android:textStyle="bold"
                     android:textColor="@color/blue_1" />
 
                 <TextView
@@ -196,6 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/grade"
+                    android:textStyle="bold"
                     android:textColor="@color/blue_1" />
 
                 <TextView

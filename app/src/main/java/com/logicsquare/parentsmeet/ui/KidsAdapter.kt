@@ -24,6 +24,10 @@ class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context)
         holder.ivKid.setOnClickListener{
             onItemClickListener.onClick(kidsList[position])
         }
+
+        holder.tvName.setOnClickListener{
+            onItemClickListener.onClick(kidsList[position])
+        }
     }
 
     private fun inflateView(parent: ViewGroup, layoutId: Int): View {
