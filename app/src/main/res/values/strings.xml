@@ -76,5 +76,5 @@
     <string name="age">Age</string>
     <string name="gender">Gender</string>
     <string name="grade">Grade</string>
-    <string name="add_kid_btn">Grade</string>
+    <string name="add_kid_btn">Add Kid</string>
 </resources>
