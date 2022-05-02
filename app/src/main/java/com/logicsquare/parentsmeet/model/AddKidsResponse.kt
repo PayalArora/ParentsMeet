@@ -8,7 +8,10 @@ data class AddKidsResponse(
 	val kid: Kid? = null,
 
 	@field:SerializedName("error")
-	val error: Boolean? = null
+	val error: Boolean = false,
+
+	@field:SerializedName("reason")
+	val reason: String? = null
 )
 
 data class AddKidsPreferences(
