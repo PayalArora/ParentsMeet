@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:padding="50dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="30dp">
 
         <ImageView
             android:layout_width="100dp"
@@ -43,14 +43,43 @@
                 android:singleLine="true"
                 android:textColor="@color/black" />
 
-            <androidx.appcompat.widget.AppCompatEditText
+            <!--<androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edt_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/gender"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
-                android:textColor="@color/black" />
+                android:textColor="@color/black" />-->
+
+            <RelativeLayout
+                android:id="@+id/spinner_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/spinner"
+                android:gravity="center"
+                android:padding="@dimen/five_dp">
+
+                <Spinner
+                    android:id="@+id/spinner_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/iv_down"
+                    android:background="@android:color/transparent"
+                    android:dropDownVerticalOffset="20dp"
+                    android:overlapAnchor="false"
+                    android:spinnerMode="dropdown"
+                    android:theme="@style/MatchSpinnerTheme" />
+
+                <ImageView
+                    android:id="@+id/iv_down"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/spin" />
+            </RelativeLayout>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edt_grade"
@@ -180,16 +209,33 @@
 
     </LinearLayout>
 
+
+    <com.logicsquare.parentsmeet.views.VButton
+        android:id="@+id/btn_add_kid"
+        style="@style/PrimaryButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/ll"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/create_account_btn"
+        tools:ignore="TextContrastCheck" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ll"
-       android:layout_marginTop="70dp">
+        android:layout_below="@+id/btn_add_kid"
+        android:layout_marginTop="50dp"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tv_settings"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_settings"
+            android:drawablePadding="10dp"
             android:padding="10dp"
             android:text="Settings"
             android:textColor="@color/blue_1"
@@ -200,8 +246,8 @@
             android:id="@+id/view"
             android:layout_width="1dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
             android:background="@color/blue_1"
             app:layout_constraintLeft_toRightOf="@+id/tv_settings"
             app:layout_constraintTop_toTopOf="parent" />
@@ -211,9 +257,11 @@
             android:id="@+id/tv_privacy"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:drawableStart="@drawable/ic_privacy"
+            android:drawablePadding="10dp"
             android:padding="10dp"
             android:text="Privacy"
-            android:layout_marginLeft="20dp"
             android:textColor="@color/blue_1"
             app:layout_constraintLeft_toRightOf="@+id/view"
             app:layout_constraintTop_toTopOf="parent" />
@@ -222,6 +270,8 @@
             android:id="@+id/tv_help"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_help"
+            android:drawablePadding="10dp"
             android:padding="10dp"
             android:text="Help"
             android:textColor="@color/blue_1"
@@ -242,13 +292,23 @@
             android:id="@+id/tv_sign_out"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:drawableStart="@drawable/ic_sign_out"
+            android:drawablePadding="10dp"
             android:padding="10dp"
             android:text="Sign Out"
-            android:layout_marginLeft="20dp"
             android:textColor="@color/blue_1"
             app:layout_constraintLeft_toRightOf="@+id/view1"
             app:layout_constraintTop_toBottomOf="@+id/tv_settings" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+       android:layout_centerInParent="true" />
 
 </RelativeLayout>
