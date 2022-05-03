@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:textSize="@dimen/_16sp"
         android:textColor="@color/white"
         app:layout_constraintLeft_toRightOf="@+id/icon_user"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:textSize="@dimen/_16sp"
         android:textColor="@color/white"
         app:layout_constraintLeft_toRightOf="@+id/icon_user"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -40,7 +42,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_child"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -62,6 +64,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:text="@string/add_new_kid"
+        android:textSize="@dimen/_17sp"
         android:textColor="@color/white"
         app:layout_constraintLeft_toRightOf="@+id/iv_add"
         app:layout_constraintTop_toBottomOf="@+id/rv_child" />
