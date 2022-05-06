@@ -59,7 +59,13 @@ class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
         setSpinnerAdapter()
         setListeners()
         kidsItem?.let {
-            mBinding.etName.setText(it.name?.toUpperCas())
+
+            it.name?.let { if (it.split(" ").size >1 ){
+                mBinding.etName.setText(it.split(" ")[0].toUpperCas()+" "+it.split(" ")[1].toUpperCas())
+            } else{
+                mBinding.etName.setText(it.toUpperCas())
+            } }
+
             mBinding.etAge.setText(it.age)
             mBinding.edtGrade.setText(it.grade)
             it.colorBar?.let { it1 -> mBinding.view.setBackgroundColor(Color.parseColor(it.colorBar)) }

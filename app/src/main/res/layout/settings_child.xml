@@ -68,12 +68,14 @@
 
             <EditText
                 android:id="@+id/etName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:layout_toRightOf="@+id/arrow"
                 android:background="@android:color/transparent"
-                android:gravity="center"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
                 android:textColor="@color/black_2"
                 android:textSize="@dimen/_14sp" />
 
