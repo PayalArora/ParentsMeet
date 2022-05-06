@@ -92,7 +92,7 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
     }
 
     private fun setDob() {
-        val myFormat = "MM/dd/yy"
+        val myFormat = "dd/MM/yyyy"
         val dateFormat = SimpleDateFormat(myFormat, Locale.US)
         binding.edtDob.setText(dateFormat.format(myCalendar.time))
     }
@@ -267,9 +267,9 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
             Settings.Secure.ANDROID_ID
         )
         signUpRequest.allowNotification = false
-        signUpRequest.dob.day = myCalendar.time.day.toString()
-        signUpRequest.dob.month = myCalendar.time.month.toString()
-        signUpRequest.dob.year = myCalendar.time.year.toString()
+        signUpRequest.dob.day = binding.edtDob.text.toString().split("/")[0]
+        signUpRequest.dob.month = binding.edtDob.text.toString().split("/")[1]
+        signUpRequest.dob.year = binding.edtDob.text.toString().split("/")[2]
 
         binding.progressBar.visible()
         val call: Call<LoginResponse?> = APIClient.client.create(APIInterface::class.java).signUp(

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.model.KidsItem
+import com.logicsquare.parentsmeet.utils.toUpperCas
 
 class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context) : RecyclerView.Adapter<KidsAdapter.KidsViewHolder>(){
 
@@ -19,7 +20,7 @@ class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context)
 
     override fun onBindViewHolder(holder: KidsViewHolder, position: Int) {
 //        Picasso.with(context).load(kidsList.get(position).).into(holder.ivKid)
-        holder.tvName.text = kidsList[position].name
+        holder.tvName.text = kidsList[position].name?.toUpperCas()
 
         holder.ivKid.setOnClickListener{
             onItemClickListener.onClick(kidsList[position])

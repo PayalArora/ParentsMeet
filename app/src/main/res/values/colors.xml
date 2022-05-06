@@ -34,4 +34,7 @@
     <color name="dark_green">#094549</color>
     <color name="green_1">#2F8390</color>
     <color name="green_2">#65A2AC</color>
+    <color name="positiveButtonTextColor">@color/green_1</color>
+    <color name="negativeButtonTextColor">@color/green_1</color>
+    <color name="bottomSheetDividerColor">#F5F5F5</color>
 </resources>

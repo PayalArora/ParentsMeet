@@ -56,7 +56,11 @@ data class KidsItem(
 	val age: String? = null,
 
 	@field:SerializedName("updatedAt")
-	val updatedAt: String? = null
+	val updatedAt: String? = null,
+
+	@field:SerializedName("genderPronouns")
+    val genderPronouns: String? = null
+
 )
 
 data class ProfileUser(
@@ -143,7 +147,10 @@ data class ProfileUser(
 	val jobAppliedCount: Int? = null,
 
 	@field:SerializedName("username")
-	val username: String? = null
+	val username: String? = null	,
+
+	@field:SerializedName("profession")
+	val profession: String? = null
 )
 
 data class Preferences(

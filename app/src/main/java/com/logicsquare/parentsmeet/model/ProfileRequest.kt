@@ -5,8 +5,8 @@ class ProfileRequest {
     var name: NameRequest = NameRequest()
     lateinit var phoneCountryCode: String
     lateinit var phone: String
-    lateinit var password: String
-    lateinit var relation: String
+    lateinit var profession: String
+    var preferences= ParentInterest()
     var dob: DOB = DOB()
 
 class NameRequest {
@@ -19,5 +19,7 @@ class DOB {
     lateinit var month: String
     lateinit var year: String
 }
-
+    class ParentInterest {
+        lateinit var parentInterests:ArrayList<String>
+    }
 }

@@ -26,7 +26,7 @@ data class AddKidsPreferences(
 	val timings: List<Any?>? = null,
 
 	@field:SerializedName("specialNeeds")
-	val specialNeeds: List<Any?>? = null
+	val specialNeeds: List<Any?>? = null,
 )
 
 data class Kid(
@@ -36,9 +36,6 @@ data class Kid(
 
 	@field:SerializedName("preferences")
 	val preferences: AddKidsPreferences? = null,
-
-	@field:SerializedName("_parent")
-	val parent: String? = null,
 
 	@field:SerializedName("colorBar")
 	val colorBar: String? = null,

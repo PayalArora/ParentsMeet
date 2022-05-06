@@ -70,3 +70,10 @@ fun Fragment.showProgressBar() {
 fun Activity.showProgressBar() {
     ProgressUtil.showLoading(this)
 }
+
+fun String.toUpperCas(): String =
+    this.replaceFirstChar{
+        it.uppercase()
+    }
+
+

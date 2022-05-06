@@ -82,6 +82,8 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
                 if (response.isSuccessful) {
                     if (response.body() != null)
                         handleResponse(response.body()!!)
+                } else{
+                    handleErrorResponse(response.errorBody(), this@DrawerActivity)
                 }
                 if (isFromBottomSheet) {
                     bottomSheetBinding.progressBar.gone()
@@ -105,7 +107,7 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
     @SuppressLint("SetTextI18n")
     private fun handleResponse(profileResponse: ProfileResponse) {
         binding.tvName.text =
-            "${profileResponse.user?.name?.first} ${profileResponse.user?.name?.last}"
+            "${profileResponse.user?.name?.first?.toUpperCas()} ${profileResponse.user?.name?.last?.toUpperCas()}"
         binding.tvEmail.text = profileResponse.user?.email
         setKidsdata(profileResponse)
     }
@@ -131,7 +133,7 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
         addKidRequest.age = bottomSheetBinding.edtAge.text.toString()
         addKidRequest.name = bottomSheetBinding.edtName.text.toString()
         addKidRequest.grade = bottomSheetBinding.edtGrade.text.toString()
-        addKidRequest.gender = gender
+        addKidRequest.genderPronouns = gender
 //        addKidRequest.gender = bottomSheetBinding.edtGender.text.toString()
 
         val call: Call<AddKidsResponse?> =
@@ -148,9 +150,8 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
                         getProfile(true)
                         bottomSheetDialog.dismiss()
                     }
-                    handleErrorResponse(response.errorBody(), this@DrawerActivity)
                 } else {
-                    showToast(response.body()?.reason)
+                    handleErrorResponse(response.errorBody(), this@DrawerActivity)
                 }
                 bottomSheetBinding.progressBar.gone()
             }
@@ -193,9 +194,9 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
         bottomSheetBinding.llAddKid.visibility = GONE
         bottomSheetBinding.llViewKid.visibility = VISIBLE
 
-        bottomSheetBinding.tvName.text = kidsItem.name
+        bottomSheetBinding.tvName.text = kidsItem.name?.toUpperCas()
         bottomSheetBinding.tvAge.text = kidsItem.age
-        bottomSheetBinding.tvGender.text = kidsItem.gender
+        bottomSheetBinding.tvGender.text = kidsItem.genderPronouns?.toUpperCas()
         bottomSheetBinding.tvGrade.text = kidsItem.grade
     }
 
