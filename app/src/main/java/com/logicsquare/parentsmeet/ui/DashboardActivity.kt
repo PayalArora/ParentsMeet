@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ActivityDashboardBinding
+import com.logicsquare.parentsmeet.ui.fragments.MommyFragment
 import com.logicsquare.parentsmeet.ui.fragments.SettingsFragment
 
 class DashboardActivity : AppCompatActivity(){
@@ -32,6 +33,7 @@ class DashboardActivity : AppCompatActivity(){
             when (it.itemId) {
                 R.id.menu_mommy -> {
                     binding.navigationView.menu.getItem(0).isCheckable=true
+                    loadFragment(MommyFragment())
                 }
                 R.id.menu_calender -> {
 

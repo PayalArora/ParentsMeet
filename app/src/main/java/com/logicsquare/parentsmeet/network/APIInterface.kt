@@ -19,19 +19,34 @@ interface APIInterface {
     fun submitOtp(@Body otpRequest: SubmitOtpRequest): Call<LoginResponse?>
 
     @GET("api/v1/user/details")
-    fun getProfile(@Header("Authorization") Authorization:String): Call<ProfileResponse?>
+    fun getProfile(@Header("Authorization") Authorization: String): Call<ProfileResponse?>
 
     @PUT("api/v1/user/details")
-    fun updateProfile(@Header("Authorization") Authorization:String, @Body profileRequest: ProfileRequest): Call<ProfileResponse?>
+    fun updateProfile(
+        @Header("Authorization") Authorization: String,
+        @Body profileRequest: ProfileRequest
+    ): Call<ProfileResponse?>
 
     @POST("api/v1/kid/details")
-    fun addKid(@Header("Authorization") Authorization:String,@Body addKidRequest: AddKidRequest): Call<AddKidsResponse?>
+    fun addKid(
+        @Header("Authorization") Authorization: String,
+        @Body addKidRequest: AddKidRequest
+    ): Call<AddKidsResponse?>
 
     @PUT("/api/v1/kid/details/{kidId}")
     fun updateKid(
         @Path("kidId") id: String?,
         @Header("Authorization") token: String, @Body addKidRequest: UpdateKidRequest
     ): Call<AddKidsResponse?>
+
+    @POST("api/v1/blogs")
+    fun getAllBlogs(@Header("Authorization") Authorization: String): Call<BlogsResponse?>
+
+    @GET("/api/v1/blog/{id}")
+    fun getBlogDetails(
+        @Header("Authorization") Authorization: String,
+        @Path("id") id: String
+    ): Call<BlogDetailsResponse?>
 
 }
 
