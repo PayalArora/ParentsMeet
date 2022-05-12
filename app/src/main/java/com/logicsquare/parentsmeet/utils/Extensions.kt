@@ -5,7 +5,10 @@ import android.content.Context
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.logicsquare.parentsmeet.R
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.lang.Exception
@@ -75,5 +78,20 @@ fun String.toUpperCas(): String =
     this.replaceFirstChar{
         it.uppercase()
     }
+
+
+fun Context.getProgressDrawable(): CircularProgressDrawable {
+    val circularProgressDrawable = CircularProgressDrawable(this)
+    circularProgressDrawable.strokeWidth = 10f
+    circularProgressDrawable.centerRadius = 30f
+    circularProgressDrawable.progressRotation = 0.8f
+    circularProgressDrawable.setColorSchemeColors(ResourcesCompat.getColor(this.resources,
+        R.color.green_1,
+        null))
+    return circularProgressDrawable
+}
+fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
+const val ID="_ID"
+
 
 

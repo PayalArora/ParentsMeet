@@ -48,7 +48,12 @@
             android:exported="false" />
         <activity
             android:name=".ui.SetPasswordActivity"
-            android:exported="false" />
+            android:exported="false">
+        <intent-filter>
+            <action android:name="android.nfc.action.NDEF_DISCOVERED"/></intent-filter>
+            />
+
+        </activity>
     </application>
 
 </manifest>

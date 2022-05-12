@@ -7,20 +7,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@drawable/grey_rect"
-        android:paddingVertical="5dp"
-        android:layout_height="@dimen/_40dp">
+
+        android:layout_height="@dimen/_50dp">
 
         <EditText
             android:id="@+id/searchText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
             android:gravity="center_vertical"
             android:hint="@string/search_forum"
             android:imeOptions="actionSearch"
             android:inputType="textFilter"
-            android:background="@android:color/transparent"
             android:maxLines="1"
             android:paddingLeft="@dimen/_15dp" />
+        <View
+            android:layout_width="@dimen/_1dp"
+            android:background="@color/gray_4"
+            android:layout_toLeftOf="@+id/search_icon"
+            android:layout_height="match_parent"/>
+        <ImageButton
+            android:id="@+id/search_icon"
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="@dimen/_20dp"
+            android:background="@null"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_5dp"
+            android:src="@drawable/ic_baseline_search_24"
+            android:layout_alignParentRight="true"
+            />
 
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView

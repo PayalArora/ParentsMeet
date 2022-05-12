@@ -229,9 +229,10 @@
         style="@style/PrimaryButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/ll"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_15dp"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:text="@string/add_kid_btn"
@@ -241,6 +242,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_add_kid"
+        android:visibility="gone"
         android:layout_marginTop="50dp"
         android:padding="20dp">
 

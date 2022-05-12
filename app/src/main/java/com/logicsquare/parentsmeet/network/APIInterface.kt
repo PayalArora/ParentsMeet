@@ -33,5 +33,35 @@ interface APIInterface {
         @Header("Authorization") token: String, @Body addKidRequest: UpdateKidRequest
     ): Call<AddKidsResponse?>
 
+    @POST("/api/v1/forums")
+    fun getForums(
+        @Header("Authorization") token: String,
+        @Body getForums: GetAllForum
+    ): Call<ForumResponse?>
+    @GET("/api/v1/forum/{id}")
+    fun getForumDetail(
+        @Header("Authorization") token: String,
+        @Path("id") id: String?
+    ): Call<ForumDetailResponse?>
+
+    @POST("/api/v1/forum/comment/{id}")
+    fun addForumComment(
+        @Header("Authorization") token: String,
+        @Path("id") id: String?,
+         @Body addCommentRequest: AddComentRequest
+    ): Call<AddCommentResponse?>
+
+    @PUT("/api/v1/forum/like/{id}")
+    fun toggleLike(
+        @Header("Authorization") token: String,
+        @Path("id") id: String?,
+    ): Call<LikeForumResponse?>
+
+
+    @POST("/api/v1/forum/comments/{id}")
+    fun getAllComments(
+        @Header("Authorization") token: String,
+        @Path("id") id: String?,
+    ): Call<GetAllCommentsResponse?>
 }
 
