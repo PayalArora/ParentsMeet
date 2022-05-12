@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentMommyBinding
 
@@ -14,7 +12,6 @@ class MommyFragment : Fragment() {
 
 
     var oldPosition = R.string.blogs
-    var navController: NavController? = null
     lateinit var binding: FragmentMommyBinding
 
 

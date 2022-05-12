@@ -195,11 +195,7 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 mBinding.pager.adapter = childPagerAdapter
             }
             profileResponse.user?.kids?.map {
-                it?.name?.let { if (it.split(" ").size >1 ){
-                    mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(it.split(" ")[0].toUpperCas()+" "+it.split(" ")[1].toUpperCas()))
-                } else{
-                    mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(it.toUpperCas()))
-                } }
+                mBinding.tabLayout.addTab(mBinding.tabLayout.newTab().setText(it?.name?.capitalizeWords()))
             }
 //            TabLayoutMediator(mBinding.tabLayout, mBinding.pager) { tab, position ->
 //                profileResponse.user?.kids?.map {tab.text =it?.name}

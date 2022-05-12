@@ -47,7 +47,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       colorPickerDialog = ColorPickerDialog
+        colorPickerDialog = ColorPickerDialog
             .Builder(requireContext())                        // Pass Activity Instance
             .setTitle("Colorbar")            // Default "Choose Color"
             .setColorShape(ColorShape.SQAURE)   // Default ColorShape.CIRCLE
@@ -59,12 +59,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
         setSpinnerAdapter()
         setListeners()
         kidsItem?.let {
-
-            it.name?.let { if (it.split(" ").size >1 ){
-                mBinding.etName.setText(it.split(" ")[0].toUpperCas()+" "+it.split(" ")[1].toUpperCas())
-            } else{
-                mBinding.etName.setText(it.toUpperCas())
-            } }
+            mBinding.etName.setText(it.name?.capitalizeWords())
 
             mBinding.etAge.setText(it.age)
             mBinding.edtGrade.setText(it.grade)
@@ -103,7 +98,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
             showDialog(requireContext(), mBinding.chipNeeds, needsList)
         }
         mBinding.btnSave.setOnClickListener { updateKid() }
-        mBinding.view.setOnClickListener{
+        mBinding.view.setOnClickListener {
             openColorPicker()
         }
     }
@@ -228,6 +223,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
 
         dialog.show()
     }
+
     fun openColorPicker() {
         colorPickerDialog.show()
     }

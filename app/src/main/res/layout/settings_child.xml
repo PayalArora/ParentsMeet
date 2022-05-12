@@ -110,7 +110,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:gravity="center_vertical"
-            android:text="@string/gender"
+            android:text="@string/gender_pronouns"
             android:textColor="@color/black_2"
             android:textSize="@dimen/_14sp" />
 

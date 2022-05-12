@@ -1,7 +1,11 @@
 package com.logicsquare.parentsmeet.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.view.DragAndDropPermissions
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -11,9 +15,10 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.logicsquare.parentsmeet.R
+import com.logicsquare.parentsmeet.adapter.KidsAdapter
 import com.logicsquare.parentsmeet.databinding.ActivityDrawerBinding
 import com.logicsquare.parentsmeet.databinding.AddKidBottomSheetBinding
 import com.logicsquare.parentsmeet.model.AddKidRequest
@@ -47,10 +52,32 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
             showBottomSheetDialog()
         }
 
+        binding.layoutFooter.tvSettings.setOnClickListener {
+            val intent = Intent( this,DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
+        binding.layoutFooter.tvSignOut.setOnClickListener {
+logoutPopUp()
+        }
         bottomSheetDialog = BottomSheetDialog(this)
         getProfile(false)
     }
 
+    private fun logoutPopUp() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.app_name)
+            .setMessage(R.string.logoutMessage)
+            .setIcon(R.mipmap.ic_launcher)
+            .setPositiveButton(android.R.string.yes) { dialog, _ ->
+                dialog.dismiss()
+                val intent = Intent( this, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finishAffinity()            }
+            .setNegativeButton(android.R.string.no, null).show()
+    }
     private fun showBottomSheetDialog() {
 
         bottomSheetBinding = AddKidBottomSheetBinding.inflate(layoutInflater)

@@ -1,4 +1,4 @@
-package com.logicsquare.parentsmeet.ui
+package com.logicsquare.parentsmeet.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,18 +9,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.model.KidsItem
+import com.logicsquare.parentsmeet.utils.capitalizeWords
 import com.logicsquare.parentsmeet.utils.toUpperCas
 
 class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context) : RecyclerView.Adapter<KidsAdapter.KidsViewHolder>(){
 
-    lateinit var onItemClickListener:OnItemClickListener
+    lateinit var onItemClickListener: OnItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KidsViewHolder {
         return KidsViewHolder(inflateView(parent, R.layout.layout_kids))
     }
 
     override fun onBindViewHolder(holder: KidsViewHolder, position: Int) {
 //        Picasso.with(context).load(kidsList.get(position).).into(holder.ivKid)
-        holder.tvName.text = kidsList[position].name?.toUpperCas()
+        holder.tvName.text = kidsList[position].name?.capitalizeWords()
 
         holder.ivKid.setOnClickListener{
             onItemClickListener.onClick(kidsList[position])
@@ -39,7 +40,7 @@ class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context)
         return kidsList.size
     }
 
-    fun setListener(onItemClickListener:OnItemClickListener){
+    fun setListener(onItemClickListener: OnItemClickListener){
         this.onItemClickListener = onItemClickListener
     }
 

@@ -79,4 +79,5 @@
     <dimen name="_18dp">18dp</dimen>
     <dimen name="_50dp">50dp</dimen>
     <dimen name="_15sp">15sp</dimen>
+    <dimen name="_170dp">170dp</dimen>
 </resources>

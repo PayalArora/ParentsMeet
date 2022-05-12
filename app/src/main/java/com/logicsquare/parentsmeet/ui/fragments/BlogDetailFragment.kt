@@ -81,9 +81,11 @@ class BlogDetailFragment(blogsId: String) : Fragment(), BlogsAdapter.OnItemClick
             }
         })
 
-        val transformation: Transformation = RoundedCornersTransformation(20, 0)
-        Picasso.with(activity).load(response.blog?.coverImage).transform(transformation)
-            .into(binding.ivBlog)
+        if(!response.blog?.coverImage.isNullOrEmpty()) {
+            val transformation: Transformation = RoundedCornersTransformation(20, 0)
+            Picasso.with(activity).load(response.blog?.coverImage).transform(transformation)
+                .into(binding.ivBlog)
+        }
         binding.tvTitle.text = response.blog?.title
         binding.tvDescription.text = Html.fromHtml(response.blog?.description)
 

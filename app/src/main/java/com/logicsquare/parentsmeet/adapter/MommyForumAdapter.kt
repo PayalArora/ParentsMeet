@@ -43,7 +43,7 @@ class MommyForumAdapter(val onItemClick: OnItemClickId, val response: List<Forum
             holder.binding.imgLike.setImageResource(R.drawable.ic_like)
         }
         if (response?.get(position)?.isCreatedByAdmin?:true){
-            holder.binding.userName.setText(holder.binding.root.context.getString(R.string.appname))
+            holder.binding.userName.setText(holder.binding.root.context.getString(R.string. appname))
             holder.binding.imgUser.setImageResource(R.mipmap.ic_launcher_round)
         } else {
             holder.binding.userName.setText(response?.get(position)?.createdBy?.name?.full)
