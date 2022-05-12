@@ -33,7 +33,12 @@ class DashboardActivity : AppCompatActivity(){
             when (it.itemId) {
                 R.id.menu_mommy -> {
                     binding.navigationView.menu.getItem(0).isCheckable=true
-                    loadFragment(MommyFragment())
+
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.add(R.id.container, MommyFragment())
+                    transaction.addToBackStack("Mommy Fragment")
+                    transaction.commit()
+
                 }
                 R.id.menu_calender -> {
 

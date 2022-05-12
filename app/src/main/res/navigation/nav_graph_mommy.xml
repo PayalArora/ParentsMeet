@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/navigationBlogs"
+    android:id="@+id/nav_graph_mommy">
+
+    <fragment
+        android:id="@+id/navigationBlogs"
+        android:name="com.logicsquare.parentsmeet.ui.fragments.BlogsFragment"
+        android:label="@string/blogs"
+        tools:layout="@layout/fragment_blogs">
+        <action
+            android:id="@+id/action_navigationBlogs_to_navigationForm"
+            app:destination="@id/navigationForm" />
+        <action
+            android:id="@+id/action_navigationBlogs_to_navigationJob"
+            app:destination="@id/navigationJob" />
+        <action
+            android:id="@+id/action_navigationBlogs_to_navigationBlogDetails"
+            app:destination="@id/navigationBlogDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigationForm"
+        android:name="com.logicsquare.parentsmeet.ui.fragments.FormFragment"
+        android:label="@string/form"
+        tools:layout="@layout/fragment_form">
+
+        <action
+            android:id="@+id/action_navigationForm_to_navigationBlogs"
+            app:destination="@id/navigationBlogs" />
+        <action
+            android:id="@+id/action_navigationForm_to_navigationJob"
+            app:destination="@id/navigationJob" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/navigationJob"
+        android:name="com.logicsquare.parentsmeet.ui.fragments.JobFragment"
+        android:label="@string/job"
+        tools:layout="@layout/fragment_job">
+
+        <action
+            android:id="@+id/action_navigationJob_to_navigationBlogs"
+            app:destination="@id/navigationBlogs" />
+        <action
+            android:id="@+id/action_navigationJob_to_navigationForm"
+            app:destination="@id/navigationForm" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigationBlogDetails"
+        android:name="com.logicsquare.parentsmeet.ui.fragments.BlogDetailFragment"
+        android:label="@string/job"
+        tools:layout="@layout/fragment_blog_detail">
+    </fragment>
+
+
+
+
+</navigation>
