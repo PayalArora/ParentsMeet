@@ -36,7 +36,7 @@ class DashboardActivity : AppCompatActivity(){
                     binding.navigationView.menu.getItem(0).isCheckable=true
 
                     val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.container, MommyFragment())
+                    transaction.replace(R.id.container, MommyFragment())
                     transaction.addToBackStack("Mommy Fragment")
                     transaction.commit()
 

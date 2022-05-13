@@ -33,7 +33,7 @@ class BlogDetailFragment(blogsId: String) : Fragment(), BlogsAdapter.OnItemClick
             requireActivity().onBackPressed()
         }
 
-        getBlogDetails()
+
 
     }
 
@@ -106,6 +106,7 @@ class BlogDetailFragment(blogsId: String) : Fragment(), BlogsAdapter.OnItemClick
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentBlogDetailBinding.inflate(inflater)
+        getBlogDetails()
         return binding.root
     }
 

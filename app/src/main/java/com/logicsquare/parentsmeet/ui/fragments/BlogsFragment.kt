@@ -30,7 +30,7 @@ class BlogsFragment : Fragment(), BlogsAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getAllBlogs()
+
     }
 
     private fun getAllBlogs() {
@@ -72,31 +72,38 @@ class BlogsFragment : Fragment(), BlogsAdapter.OnItemClickListener {
                 outRect: Rect,
                 view: View,
                 parent: RecyclerView,
-                state: RecyclerView.State
+                state: RecyclerView.State,
             ) {
                 outRect.set(spacing, spacing, spacing, spacing)
             }
         })
 
         val transformation: Transformation = RoundedCornersTransformation(20, 0)
-        if (!response.blogs?.get(0)?.coverImage.isNullOrEmpty()) {
+        if (response.blogs?.size ?: 0 > 0 && !response.blogs?.get(0)?.coverImage.isNullOrEmpty()) {
             Picasso.with(activity).load(response.blogs?.get(0)?.coverImage)
                 .transform(transformation)
                 .into(binding.ivBlog)
-        }
 
-        binding.tvTitle.text = response.blogs?.get(0)?.title
+            binding.tvTitle.text = response.blogs?.get(0)?.title
+        }
+        binding.topCard.setOnClickListener {
+            if (response.blogs?.size ?: 0 > 0) {
+                response.blogs?.get(0)?.let { it1 -> onClick(it1) }
+            }
+        }
         var adapter = BlogsAdapter((response.blogs as ArrayList<BlogsItem>), requireContext())
         adapter.setListener(this)
         binding.rvBlogs.adapter = adapter
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentBlogsBinding.inflate(inflater)
+        getAllBlogs()
         return binding.root
     }
 
@@ -105,7 +112,7 @@ class BlogsFragment : Fragment(), BlogsAdapter.OnItemClickListener {
             return
         }
         val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.add(R.id.container, BlogDetailFragment(blog.id!!))
+        transaction?.replace(R.id.container, BlogDetailFragment(blog.id!!))
         transaction?.addToBackStack("Blog details")
         transaction?.commit()
     }

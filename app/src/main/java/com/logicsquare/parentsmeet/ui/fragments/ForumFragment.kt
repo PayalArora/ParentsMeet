@@ -89,7 +89,7 @@ class ForumFragment : Fragment(),OnItemClickId {
         bundle.putString(ID,Id)
         val fragment = ForumDetailFragment()
         fragment.arguments = bundle
-        transaction.replace(R.id.container, fragment)
+        transaction.replace(R.id.nav_host_fragment, fragment)
         transaction.commit()
     }
 }

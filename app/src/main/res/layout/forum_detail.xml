@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,6 +71,7 @@
     <TextView
         android:id="@+id/forum_like"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:drawableTop="@drawable/ic_like"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -79,33 +81,34 @@
 
         app:layout_constraintHorizontal_chainStyle="spread"
 
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_20dp"
         android:gravity="center_vertical"
         android:text="@string/like"
 
         android:textColor="@color/gray_5"
         android:textSize="@dimen/_14sp" />
+
     <TextView
         android:id="@+id/forum_comments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/forum_like"
+        android:layout_marginTop="@dimen/_20dp"
         android:fontFamily="@string/font_regular"
-        android:layout_marginTop="@dimen/_10dp"
         android:gravity="center_vertical"
         android:text="@string/comment"
-        app:layout_constraintTop_toBottomOf="@+id/textLikes"
         android:textColor="@color/gray_5"
         android:textSize="@dimen/_14sp"
-        app:drawableTopCompat="@drawable/ic_comments" />
+        app:drawableTopCompat="@drawable/ic_comments"
+        app:layout_constraintLeft_toRightOf="@id/forum_like"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLikes" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:id="@+id/comment_layout"
         app:layout_constraintTop_toBottomOf="@+id/forum_like"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_height="wrap_content">
     <ImageView
@@ -127,6 +130,7 @@
         android:background="@drawable/grey_rect"
         android:fontFamily="@string/font_regular"
         android:gravity="left"
+
         android:padding="@dimen/_10dp"
         android:layout_gravity="center"
         android:hint="@string/write_comment"

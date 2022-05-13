@@ -40,7 +40,7 @@ class MommyFragment : Fragment() {
             binding.tvBlogs.setBackgroundResource(R.drawable.bg_left_curve)
             binding.tvForm.setBackgroundResource(R.color.silver_7)
             binding.tvJob.setBackgroundResource(R.drawable.bg_right_curve)
-            loadFragment(FormFragment(),getString(R.string.form))
+            loadFragment(ForumFragment(),getString(R.string.form))
             oldPosition = R.string.form
         }
         binding.tvJob.setOnClickListener {
