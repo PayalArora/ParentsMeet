@@ -10,6 +10,7 @@ import com.logicsquare.parentsmeet.ui.fragments.MommyFragment
 import com.logicsquare.parentsmeet.ui.fragments.ForumFragment
 import com.logicsquare.parentsmeet.ui.fragments.SettingsFragment
 import com.logicsquare.parentsmeet.utils.SharedPref
+import com.logicsquare.parentsmeet.utils.TITLE
 import com.logicsquare.parentsmeet.utils.toUpperCas
 
 class DashboardActivity : AppCompatActivity(){
@@ -55,7 +56,11 @@ class DashboardActivity : AppCompatActivity(){
                     binding.navigationView.menu.getItem(0).isCheckable=true
 
                     val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container, MommyFragment())
+                    val bundle:Bundle= Bundle()
+                    bundle.putString(TITLE, binding.navigationView.menu.getItem(0).title.toString())
+                    val frag:Fragment = MommyFragment()
+                    frag.arguments = bundle
+                    transaction.replace(R.id.container,frag)
                     transaction.addToBackStack("Mommy Fragment")
                     transaction.commit()
 

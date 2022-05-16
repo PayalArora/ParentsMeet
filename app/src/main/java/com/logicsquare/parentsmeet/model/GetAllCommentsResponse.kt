@@ -8,7 +8,7 @@ data class GetAllCommentsResponse(
 	var comments: List<CommentsItem?>? = null,
 
 	@field:SerializedName("count")
-	val count: Int? = null,
+	var count: Int? = null,
 
 	@field:SerializedName("error")
 	val error: Boolean? = null

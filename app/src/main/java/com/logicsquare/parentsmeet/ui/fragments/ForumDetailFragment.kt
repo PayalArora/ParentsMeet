@@ -59,6 +59,10 @@ class ForumDetailFragment : Fragment() {
             it.first?.let { it1 -> handleResponse(it1) }
             it.second?.let { it -> handleAllCommentsResponse(it) }
         }
+        binding.ivBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         return binding.root
     }
 
@@ -161,7 +165,9 @@ class ForumDetailFragment : Fragment() {
         binding.txtCommentSend.setText("")
         var comments: GetAllCommentsResponse? =  _liveDataTwo.value
        (comments?.comments as ArrayList).add(0, commentResponse.comment)
-        comments?.let { _liveDataTwo.postValue(comments!!)}
+        comments?.count = commentResponse.forum?.comments
+      //  comments?.let { _liveDataTwo.postValue(comments!!)}
+        binding.replyList.adapter = CommentsForumAdapter(comments?.comments)
         binding.replyList.adapter?.notifyDataSetChanged()
         binding.textComments.setText("${commentResponse.forum?.comments} Comments")
         showToast(requireContext().getString(R.string.comment_sent))

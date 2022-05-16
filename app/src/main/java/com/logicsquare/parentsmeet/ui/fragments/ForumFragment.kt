@@ -1,11 +1,13 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.logicsquare.parentsmeet.R
@@ -24,6 +26,7 @@ import retrofit2.Response
 
 class ForumFragment : Fragment(),OnItemClickId {
     private lateinit var binding: FragmentForumBinding
+    var isEmpty= false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,6 +41,11 @@ class ForumFragment : Fragment(),OnItemClickId {
             }
             false
         })
+        binding.searchText.addTextChangedListener{ charSequence  ->
+            if (charSequence?.length==0){
+                getData()
+            }
+        }
         binding.searchIcon.setOnClickListener{
             getData()
         }
@@ -89,7 +97,7 @@ class ForumFragment : Fragment(),OnItemClickId {
         bundle.putString(ID,Id)
         val fragment = ForumDetailFragment()
         fragment.arguments = bundle
-        transaction.replace(R.id.nav_host_fragment, fragment)
+        transaction.replace(R.id.container, fragment)
         transaction.commit()
     }
 }

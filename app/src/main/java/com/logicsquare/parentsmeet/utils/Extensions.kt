@@ -92,6 +92,7 @@ fun Context.getProgressDrawable(): CircularProgressDrawable {
 }
 fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
 const val ID="_ID"
+const val TITLE="_TITLE"
 
 
 
