@@ -44,6 +44,12 @@
     <string name="i_am">I Am</string>
     <string name="mom">Mom</string>
     <string name="dad">Dad</string>
+    <string name="Uncle">uncle</string>
+    <string name="Aunty">aunty</string>
+    <string name="GrandFather">GrandFather</string>
+    <string name="GrandMother">GrandMother</string>
+    <string name="grandFather">grandfather</string>
+    <string name="grandMother">grandmother</string>
     <string name="other">Other</string>
     <string name="number">Number</string>
     <string name="submit">Submit</string>

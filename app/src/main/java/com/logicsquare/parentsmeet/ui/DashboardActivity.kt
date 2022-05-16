@@ -9,8 +9,11 @@ import com.logicsquare.parentsmeet.databinding.ActivityDashboardBinding
 import com.logicsquare.parentsmeet.ui.fragments.MommyFragment
 import com.logicsquare.parentsmeet.ui.fragments.ForumFragment
 import com.logicsquare.parentsmeet.ui.fragments.SettingsFragment
+import com.logicsquare.parentsmeet.utils.SharedPref
+import com.logicsquare.parentsmeet.utils.toUpperCas
 
 class DashboardActivity : AppCompatActivity(){
+    lateinit var sharedPref:SharedPref
     lateinit var binding:ActivityDashboardBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +23,22 @@ class DashboardActivity : AppCompatActivity(){
         loadFragment(SettingsFragment())
         binding.toolbar.toolbarText.text = getString(R.string.settings)
         binding.toolbar.menuOption.setOnClickListener { startActivity(Intent(this@DashboardActivity, DrawerActivity::class.java)) }
+       sharedPref = SharedPref(this)
+        if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom))){
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad))) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.dad).toUpperCas())
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle))) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Uncle).toUpperCas())
+        }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty))) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Aunty).toUpperCas())
+        }
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather))) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandFather).toUpperCas())
+        }
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother))) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandMother).toUpperCas())
+        }
         setListeners()
     }
 

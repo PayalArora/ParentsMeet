@@ -68,6 +68,7 @@ interface APIInterface {
     fun getAllComments(
         @Header("Authorization") token: String,
         @Path("id") id: String?,
+        @Body getComment: GetComentRequest
     ): Call<GetAllCommentsResponse?>
     @POST("api/v1/blogs")
     fun getAllBlogs(@Header("Authorization") Authorization: String): Call<BlogsResponse?>

@@ -8,6 +8,7 @@ import com.logicsquare.parentsmeet.interfaces.OnItemClickId
 import com.logicsquare.parentsmeet.model.AddCommentResponse
 import com.logicsquare.parentsmeet.model.CommentsItem
 import com.logicsquare.parentsmeet.model.GetAllCommentsResponse
+import com.logicsquare.parentsmeet.utils.capitalizeWords
 
 class CommentsForumAdapter(val response: List<CommentsItem?>?) :
     RecyclerView.Adapter<CommentsForumAdapter.ViewHolder>() {
@@ -23,7 +24,7 @@ class CommentsForumAdapter(val response: List<CommentsItem?>?) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.userMsg.setText(response?.get(position)?.content)
-        holder.binding.userName.setText(response?.get(position)?.user?.name?.full)
+        holder.binding.userName.setText(response?.get(position)?.user?.name?.full?.capitalizeWords())
     }
 
     override fun getItemCount() = response?.size ?: 0

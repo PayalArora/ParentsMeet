@@ -76,6 +76,10 @@ class SharedPref(context: Context) {
         return sharedPreferences.getString(USERTYPE, "")
     }
 
+    fun getUserRelation(): String? {
+        return sharedPreferences.getString(RELATION, "")
+    }
+
     fun saveKeepMe(checked: Boolean) {
         editor.putBoolean(KEEPME, checked).apply()
     }

@@ -64,10 +64,11 @@ class ForumDetailFragment : Fragment() {
 
     private fun getMessages() {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-
+        var getComentRequest = GetComentRequest()
+        getComentRequest .limit = "50"
         val call: Call<GetAllCommentsResponse?> =
             APIClient.client.create(APIInterface::class.java)
-                .getAllComments(token, arguments?.getString(ID, "").toString())
+                .getAllComments(token, arguments?.getString(ID, "").toString(), getComentRequest)
         //showProgressBar()
         call.enqueue(object : Callback<GetAllCommentsResponse?> {
             override fun onResponse(
@@ -142,6 +143,7 @@ class ForumDetailFragment : Fragment() {
                         binding.textLikes.setCompoundDrawablesWithIntrinsicBounds(requireContext().getDrawable(
                             R.drawable.ic_like), null, null, null)
                     }
+                    binding.textLikes.setText("${response.body()?.likes} Likes")
                 } else {
                     handleErrorResponse(response.errorBody(), requireContext())
                 }
@@ -157,10 +159,11 @@ class ForumDetailFragment : Fragment() {
 
     private fun handleCommentResponse(commentResponse: AddCommentResponse) {
         binding.txtCommentSend.setText("")
-        var comments =  _liveDataTwo.value
-       (comments?.comments as ArrayList).add(commentResponse.comment)
-        _liveDataTwo.postValue(comments)
-        //binding.replyList.adapter?.notifyDataSetChanged()
+        var comments: GetAllCommentsResponse? =  _liveDataTwo.value
+       (comments?.comments as ArrayList).add(0, commentResponse.comment)
+        comments?.let { _liveDataTwo.postValue(comments!!)}
+        binding.replyList.adapter?.notifyDataSetChanged()
+        binding.textComments.setText("${commentResponse.forum?.comments} Comments")
         showToast(requireContext().getString(R.string.comment_sent))
     }
 
@@ -203,7 +206,7 @@ class ForumDetailFragment : Fragment() {
                 binding.forumDescription.setText(fromHtml(description))
             }
             binding.textLikes.setText("${likes} Likes")
-            binding.forumComments.setText("${comments} Comments")
+            binding.textComments.setText("${comments} Comments")
             if (isLiked == 1) {
                 binding.textLikes.setCompoundDrawables(requireContext().getDrawable(R.drawable.ic_like_selected),
                     null,

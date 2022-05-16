@@ -8,5 +8,8 @@ data class LikeForumResponse(
 	val error: Boolean? = null,
 
 	@field:SerializedName("_isLiked")
-	val isLiked: Int? = null
+	val isLiked: Int? = null,
+
+	@field:SerializedName("likes")
+val likes: Int? = null
 )
