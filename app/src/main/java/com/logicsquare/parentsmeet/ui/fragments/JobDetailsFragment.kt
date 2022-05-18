@@ -1,5 +1,6 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import com.logicsquare.parentsmeet.model.JobAppliedSavedResponse
 import com.logicsquare.parentsmeet.model.JobsdetailResponse
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
+import com.logicsquare.parentsmeet.ui.DrawerActivity
 import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +32,8 @@ class JobDetailsFragment(id: String) : Fragment() {
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        binding.menuOption.setOnClickListener { startActivity(Intent(requireActivity(), DrawerActivity::class.java)) }
 
         getJobDetails()
         return binding.root
