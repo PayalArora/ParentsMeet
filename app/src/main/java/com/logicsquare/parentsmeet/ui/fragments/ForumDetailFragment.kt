@@ -1,5 +1,6 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -18,6 +19,7 @@ import com.logicsquare.parentsmeet.databinding.ForumDetailBinding
 import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
+import com.logicsquare.parentsmeet.ui.DrawerActivity
 import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -62,6 +64,9 @@ class ForumDetailFragment : Fragment() {
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+        binding.menuOption.setOnClickListener { startActivity(Intent(requireActivity(), DrawerActivity::class.java)) }
+
+
 
         return binding.root
     }

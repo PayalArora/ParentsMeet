@@ -1,5 +1,6 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.text.Html
@@ -15,6 +16,7 @@ import com.logicsquare.parentsmeet.model.BlogsItem
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
 import com.logicsquare.parentsmeet.ui.BlogsAdapter
+import com.logicsquare.parentsmeet.ui.DrawerActivity
 import com.logicsquare.parentsmeet.utils.*
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Transformation
@@ -32,8 +34,7 @@ class BlogDetailFragment(blogsId: String) : Fragment(), BlogsAdapter.OnItemClick
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-
-
+        binding.menuOption.setOnClickListener { startActivity(Intent(requireActivity(), DrawerActivity::class.java)) }
 
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ActivityDashboardBinding
 import com.logicsquare.parentsmeet.ui.fragments.MommyFragment
@@ -61,7 +62,7 @@ class DashboardActivity : AppCompatActivity(){
                     val frag:Fragment = MommyFragment()
                     frag.arguments = bundle
                     transaction.replace(R.id.container,frag)
-                    transaction.addToBackStack("Mommy Fragment")
+                   transaction.addToBackStack("Mommy Fragment")
                     transaction.commit()
 
                 }

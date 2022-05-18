@@ -17,10 +17,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.SettingsChildBinding
-import com.logicsquare.parentsmeet.model.AddKidRequest
-import com.logicsquare.parentsmeet.model.AddKidsResponse
-import com.logicsquare.parentsmeet.model.KidsItem
-import com.logicsquare.parentsmeet.model.UpdateKidRequest
+import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
 import com.logicsquare.parentsmeet.utils.*
@@ -29,7 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
+class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Fragment() {
     private lateinit var mBinding: SettingsChildBinding
     var activitiesList = arrayListOf<String>()
     var gamesList = arrayListOf<String>()
@@ -177,11 +174,11 @@ class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
                 response: Response<AddKidsResponse?>,
             ) {
                 if (response.isSuccessful) {
-                    if (response.body()?.error!! && !response.body()?.reason.isNullOrEmpty()) {
-                        showToast(response.body()?.reason)
-                    } else {
-                        hideProgressBar()
+                    if ( response.body()!=null) {
+                        showToast(getString(R.string.saved))
+                        kidsData.kidsData(response.body()?.kid)
                     }
+                    hideProgressBar()
                 } else {
                     hideProgressBar()
                     handleErrorResponse(response.errorBody(), requireContext())
@@ -227,4 +224,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?) : Fragment() {
     fun openColorPicker() {
         colorPickerDialog.show()
     }
+}
+interface KidsData{
+    fun kidsData(kid: Kid?);
 }
