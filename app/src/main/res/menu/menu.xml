@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <item
         android:id="@+id/menu_mommy"
@@ -22,7 +23,7 @@
         android:title="@string/calender"/>
     <item
         android:id="@+id/menu_messages"
-        android:visible="false"
+        android:visible="true"
         android:icon="@drawable/ic_messages"
         android:title="@string/ic_messages"/>
 </menu>

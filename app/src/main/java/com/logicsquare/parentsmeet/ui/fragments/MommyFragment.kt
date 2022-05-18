@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentMommyBinding
+import com.logicsquare.parentsmeet.utils.SharedPref
+import com.logicsquare.parentsmeet.utils.toUpperCas
+
 
 class MommyFragment : Fragment() {
-
+    lateinit var sharedPref: SharedPref
 
     var oldPosition = R.string.blogs
     lateinit var binding: FragmentMommyBinding
@@ -23,8 +26,8 @@ class MommyFragment : Fragment() {
 
     private fun loadFragment(fragment: Fragment,tittle:String) {
         val transaction = activity?.supportFragmentManager?.beginTransaction()
-        transaction?.add(R.id.nav_host_fragment, fragment)
-//        transaction?.addToBackStack(tittle)
+        transaction?.replace(R.id.nav_host_fragment, fragment)
+       // transaction?.addToBackStack(tittle)
         transaction?.commit()
     }
 
@@ -58,6 +61,22 @@ class MommyFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMommyBinding.inflate(layoutInflater)
+        sharedPref = SharedPref(requireActivity())
+        if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom))){
+            binding.toolbarText.setText(getString(R.string.mommy).toUpperCas())
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad))) {
+            binding.toolbarText.setText(getString(R.string.dad).toUpperCas())
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle))) {
+            binding.toolbarText.setText(getString(R.string.Uncle).toUpperCas())
+        }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty))) {
+            binding.toolbarText.setText(getString(R.string.Aunty).toUpperCas())
+        }
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather))) {
+            binding.toolbarText.setText(getString(R.string.GrandFather).toUpperCas())
+        }
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother))) {
+            binding.toolbarText.setText(getString(R.string.GrandMother).toUpperCas())
+        }
         return binding.root
     }
 }

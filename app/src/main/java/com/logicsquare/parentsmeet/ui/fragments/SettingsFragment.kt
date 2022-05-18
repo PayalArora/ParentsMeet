@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.adapter.ChildPagerAdapter
 import com.logicsquare.parentsmeet.databinding.FragmentSettingsBinding
+import com.logicsquare.parentsmeet.model.Kid
 import com.logicsquare.parentsmeet.model.KidsItem
 import com.logicsquare.parentsmeet.model.ProfileRequest
 import com.logicsquare.parentsmeet.model.ProfileResponse
@@ -29,7 +30,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsData {
     private lateinit var mBinding: FragmentSettingsBinding
     private var myCalendar: Calendar = Calendar.getInstance()
     private lateinit var childPagerAdapter: ChildPagerAdapter
@@ -43,7 +44,7 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
         getProfile()
         setListeners()
-        childPagerAdapter = ChildPagerAdapter(this, list)
+        childPagerAdapter = ChildPagerAdapter(this, list, this)
         mBinding.pager.adapter = childPagerAdapter
         TabLayoutMediator(mBinding.tabLayout, mBinding.pager) { tab, position ->
         }.attach()
@@ -89,7 +90,7 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                     if (response.body() != null){
                         showToast(getString(R.string.saved))
                     }
-                      //  handleResponse(response.body()!!)
+                      handleResponse(response.body()!!)
                 } else{
                     handleErrorResponse(response.errorBody(), requireContext())
                 }
@@ -191,7 +192,7 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         else {
             mBinding.kidsLayout.visibility = VISIBLE
             if (profileResponse.user?.kids!=null) {
-                childPagerAdapter = ChildPagerAdapter(this, profileResponse.user.kids)
+                childPagerAdapter = ChildPagerAdapter(this, profileResponse.user.kids, this)
                 mBinding.pager.adapter = childPagerAdapter
             }
             profileResponse.user?.kids?.map {
@@ -208,5 +209,9 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         private  const val dinnerDate = "DINNER_DATE"
         private  const val lunchDate = "LUNCH_DATE"
         private  const val parkTrip = "PARK_TRIP"
+    }
+
+    override fun kidsData(kid: Kid?) {
+        mBinding.tabLayout.getTabAt( mBinding.tabLayout.selectedTabPosition)?.setText(kid?.name?.capitalizeWords())
     }
 }

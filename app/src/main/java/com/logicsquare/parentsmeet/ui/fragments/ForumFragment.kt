@@ -91,13 +91,14 @@ class ForumFragment : Fragment(),OnItemClickId {
     }
 
     override fun OnClick(Id: String) {
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.addToBackStack("FORUM_DETAIL")
+        val transaction = activity?.supportFragmentManager?.beginTransaction()
         val bundle = Bundle()
         bundle.putString(ID,Id)
         val fragment = ForumDetailFragment()
         fragment.arguments = bundle
-        transaction.replace(R.id.container, fragment)
-        transaction.commit()
+        transaction?.add(R.id.container, fragment)
+        transaction?.addToBackStack("FORUM_DETAIL")
+        transaction?.commit()
+
     }
 }

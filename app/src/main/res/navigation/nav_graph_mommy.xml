@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigationForm"
-        android:name="com.logicsquare.parentsmeet.ui.fragments.FormFragment"
+        android:name="com.logicsquare.parentsmeet.ui.fragments.ForumFragment"
         android:label="@string/form"
         tools:layout="@layout/fragment_form">
 
@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_navigationForm_to_navigationJob"
             app:destination="@id/navigationJob" />
+        <action
+            android:id="@+id/action_navigationForum_to_navigatioForumDetails"
+            app:destination="@id/navigationForumDetails" />
 
     </fragment>
     <fragment
@@ -55,6 +58,12 @@
         tools:layout="@layout/fragment_blog_detail">
     </fragment>
 
+    <fragment
+        android:id="@+id/navigationForumDetails"
+        android:name="com.logicsquare.parentsmeet.ui.fragments.ForumDetailFragment"
+        android:label="@string/form"
+        tools:layout="@layout/forum_detail">
+    </fragment>
 
 
 
