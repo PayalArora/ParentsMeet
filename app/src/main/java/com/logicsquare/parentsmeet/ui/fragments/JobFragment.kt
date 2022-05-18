@@ -1,60 +1,178 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.logicsquare.parentsmeet.R
+import com.logicsquare.parentsmeet.databinding.FragmentJobBinding
+import com.logicsquare.parentsmeet.model.JobAppliedSavedResponse
+import com.logicsquare.parentsmeet.model.JobsItem
+import com.logicsquare.parentsmeet.model.JobsResponse
+import com.logicsquare.parentsmeet.network.APIClient
+import com.logicsquare.parentsmeet.network.APIInterface
+import com.logicsquare.parentsmeet.ui.JobsAdapter
+import com.logicsquare.parentsmeet.utils.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [JobFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class JobFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentJobBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var category: String = "all"
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.tvApplied.setOnClickListener{
+            binding.tvApplied.setBackgroundResource(R.drawable.background_normal_button)
+            binding.tvSaved.setBackgroundResource(R.drawable.background_gradient)
+            binding.tvAll.setBackgroundResource(R.drawable.background_gradient)
+
+            binding.tvApplied.setTextColor(resources.getColor(R.color.dark_green))
+            binding.tvSaved.setTextColor(resources.getColor(R.color.white))
+            binding.tvAll.setTextColor(resources.getColor(R.color.white))
+            category = "jobApplied"
+
+            getAllJobs()
         }
+
+        binding.tvSaved.setOnClickListener{
+            binding.tvSaved.setBackgroundResource(R.drawable.background_normal_button)
+            binding.tvApplied.setBackgroundResource(R.drawable.background_gradient)
+            binding.tvAll.setBackgroundResource(R.drawable.background_gradient)
+
+            binding.tvApplied.setTextColor(resources.getColor(R.color.white))
+            binding.tvSaved.setTextColor(resources.getColor(R.color.dark_green))
+            binding.tvAll.setTextColor(resources.getColor(R.color.white))
+            category = "jobSaved"
+
+            getAllJobs()
+        }
+
+        binding.tvAll.setOnClickListener{
+            binding.tvSaved.setBackgroundResource(R.drawable.background_gradient)
+            binding.tvApplied.setBackgroundResource(R.drawable.background_gradient)
+            binding.tvAll.setBackgroundResource(R.drawable.background_normal_button)
+
+            binding.tvApplied.setTextColor(resources.getColor(R.color.white))
+            binding.tvSaved.setTextColor(resources.getColor(R.color.white))
+            binding.tvAll.setTextColor(resources.getColor(R.color.dark_green))
+            category = "all"
+
+            getAllJobs()
+        }
+
+        getAllJobs()
+    }
+
+    private fun getAllJobs() {
+        val token = "Bearer ${SharedPref(requireContext()).getToken()}"
+        val call: Call<JobsResponse?> =
+            APIClient.client.create(APIInterface::class.java).getJobs(token, category)
+        showProgressBar()
+        call.enqueue(object : Callback<JobsResponse?> {
+            override fun onResponse(
+                call: Call<JobsResponse?>,
+                response: Response<JobsResponse?>,
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        handleResponse(response.body()!!)
+                    }
+                } else {
+                    handleErrorResponse(response.errorBody(), requireContext())
+                }
+                hideProgressBar()
+            }
+
+            override fun onFailure(call: Call<JobsResponse?>, t: Throwable) {
+                hideProgressBar()
+                showToast(t.localizedMessage)
+            }
+        })
+    }
+
+    private fun handleResponse(response: JobsResponse) {
+        var adapter =
+            JobsAdapter((response.jobs as ArrayList<JobsItem>), requireContext())
+        adapter.setListener(this)
+        binding.rvJobs.adapter = adapter
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job, container, false)
+    ): View {
+        binding = FragmentJobBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment JobFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            JobFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.add(R.id.container, fragment)
+        transaction.addToBackStack("JobDetailsFragment")
+        transaction.commit()
+    }
+
+    override fun onClick(job: JobsItem) {
+        loadFragment(JobDetailsFragment(job.jobId!!))
+    }
+
+    override fun applyJob(job: JobsItem) {
+        val token = "Bearer ${SharedPref(requireContext()).getToken()}"
+        val call: Call<JobAppliedSavedResponse?> =
+            APIClient.client.create(APIInterface::class.java).applyJob(token, job?.jobId!!)
+        showProgressBar()
+        call.enqueue(object : Callback<JobAppliedSavedResponse?> {
+            override fun onResponse(
+                call: Call<JobAppliedSavedResponse?>,
+                response: Response<JobAppliedSavedResponse?>,
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        showToast("Job Applied")
+                    }
+                } else {
+                    handleErrorResponse(response.errorBody(), requireContext())
                 }
+                hideProgressBar()
             }
+
+            override fun onFailure(call: Call<JobAppliedSavedResponse?>, t: Throwable) {
+                hideProgressBar()
+                showToast(t.localizedMessage)
+            }
+        })
+    }
+
+    override fun saveJob(job: JobsItem) {
+        val token = "Bearer ${SharedPref(requireContext()).getToken()}"
+        val call: Call<JobAppliedSavedResponse?> =
+            APIClient.client.create(APIInterface::class.java).saveJob(token, job?.jobId!!)
+        showProgressBar()
+        call.enqueue(object : Callback<JobAppliedSavedResponse?> {
+            override fun onResponse(
+                call: Call<JobAppliedSavedResponse?>,
+                response: Response<JobAppliedSavedResponse?>,
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        showToast("Job Saved")
+                    }
+                } else {
+                    handleErrorResponse(response.errorBody(), requireContext())
+                }
+                hideProgressBar()
+            }
+
+            override fun onFailure(call: Call<JobAppliedSavedResponse?>, t: Throwable) {
+                hideProgressBar()
+                showToast(t.localizedMessage)
+            }
+        })
     }
 }

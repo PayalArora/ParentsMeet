@@ -79,5 +79,30 @@ interface APIInterface {
         @Path("id") id: String
     ): Call<BlogDetailsResponse?>
 
+    @FormUrlEncoded
+    @POST("/api/v1/jobs")
+    fun getJobs(
+        @Header("Authorization") Authorization: String,
+        @Field("category") category: String
+    ): Call<JobsResponse?>
+
+    @GET("/api/v1/job/{id}")
+    fun getJobDetails(
+        @Header("Authorization") Authorization: String,
+        @Path("id") id: String
+    ): Call<JobsdetailResponse?>
+
+    @PUT("/api/v1/job/applied/{id}")
+    fun applyJob(
+        @Header("Authorization") Authorization: String,
+        @Path("id") id: String
+    ): Call<JobAppliedSavedResponse?>
+
+    @PUT("/api/v1/job/saved/{id}")
+    fun saveJob(
+        @Header("Authorization") Authorization: String,
+        @Path("id") id: String
+    ): Call<JobAppliedSavedResponse?>
+
 }
 

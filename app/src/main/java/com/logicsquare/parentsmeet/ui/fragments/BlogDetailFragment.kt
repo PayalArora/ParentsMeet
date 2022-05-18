@@ -32,9 +32,6 @@ class BlogDetailFragment(blogsId: String) : Fragment(), BlogsAdapter.OnItemClick
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
-
-
-
     }
 
     private fun getBlogDetails() {

@@ -130,4 +130,8 @@
     <string name="job">Job</string>
     <string name="form">Forum</string>
     <string name="logoutMessage">Are you sure you want to logout?</string>
+    <string name="applied">Applied</string>
+    <string name="saved_job">Saved</string>
+    <string name="apply_now">Apply Now</string>
+    <string name="all">All</string>
 </resources>

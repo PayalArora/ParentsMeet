@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments. MommyFragment">
+    tools:context=".ui.fragments.MommyFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,7 +120,6 @@
         android:layout_height="0dp"
         app:defaultNavHost="true"
         android:layout_marginBottom="@dimen/_70dp"
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_layout"
