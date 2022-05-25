@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:padding="@dimen/_20dp">
+
+        <TextView
+            android:id="@+id/filters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/filters"
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="@dimen/_30dp"
+            android:layout_height="@dimen/_30dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:background="@drawable/circle_green"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_baseline_clear_24"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/point_5dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filters" />
+
+        <TextView
+            android:id="@+id/jobType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/job_type"
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+        <CheckBox
+            android:id="@+id/partTime"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/part_time"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/fullTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jobType"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/fullTime"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/fullTime"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/partTime"
+            app:layout_constraintRight_toLeftOf="@+id/contract"
+            app:layout_constraintTop_toBottomOf="@+id/jobType"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/contract"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/contract"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/fullTime"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jobType"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/allType"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/all_type"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/fullTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/partTime"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <TextView
+            android:id="@+id/locationPreference"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/location_preference"
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/allType" />
+
+        <CheckBox
+            android:id="@+id/remote"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/remote"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/locationPreference"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationPreference"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/inPerson"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/in_person"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/remote"
+            app:layout_constraintRight_toLeftOf="@+id/hybrid"
+            app:layout_constraintTop_toBottomOf="@+id/locationPreference"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/hybrid"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/hybrid"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/inPerson"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationPreference"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/noPref"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/no_pref"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/inPerson"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inPerson"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <TextView
+            android:id="@+id/experience"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/experience"
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/financ" />
+
+        <TextView
+            android:id="@+id/salary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/salary"
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/noPref" />
+
+        <RadioGroup
+            android:id="@+id/salary_group"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/salary">
+
+                <RadioButton
+                    android:id="@+id/fifty"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:text="@string/fifty"
+                    android:textColor="@color/silver_8"
+                    android:textSize="@dimen/_14sp"
+                   />
+
+                <RadioButton
+                    android:id="@+id/sixty"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:text="@string/sixty"
+                    android:textColor="@color/silver_8"
+                    android:textSize="@dimen/_14sp"
+                     />
+
+                <RadioButton
+                    android:id="@+id/seventyfive"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:text="@string/seventyfive"
+                    android:textColor="@color/silver_8"
+                    android:textSize="@dimen/_14sp"
+                     />
+        </RadioGroup>
+        <RadioGroup
+            android:id="@+id/salary_group2"
+
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/salary_group">
+
+        <RadioButton
+                    android:id="@+id/eightyfive"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:text="@string/eightyfive"
+                    android:textColor="@color/silver_8"
+                    android:textSize="@dimen/_14sp"
+            android:layout_weight="1" />
+
+                <RadioButton
+                    android:id="@+id/nintyfiv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:layout_marginRight="@dimen/_10dp"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:text="@string/nintyfiv"
+                    android:textColor="@color/silver_8"
+                    android:textSize="@dimen/_14sp"
+                    android:layout_weight="1" />
+
+                <RadioButton
+                    android:id="@+id/lakh"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_marginLeft="@dimen/_10dp"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:background="@drawable/radio_flat_selector"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:text="@string/lakh"
+                    android:textColor="@color/silver_8"
+                    android:textSize="@dimen/_14sp"
+                    android:layout_weight="1"/>
+          </RadioGroup>
+
+        <TextView
+            android:id="@+id/education"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/education"
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/salary_group2" />
+
+        <TextView
+            android:id="@+id/job_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:text="@string/job_category"
+            android:textColor="@color/green_1"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/all_education" />
+
+
+        <CheckBox
+            android:id="@+id/high_school"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/high_school"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/assosiates"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/education"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".45" />
+
+        <CheckBox
+            android:id="@+id/assosiates"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/assosiates"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/high_school"
+            app:layout_constraintTop_toBottomOf="@+id/education"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".45" />
+
+        <CheckBox
+            android:id="@+id/bachelor"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/bachelor"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/master"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/high_school"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".45" />
+
+        <CheckBox
+            android:id="@+id/master"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/master"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/bachelor"
+            app:layout_constraintTop_toBottomOf="@+id/assosiates"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".45" />
+
+        <CheckBox
+            android:id="@+id/all_education"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/all_educ"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bachelor"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".45" />
+
+        <CheckBox
+            android:id="@+id/market"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:text="@string/market"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/job_category" />
+
+        <CheckBox
+            android:id="@+id/sales"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:text="@string/sales"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/market" />
+
+        <CheckBox
+            android:id="@+id/tech"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_15dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:text="@string/tech"
+            android:textColor="@color/silver_8"
+            app:layout_constraintLeft_toRightOf="@+id/sales"
+            app:layout_constraintTop_toBottomOf="@+id/market" />
+
+        <CheckBox
+            android:id="@+id/administration"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:text="@string/administration"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tech" />
+
+        <CheckBox
+            android:id="@+id/financ"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:text="@string/finan"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/administration" />
+
+        <CheckBox
+            android:id="@+id/all_job"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10dp"
+            android:text="@string/all_job"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/administration" />
+
+        <CheckBox
+            android:id="@+id/entry_level"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/entry_level"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/mid_level"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/experience"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/mid_level"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/mid_level"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/entry_level"
+            app:layout_constraintRight_toLeftOf="@+id/senior_level"
+            app:layout_constraintTop_toBottomOf="@+id/experience"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/senior_level"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/senior"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/mid_level"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/experience"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <CheckBox
+            android:id="@+id/all_experience"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="@drawable/radio_flat_selector"
+            android:button="@color/white"
+            android:gravity="center"
+            android:text="@string/all_experience"
+            android:textColor="@color/silver_8"
+            android:textSize="@dimen/_14sp"
+            app:layout_constraintRight_toLeftOf="@+id/senior_level"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entry_level"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent=".3" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/point_5dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/all_experience" />
+
+        <com.logicsquare.parentsmeet.views.VButton
+            android:id="@+id/showResult"
+            style="@style/PrimaryButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15dp"
+            android:paddingHorizontal="@dimen/_15dp"
+            android:text="@string/show_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            tools:ignore="TextContrastCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

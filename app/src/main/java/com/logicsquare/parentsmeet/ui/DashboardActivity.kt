@@ -26,21 +26,22 @@ class DashboardActivity : AppCompatActivity(){
         binding.toolbar.toolbarText.text = getString(R.string.settings)
         binding.toolbar.menuOption.setOnClickListener { startActivity(Intent(this@DashboardActivity, DrawerActivity::class.java)) }
        sharedPref = SharedPref(this)
-        if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom))){
+        if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom).toLowerCase())){
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
-        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad))) {
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad).toLowerCase())) {
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.dad).toUpperCas())
-        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle))) {
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Uncle).toUpperCas())
-        }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty))) {
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle).toLowerCase())) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Uncle).toUpperCas().toLowerCase())
+        }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty).toLowerCase())) {
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Aunty).toUpperCas())
         }
-        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather))) {
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather).toLowerCase())) {
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandFather).toUpperCas())
         }
-        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother))) {
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother).toLowerCase())) {
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandMother).toUpperCas())
         }
+        binding.toolbar.toolbarText.text = getString(R.string.settings)
         setListeners()
     }
 

@@ -1,18 +1,13 @@
-package com.logicsquare.parentsmeet.adapter
+package com.logicsquare.parentsmeet.ui.adapter
 
-import android.os.Build
-import android.text.Html
 import android.text.Html.fromHtml
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ForumMainItemBinding
 import com.logicsquare.parentsmeet.interfaces.OnItemClickId
-import com.logicsquare.parentsmeet.interfaces.OnItemClickPosition
 import com.logicsquare.parentsmeet.model.ForumResponse
-import com.logicsquare.parentsmeet.utils.getProgressDrawable
 
 class MommyForumAdapter(val onItemClick: OnItemClickId, val response: List<ForumResponse.ForumsItem?>?) :
     RecyclerView.Adapter<MommyForumAdapter.ViewHolder>() {

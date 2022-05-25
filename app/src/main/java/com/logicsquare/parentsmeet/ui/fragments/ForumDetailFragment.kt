@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.logicsquare.parentsmeet.R
-import com.logicsquare.parentsmeet.adapter.CommentsForumAdapter
+import com.logicsquare.parentsmeet.ui.adapter.CommentsForumAdapter
 import com.logicsquare.parentsmeet.databinding.ForumDetailBinding
 import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient

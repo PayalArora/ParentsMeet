@@ -1,6 +1,7 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
 import android.content.Context
+import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -24,8 +25,13 @@ class JobLayoutDetail(@get:JvmName("context") private val context: Context,priva
 
         binding.tvTitle.text = tittle
         /*TODO remove HTML tags for spacing issues */
-        binding.tvDesc.text = Html.fromHtml(desc)
+
         binding.llContainer.orientation = orientation!!
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.tvDesc.text = Html.fromHtml(desc, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            binding.tvDesc.text = Html.fromHtml(desc)
+        }
 
     }
 }

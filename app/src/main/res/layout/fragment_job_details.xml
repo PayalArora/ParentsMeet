@@ -94,7 +94,7 @@
                 android:layout_marginBottom="50dp"
                 android:padding="20dp">
 
-                <View
+                <ImageView
                     android:id="@+id/view"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -107,8 +107,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@+id/view"
                     android:textColor="@color/blue_1"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_desc"
@@ -119,6 +119,7 @@
                     android:layout_toLeftOf="@+id/tv_applied"
                     android:layout_toEndOf="@+id/view"
                     android:text="@string/saved_job"
+                    android:visibility="gone"
                     android:textColor="@color/gray_2"
                     android:textSize="15sp" />
 
@@ -129,6 +130,7 @@
                     android:layout_below="@+id/tv_desc"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@+id/view"
+                    android:visibility="gone"
                     android:text="@string/saved_job"
                     android:textColor="@color/gray_2"
                     android:textSize="15sp" />
@@ -146,51 +148,54 @@
 
 
                 <TextView
-                    android:id="@+id/tv_applied"
-                    android:layout_width="80dp"
-                    android:layout_height="35dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/background_gradient"
-                    android:text="@string/applied"
-                    android:textColor="@color/white" />
-
-                <TextView
                     android:id="@+id/tv_saved"
                     android:layout_width="80dp"
                     android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/background_gradient"
+                    android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:gravity="center"
+                    android:text="@string/saved_job"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_applied"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/tv_saved"
+
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_applied"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/background_gradient"
-                    android:text="@string/saved_job"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/applied"
                     android:textColor="@color/white" />
 
                 <LinearLayout
                     android:id="@+id/ll_container"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/tv_type"/>
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:layout_below="@+id/tv_type"
+                    android:orientation="vertical" />
 
 
                 <TextView
                     android:id="@+id/tv_apply_now"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:gravity="center"
-                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/ll_container"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
                     android:background="@drawable/background_gradient"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:text="@string/apply_now"
                     android:textColor="@color/white" />
 

@@ -45,6 +45,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.DashboardActivity"
+            android:theme="@style/BottomSheet"
             android:exported="false" />
         <activity
             android:name=".ui.SetPasswordActivity"

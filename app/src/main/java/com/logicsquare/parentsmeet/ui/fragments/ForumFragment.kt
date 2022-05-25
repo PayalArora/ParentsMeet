@@ -1,7 +1,6 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.logicsquare.parentsmeet.R
-import com.logicsquare.parentsmeet.adapter.MommyForumAdapter
+import com.logicsquare.parentsmeet.ui.adapter.MommyForumAdapter
 import com.logicsquare.parentsmeet.databinding.FragmentForumBinding
 import com.logicsquare.parentsmeet.interfaces.OnItemClickId
-import com.logicsquare.parentsmeet.interfaces.OnItemClickPosition
 import com.logicsquare.parentsmeet.model.ForumResponse
 import com.logicsquare.parentsmeet.model.GetAllForum
 import com.logicsquare.parentsmeet.network.APIClient

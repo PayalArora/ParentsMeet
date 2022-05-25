@@ -79,11 +79,11 @@ interface APIInterface {
         @Path("id") id: String
     ): Call<BlogDetailsResponse?>
 
-    @FormUrlEncoded
+
     @POST("/api/v1/jobs")
     fun getJobs(
         @Header("Authorization") Authorization: String,
-        @Field("category") category: String
+        @Body addJobRequest: AddJobRequest
     ): Call<JobsResponse?>
 
     @GET("/api/v1/job/{id}")

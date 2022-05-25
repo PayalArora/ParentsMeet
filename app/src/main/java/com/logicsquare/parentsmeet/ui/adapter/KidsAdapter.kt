@@ -1,4 +1,4 @@
-package com.logicsquare.parentsmeet.adapter
+package com.logicsquare.parentsmeet.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.model.KidsItem
 import com.logicsquare.parentsmeet.utils.capitalizeWords
-import com.logicsquare.parentsmeet.utils.toUpperCas
 
 class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context) : RecyclerView.Adapter<KidsAdapter.KidsViewHolder>(){
 

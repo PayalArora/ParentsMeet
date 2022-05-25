@@ -41,7 +41,7 @@ data class JobsItem(
 	val createdAt: String? = null,
 
 	@field:SerializedName("_isJobSaved")
-	val isJobSaved: Int? = null,
+	var isJobSaved: Int? = null,
 
 	@field:SerializedName("_savedByUser")
 	val savedByUser: List<Any?>? = null,
@@ -83,7 +83,7 @@ data class JobsItem(
 	val jobFor: String? = null,
 
 	@field:SerializedName("_isJobApplied")
-	val isJobApplied: Int? = null,
+	var isJobApplied: Int? = null,
 
 	@field:SerializedName("_id")
 	val jobId: String? = null,

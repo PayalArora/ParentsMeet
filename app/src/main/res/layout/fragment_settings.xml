@@ -285,6 +285,7 @@
             android:background="@drawable/radio_flat_selector"
             android:button="@color/white"
             android:gravity="center"
+
             android:text="@string/lunch_date"
             android:textColor="@color/silver_8"
             android:textSize="@dimen/_14sp"
