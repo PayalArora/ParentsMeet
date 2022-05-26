@@ -92,11 +92,6 @@ data class JobsItem(
 	val jobAppliedCount: Int? = null
 )
 
-data class PayRange(
-
-	@field:SerializedName("min")
-	val min: Int? = null
-)
 
 data class JobsName(
 

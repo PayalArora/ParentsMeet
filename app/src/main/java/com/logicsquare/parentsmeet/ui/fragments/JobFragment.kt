@@ -32,7 +32,7 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
     var educationRequirement:ArrayList<String> = arrayListOf()
     var locationPreference:ArrayList<String> = arrayListOf()
     var jobCategory:ArrayList<String> = arrayListOf()
-    var payRange:ArrayList<String> = arrayListOf()
+    var mPayrange:Int = 50000
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,15 +93,14 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
         locationPreference.clear()
         educationRequirement.clear()
         experienceRequirement.clear()
-        payRange.clear()
         jobCategory.clear()
         bottomSheetBinding.showResult.setOnClickListener {
             if (bottomSheetBinding.fullTime.isChecked){
-                jobtype.add(EnumUtils.jobType.FullTime.name)
+                jobtype.add(EnumUtils.jobType.FullTime.type)
             }else if (bottomSheetBinding.contract.isChecked){
-                jobtype.add(EnumUtils.jobType.Contract.name)
+                jobtype.add(EnumUtils.jobType.Contract.type)
             }else if (bottomSheetBinding.partTime.isChecked){
-                jobtype.add(EnumUtils.jobType.PartTime.name)
+                jobtype.add(EnumUtils.jobType.PartTime.type)
             }
 
             if (bottomSheetBinding.remote.isChecked){
@@ -147,15 +146,15 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
             }
 
             if (bottomSheetBinding.fifty.isChecked){
-                payRange.add(getString(R.string.fifty))
+                mPayrange = 50000
             }else if (bottomSheetBinding.sixty.isChecked){
-                payRange.add(getString(R.string.sixty))
+                mPayrange = 60000
             }else if (bottomSheetBinding.seventyfive.isChecked){
-                payRange.add(getString(R.string.seventyfive))
+                mPayrange = 75000
             }else if (bottomSheetBinding.eightyfive.isChecked){
-                payRange.add(getString(R.string.eightyfive))
+                mPayrange = 85000
             }else if (bottomSheetBinding.lakh.isChecked){
-                payRange.add(getString(R.string.lakh))
+                mPayrange = 100000
             }
             getAllJobs(dialog)
            // dialog.dismiss()
@@ -172,7 +171,7 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
         var addJobRequest= AddJobRequest()
         addJobRequest.filters.category = category.jobtype
-        addJobRequest.filters.payRange = payRange
+            addJobRequest.filters.payRange.min = mPayrange
         addJobRequest.filters.experienceRequirement = experienceRequirement
         addJobRequest.filters.educationRequirement = educationRequirement
         addJobRequest.filters.jobtype =jobtype
