@@ -13,6 +13,6 @@ class EnumUtils {
         , SeniorLevel("Senior Level")
     }
     enum class jobType(val type:String){
-        FullTime("Full Time"), Temporary("Temporary"), Contract("Contract")
+        FullTime("Full Time"), Temporary("Temporary"), Contract("Contract"), PartTime("PartTime"),
     }
 }
