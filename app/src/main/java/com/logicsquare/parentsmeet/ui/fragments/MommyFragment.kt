@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.text.toLowerCase
 import androidx.fragment.app.Fragment
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentMommyBinding
 import com.logicsquare.parentsmeet.utils.SharedPref
 import com.logicsquare.parentsmeet.utils.toUpperCas
 
-
+ var tabPosition = 0
 class MommyFragment : Fragment() {
     lateinit var sharedPref: SharedPref
 
@@ -20,6 +21,7 @@ class MommyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initListeners()
     }
 
@@ -33,6 +35,7 @@ class MommyFragment : Fragment() {
 
     private fun initListeners() {
         binding.tvBlogs.setOnClickListener {
+            tabPosition = 0
             binding.tvBlogs.setBackgroundResource(R.drawable.bg_left_curve_selected)
             binding.tvForm.setBackgroundResource(R.color.white)
             binding.tvJob.setBackgroundResource(R.drawable.bg_right_curve)
@@ -40,6 +43,7 @@ class MommyFragment : Fragment() {
             oldPosition = R.string.blogs
         }
         binding.tvForm.setOnClickListener {
+            tabPosition = 1
             binding.tvBlogs.setBackgroundResource(R.drawable.bg_left_curve)
             binding.tvForm.setBackgroundResource(R.color.silver_7)
             binding.tvJob.setBackgroundResource(R.drawable.bg_right_curve)
@@ -47,6 +51,7 @@ class MommyFragment : Fragment() {
             oldPosition = R.string.form
         }
         binding.tvJob.setOnClickListener {
+            tabPosition = 2
             binding.tvBlogs.setBackgroundResource(R.drawable.bg_left_curve)
             binding.tvForm.setBackgroundResource(R.color.white)
             binding.tvJob.setBackgroundResource(R.drawable.bg_right_curve_selected)
@@ -64,18 +69,27 @@ class MommyFragment : Fragment() {
         sharedPref = SharedPref(requireActivity())
         if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom))){
             binding.toolbarText.setText(getString(R.string.mommy).toUpperCas())
-        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad))) {
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad).toLowerCase())) {
             binding.toolbarText.setText(getString(R.string.dad).toUpperCas())
-        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle))) {
+        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle).toLowerCase())) {
             binding.toolbarText.setText(getString(R.string.Uncle).toUpperCas())
-        }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty))) {
+        }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty).toLowerCase())) {
             binding.toolbarText.setText(getString(R.string.Aunty).toUpperCas())
         }
-        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather))) {
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather).toLowerCase())) {
             binding.toolbarText.setText(getString(R.string.GrandFather).toUpperCas())
         }
-        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother))) {
+        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother).toLowerCase())) {
             binding.toolbarText.setText(getString(R.string.GrandMother).toUpperCas())
+        }
+
+        if (tabPosition == 0) {
+            loadFragment(BlogsFragment(),getString(R.string.blogs))
+        } else if(tabPosition == 1) {
+            loadFragment(ForumFragment(),getString(R.string.form))
+        }
+        else if(tabPosition == 2) {
+            loadFragment(JobFragment(),getString(R.string.job))
         }
         return binding.root
     }

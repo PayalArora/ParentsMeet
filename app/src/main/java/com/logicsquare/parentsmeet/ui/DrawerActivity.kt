@@ -1,11 +1,9 @@
 package com.logicsquare.parentsmeet.ui
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.DragAndDropPermissions
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -15,10 +13,9 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.logicsquare.parentsmeet.R
-import com.logicsquare.parentsmeet.adapter.KidsAdapter
+import com.logicsquare.parentsmeet.ui.adapter.KidsAdapter
 import com.logicsquare.parentsmeet.databinding.ActivityDrawerBinding
 import com.logicsquare.parentsmeet.databinding.AddKidBottomSheetBinding
 import com.logicsquare.parentsmeet.model.AddKidRequest

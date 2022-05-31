@@ -12,6 +12,8 @@ import com.logicsquare.parentsmeet.R
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -91,8 +93,14 @@ fun Context.getProgressDrawable(): CircularProgressDrawable {
     return circularProgressDrawable
 }
 fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
+
+fun Context.timeConverter(dateStr:String):String{
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+    val date: Date = dateFormat.parse(dateStr)
+   val formattedDate= SimpleDateFormat("dd MMM, yyyy").format(date)
+    return formattedDate
+}
+
+
 const val ID="_ID"
 const val TITLE="_TITLE"
-
-
-

@@ -1,8 +1,6 @@
-package com.logicsquare.parentsmeet.adapter
+package com.logicsquare.parentsmeet.ui.adapter
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.logicsquare.parentsmeet.model.Kid
 import com.logicsquare.parentsmeet.model.KidsItem

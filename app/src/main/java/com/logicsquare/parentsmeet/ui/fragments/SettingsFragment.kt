@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.logicsquare.parentsmeet.R
-import com.logicsquare.parentsmeet.adapter.ChildPagerAdapter
+import com.logicsquare.parentsmeet.ui.adapter.ChildPagerAdapter
 import com.logicsquare.parentsmeet.databinding.FragmentSettingsBinding
 import com.logicsquare.parentsmeet.model.Kid
 import com.logicsquare.parentsmeet.model.KidsItem
