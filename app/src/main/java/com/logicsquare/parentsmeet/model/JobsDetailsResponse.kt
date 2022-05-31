@@ -2,7 +2,7 @@ package com.logicsquare.parentsmeet.model
 
 import com.google.gson.annotations.SerializedName
 
-data class JobsdetailResponse(
+data class JobsDetailsResponse(
 
 	@field:SerializedName("error")
 	val error: Boolean? = null,
@@ -10,6 +10,7 @@ data class JobsdetailResponse(
 	@field:SerializedName("job")
 	val job: Job? = null
 )
+
 
 data class Job(
 
@@ -21,6 +22,9 @@ data class Job(
 
 	@field:SerializedName("applyJobLink")
 	val applyJobLink: String? = null,
+
+	@field:SerializedName("companyName")
+	val companyName: String? = null,
 
 	@field:SerializedName("description")
 	val description: String? = null,
@@ -37,8 +41,14 @@ data class Job(
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,
 
+	@field:SerializedName("aboutCompany")
+	val aboutCompany: String? = null,
+
 	@field:SerializedName("_isJobSaved")
 	val isJobSaved: Int? = null,
+
+	@field:SerializedName("desiredCandidateProfile")
+	val desiredCandidateProfile: String? = null,
 
 	@field:SerializedName("_savedByUser")
 	val savedByUser: List<Any?>? = null,
@@ -51,6 +61,9 @@ data class Job(
 
 	@field:SerializedName("jobType")
 	val jobType: String? = null,
+
+	@field:SerializedName("rolesAndResponsibilities")
+	val rolesAndResponsibilities: String? = null,
 
 	@field:SerializedName("payRange")
 	val payRange: PayRange? = null,
@@ -81,6 +94,9 @@ data class Job(
 
 	@field:SerializedName("_isJobApplied")
 	val isJobApplied: Int? = null,
+
+	@field:SerializedName("openings")
+	val openings: Int? = null,
 
 	@field:SerializedName("_id")
 	val id: String? = null,

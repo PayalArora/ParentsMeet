@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.logicsquare.parentsmeet.databinding.FragmentJobDetailsBinding
 import com.logicsquare.parentsmeet.model.JobAppliedSavedResponse
-import com.logicsquare.parentsmeet.model.JobsdetailResponse
+import com.logicsquare.parentsmeet.model.JobsDetailsResponse
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
 import com.logicsquare.parentsmeet.ui.DrawerActivity
@@ -42,13 +42,13 @@ class JobDetailsFragment(id: String) : Fragment() {
 
     private fun getJobDetails() {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-        val call: Call<JobsdetailResponse?> =
+        val call: Call<JobsDetailsResponse?> =
             APIClient.client.create(APIInterface::class.java).getJobDetails(token, jobId)
         showProgressBar()
-        call.enqueue(object : Callback<JobsdetailResponse?> {
+        call.enqueue(object : Callback<JobsDetailsResponse?> {
             override fun onResponse(
-                call: Call<JobsdetailResponse?>,
-                response: Response<JobsdetailResponse?>,
+                call: Call<JobsDetailsResponse?>,
+                response: Response<JobsDetailsResponse?>,
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
@@ -60,7 +60,7 @@ class JobDetailsFragment(id: String) : Fragment() {
                 hideProgressBar()
             }
 
-            override fun onFailure(call: Call<JobsdetailResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<JobsDetailsResponse?>, t: Throwable) {
                 hideProgressBar()
                 showToast(t.localizedMessage)
             }
@@ -68,7 +68,7 @@ class JobDetailsFragment(id: String) : Fragment() {
 
     }
 
-    private fun handleResponse(jobsResponse: JobsdetailResponse) {
+    private fun handleResponse(jobsResponse: JobsDetailsResponse) {
         binding.llContainer.addView(
             addJobLocation(
                 "Job location : ",
@@ -79,7 +79,7 @@ class JobDetailsFragment(id: String) : Fragment() {
         binding.llContainer.addView(
             addJobLocation(
                 "About company : ",
-                "${jobsResponse.job?.address?.zip} (${jobsResponse.job?.jobType})/${jobsResponse.job?.locationPreference}",
+                "${jobsResponse.job?.aboutCompany} (${jobsResponse.job?.jobType})/${jobsResponse.job?.locationPreference}",
                 0
             )
         )
@@ -108,14 +108,14 @@ class JobDetailsFragment(id: String) : Fragment() {
         binding.llContainer.addView(
             addJobLocation(
                 "Roles and Responsibilities : ",
-                "${jobsResponse.job?.description}",
+                "${jobsResponse.job?.rolesAndResponsibilities}",
                 1
             )
         )
         binding.llContainer.addView(
             addJobLocation(
                 "Desired Candidate Profile : ",
-                "${jobsResponse.job?.description}",
+                "${jobsResponse.job?.desiredCandidateProfile}",
                 1
             )
         )
@@ -156,7 +156,7 @@ class JobDetailsFragment(id: String) : Fragment() {
             requireContext(),
             tittle,
             desc,
-            orientation,
+            orientation
         )
     }
 

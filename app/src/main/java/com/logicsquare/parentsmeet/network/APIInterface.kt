@@ -90,7 +90,7 @@ interface APIInterface {
     fun getJobDetails(
         @Header("Authorization") Authorization: String,
         @Path("id") id: String
-    ): Call<JobsdetailResponse?>
+    ): Call<JobsDetailsResponse?>
 
     @PUT("/api/v1/job/applied/{id}")
     fun applyJob(
