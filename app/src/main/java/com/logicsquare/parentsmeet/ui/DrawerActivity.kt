@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -96,6 +97,8 @@ logoutPopUp()
             binding.progressBar.visible()
 
         val token = "Bearer ${SharedPref(this).getToken()}"
+
+        Log.e("token= ","Bearer ${SharedPref(this).getToken()}")
         val call: Call<ProfileResponse?> =
             APIClient.client.create(APIInterface::class.java).getProfile(token)
         call.enqueue(object : Callback<ProfileResponse?> {
