@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -135,13 +136,19 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsDat
             APIClient.client.create(APIInterface::class.java).getProfile(token)
         showProgressBar()
         call.enqueue(object : Callback<ProfileResponse?> {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(
                 call: Call<ProfileResponse?>,
                 response: Response<ProfileResponse?>,
             ) {
                 if (response.isSuccessful) {
-                    if (response.body() != null)
+                    if (response.body() != null){
                         handleResponse(response.body()!!)
+                        if (TextUtils.isEmpty(SharedPref(requireContext()).getSelectedKid())
+                            && !response.body()?.user?.kids.isNullOrEmpty()){
+                            SharedPref(requireContext()).setSelectedKid(response?.body()?.user?.kids?.get(0)?.id)
+                        }
+                    }
                 } else{
                     handleErrorResponse(response.errorBody(), requireContext())
                 }

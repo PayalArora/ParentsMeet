@@ -108,8 +108,8 @@ interface APIInterface {
     fun getMeetListing(@Header("Authorization") Authorization: String, @Body meetRequest: MeetRequest): Call<MeetListResponse?>
 
 
-    @POST("api/v1/meet/users/schedule")
-    fun scheduleMeet(@Header("Authorization") Authorization: String, @Body scheduleMeetRequest: ScheduleMeetRequest): Call<MeetListResponse?>
+    @POST("api/v1/meet/schedule")
+    fun scheduleMeet(@Header("Authorization") Authorization: String, @Body scheduleMeetRequest: ScheduleMeetRequest): Call<ScheduleMeetResponse?>
 
 }
 

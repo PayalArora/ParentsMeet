@@ -1,17 +1,17 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.logicsquare.parentsmeet.databinding.FragmentMeetBinding
-import com.logicsquare.parentsmeet.model.MeetListResponse
-import com.logicsquare.parentsmeet.model.MeetRequest
-import com.logicsquare.parentsmeet.model.ScheduleMeetRequest
-import com.logicsquare.parentsmeet.model.UsersItem
+import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
+import com.logicsquare.parentsmeet.ui.DrawerActivity
 import com.logicsquare.parentsmeet.ui.adapter.MeetAdapter
 import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
@@ -26,6 +26,11 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
         super.onViewCreated(view, savedInstanceState)
 
         getMeetListing()
+
+        binding.ivBack.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.menuOption.setOnClickListener { startActivity(Intent(requireActivity(), DrawerActivity::class.java)) }
     }
 
 
@@ -77,6 +82,13 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
     }
 
     override fun onMeetClick(usersItem: UsersItem) {
+        if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()){
+            Toast.makeText(requireContext(),"Please select a Kid from the menu",Toast.LENGTH_LONG).show()
+            return
+        }
+        if (!usersItem.kidObject?.id.isNullOrEmpty() && !usersItem.id.isNullOrEmpty()){
+            scheduleMeet(usersItem.kidObject?.id!!,usersItem.id)
+        }
 
     }
 
@@ -84,21 +96,21 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
 
     }
 
-    private fun scheduleMeet() {
+    private fun scheduleMeet(kidId:String,parentId:String) {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-        var scheduleMeetRequest= ScheduleMeetRequest("")
+        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId)
 
-        val call: Call<MeetListResponse?> =
+        val call: Call<ScheduleMeetResponse?> =
             APIClient.client.create(APIInterface::class.java).scheduleMeet(token, scheduleMeetRequest)
         showProgressBar()
-        call.enqueue(object : Callback<MeetListResponse?> {
+        call.enqueue(object : Callback<ScheduleMeetResponse?> {
             override fun onResponse(
-                call: Call<MeetListResponse?>,
-                response: Response<MeetListResponse?>,
+                call: Call<ScheduleMeetResponse?>,
+                response: Response<ScheduleMeetResponse?>,
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                        handleResponse(response.body()!!)
+                       Toast.makeText(requireContext(),"Meet Scheduled",Toast.LENGTH_LONG).show()
                     }
                 } else {
                     handleErrorResponse(response.errorBody(), requireContext())
@@ -106,7 +118,7 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
                 hideProgressBar()
             }
 
-            override fun onFailure(call: Call<MeetListResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<ScheduleMeetResponse?>, t: Throwable) {
                 hideProgressBar()
                 showToast(t.localizedMessage)
             }

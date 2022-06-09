@@ -14,73 +14,13 @@ data class MeetListResponse(
 	val users: List<UsersItem?>? = null
 )
 
-data class KidObject(
-
-	@field:SerializedName("createdAt")
-	val createdAt: String? = null,
-
-	@field:SerializedName("genderPronouns")
-	val genderPronouns: String? = null,
-
-	@field:SerializedName("preferences")
-	val preferences: Preferences? = null,
-
-	@field:SerializedName("_parent")
-	val parent: String? = null,
-
-	@field:SerializedName("colorBar")
-	val colorBar: String? = null,
-
-	@field:SerializedName("gender")
-	val gender: String? = null,
-
-	@field:SerializedName("grade")
-	val grade: String? = null,
-
-	@field:SerializedName("__v")
-	val V: Int? = null,
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("_id")
-	val id: String? = null,
-
-	@field:SerializedName("age")
-	val age: Int? = null,
-
-	@field:SerializedName("updatedAt")
-	val updatedAt: String? = null
-)
-
-/*data class Preferences(
-
-	@field:SerializedName("activities")
-	val activities: List<String?>? = null,
-
-	@field:SerializedName("games")
-	val games: List<String?>? = null,
-
-	@field:SerializedName("timings")
-	val timings: List<Any?>? = null,
-
-	@field:SerializedName("specialNeeds")
-	val specialNeeds: List<String?>? = null
-)*/
-
-/*data class Name(
-
-	@field:SerializedName("last")
-	val last: String? = null,
-
-	@field:SerializedName("first")
-	val first: String? = null
-)*/
-
 data class UsersItem(
 
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,
+
+	@field:SerializedName("preferences")
+	val preferences: Preferences? = null,
 
 	@field:SerializedName("kidsCount")
 	val kidsCount: Int? = null,
@@ -110,5 +50,48 @@ data class UsersItem(
 	val updatedAt: String? = null,
 
 	@field:SerializedName("kidObject")
-	val kidObject: KidObject? = null
+	val kidObject: KidObject? = null,
+
+	@field:SerializedName("profession")
+	val profession: String? = ""
 )
+
+data class KidObject(
+
+	@field:SerializedName("createdAt")
+	val createdAt: String? = null,
+
+	@field:SerializedName("preferences")
+	val preferences: Preferences? = null,
+
+	@field:SerializedName("_parent")
+	val parent: String? = null,
+
+	@field:SerializedName("colorBar")
+	val colorBar: String? = null,
+
+	@field:SerializedName("gender")
+	val gender: String? = null,
+
+	@field:SerializedName("grade")
+	val grade: String? = null,
+
+	@field:SerializedName("__v")
+	val V: Int? = null,
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("_id")
+	val id: String? = null,
+
+	@field:SerializedName("age")
+	val age: Int? = null,
+
+	@field:SerializedName("updatedAt")
+	val updatedAt: String? = null,
+
+	@field:SerializedName("genderPronouns")
+	val genderPronouns: String? = null
+)
+

@@ -3,7 +3,6 @@ package com.logicsquare.parentsmeet.ui.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.text.capitalize
 import androidx.recyclerview.widget.RecyclerView
 import com.logicsquare.parentsmeet.databinding.AdapterMeetBinding
 import com.logicsquare.parentsmeet.model.UsersItem
@@ -23,11 +22,12 @@ class MeetAdapter(val response: List<UsersItem?>?, var onClickListeners: OnClick
         return ViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.tvName.text =
             "${response?.get(position)?.name?.first} ${response?.get(position)?.name?.last}".capitalizeWords()
         holder.binding.tvDescription.text =
-            "${response?.get(position)?.relation?.capitalize()} of ${response?.get(position)?.kidsCount}, "
+            "${response?.get(position)?.relation?.capitalize()} of ${response?.get(position)?.kidsCount}, ${response?.get(position)?.profession?.capitalize()}"
         holder.binding.btnMeet.setOnClickListener {
             onClickListeners.onMeetClick(response?.get(position)!!)
         }

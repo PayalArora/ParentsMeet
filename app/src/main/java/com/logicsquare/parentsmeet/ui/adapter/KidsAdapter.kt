@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.model.KidsItem
+import com.logicsquare.parentsmeet.utils.SharedPref
 import com.logicsquare.parentsmeet.utils.capitalizeWords
 
 class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context) : RecyclerView.Adapter<KidsAdapter.KidsViewHolder>(){
@@ -20,13 +24,21 @@ class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context)
 
     override fun onBindViewHolder(holder: KidsViewHolder, position: Int) {
 //        Picasso.with(context).load(kidsList.get(position).).into(holder.ivKid)
+
+        if (SharedPref(context).getSelectedKid()!! == kidsList[position].id){
+            holder.mainLayout.setBackgroundResource(R.drawable.background_blue_curve_filled)
+        }
         holder.tvName.text = kidsList[position].name?.capitalizeWords()
 
         holder.ivKid.setOnClickListener{
+            notifyDataSetChanged()
+            holder.mainLayout.setBackgroundResource(R.drawable.background_blue_curve_filled)
             onItemClickListener.onClick(kidsList[position])
         }
 
         holder.tvName.setOnClickListener{
+            notifyDataSetChanged()
+            holder.mainLayout.setBackgroundResource(R.drawable.background_blue_curve_filled)
             onItemClickListener.onClick(kidsList[position])
         }
     }
@@ -46,6 +58,7 @@ class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context)
     inner class KidsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivKid: ImageView = itemView.findViewById(R.id.iv_kid)
         val tvName: TextView = itemView.findViewById(R.id.tv_name)
+        val mainLayout: ConstraintLayout = itemView.findViewById(R.id.main_layout)
     }
 
     interface OnItemClickListener{

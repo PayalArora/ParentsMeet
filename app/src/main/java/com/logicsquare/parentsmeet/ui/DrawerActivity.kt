@@ -51,13 +51,13 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
         }
 
         binding.layoutFooter.tvSettings.setOnClickListener {
-            val intent = Intent( this,DashboardActivity::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
         }
         binding.layoutFooter.tvSignOut.setOnClickListener {
-logoutPopUp()
+            logoutPopUp()
         }
         bottomSheetDialog = BottomSheetDialog(this)
         getProfile(false)
@@ -70,12 +70,14 @@ logoutPopUp()
             .setIcon(R.mipmap.ic_launcher)
             .setPositiveButton(android.R.string.yes) { dialog, _ ->
                 dialog.dismiss()
-                val intent = Intent( this, LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
-                finishAffinity()            }
+                finishAffinity()
+            }
             .setNegativeButton(android.R.string.no, null).show()
     }
+
     private fun showBottomSheetDialog() {
 
         bottomSheetBinding = AddKidBottomSheetBinding.inflate(layoutInflater)
@@ -98,7 +100,7 @@ logoutPopUp()
 
         val token = "Bearer ${SharedPref(this).getToken()}"
 
-        Log.e("token= ","Bearer ${SharedPref(this).getToken()}")
+        Log.e("token= ", "Bearer ${SharedPref(this).getToken()}")
         val call: Call<ProfileResponse?> =
             APIClient.client.create(APIInterface::class.java).getProfile(token)
         call.enqueue(object : Callback<ProfileResponse?> {
@@ -109,7 +111,7 @@ logoutPopUp()
                 if (response.isSuccessful) {
                     if (response.body() != null)
                         handleResponse(response.body()!!)
-                } else{
+                } else {
                     handleErrorResponse(response.errorBody(), this@DrawerActivity)
                 }
                 if (isFromBottomSheet) {
@@ -217,6 +219,7 @@ logoutPopUp()
     }
 
     private fun showKidsData(kidsItem: KidsItem) {
+        SharedPref(this).setSelectedKid(kidsItem.id)
         bottomSheetBinding.btnAddKid.visibility = GONE
         bottomSheetBinding.llAddKid.visibility = GONE
         bottomSheetBinding.llViewKid.visibility = VISIBLE
@@ -228,7 +231,6 @@ logoutPopUp()
     }
 
     private fun setKidsdata(profileResponse: ProfileResponse) {
-
         var kidsAdapter = KidsAdapter(profileResponse.user?.kids as ArrayList<KidsItem>, this)
         kidsAdapter.setListener(this)
         binding.rvChild.adapter = kidsAdapter
