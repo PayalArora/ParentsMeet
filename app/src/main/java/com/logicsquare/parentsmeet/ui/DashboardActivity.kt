@@ -25,45 +25,71 @@ class DashboardActivity : AppCompatActivity(){
         binding.navigationView.menu.getItem(0).isCheckable = false
         loadFragment(SettingsFragment())
         binding.toolbar.toolbarText.text = getString(R.string.settings)
-        binding.toolbar.menuOption.setOnClickListener { startActivity(Intent(this@DashboardActivity, DrawerActivity::class.java)) }
-       sharedPref = SharedPref(this)
-        if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom).toLowerCase())){
-            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_mommy))
         binding.toolbar.menuOption.setOnClickListener {
-            startActivity(
-                Intent(
-                    this@DashboardActivity,
-                    DrawerActivity::class.java
-                )
-            )
+            startActivity(Intent(this@DashboardActivity,
+                DrawerActivity::class.java))
         }
         sharedPref = SharedPref(this)
         if (sharedPref.getUserRelation()?.toLowerCase()
                 .equals(getString(R.string.mom).toLowerCase())
         ) {
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
-        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad).toLowerCase())) {
-            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_male))
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.dad).toUpperCas())
-        } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle).toLowerCase())) {
-            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_male))
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Uncle).toUpperCas().toLowerCase())
-        }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty).toLowerCase())) {
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Aunty).toUpperCas())
+            binding.navigationView.menu.getItem(0)
+                .setIcon(resources.getDrawable(R.drawable.ic_mommy))
+            binding.toolbar.menuOption.setOnClickListener {
+                startActivity(
+                    Intent(
+                        this@DashboardActivity,
+                        DrawerActivity::class.java
+                    )
+                )
+            }
+            sharedPref = SharedPref(this)
+            if (sharedPref.getUserRelation()?.toLowerCase()
+                    .equals(getString(R.string.mom).toLowerCase())
+            ) {
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.mommy).toUpperCas())
+            } else if (sharedPref.getUserRelation()?.toLowerCase()
+                    .equals(getString(R.string.dad).toLowerCase())
+            ) {
+                binding.navigationView.menu.getItem(0)
+                    .setIcon(resources.getDrawable(R.drawable.ic_male))
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.dad).toUpperCas())
+            } else if (sharedPref.getUserRelation()?.toLowerCase()
+                    .equals(getString(R.string.Uncle).toLowerCase())
+            ) {
+                binding.navigationView.menu.getItem(0)
+                    .setIcon(resources.getDrawable(R.drawable.ic_male))
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.Uncle).toUpperCas().toLowerCase())
+            } else if (sharedPref.getUserRelation()?.toLowerCase()
+                    .equals(getString(R.string.Aunty).toLowerCase())
+            ) {
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.mommy).toUpperCas())
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.Aunty).toUpperCas())
+            } else if (sharedPref.getUserRelation()?.toLowerCase()
+                    .equals(getString(R.string.grandFather).toLowerCase())
+            ) {
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.GrandFather).toUpperCas())
+                binding.navigationView.menu.getItem(0)
+                    .setIcon(resources.getDrawable(R.drawable.ic_male))
+            } else if (sharedPref.getUserRelation()?.toLowerCase()
+                    .equals(getString(R.string.grandMother).toLowerCase())
+            ) {
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.mommy).toUpperCas())
+                binding.navigationView.menu.getItem(0)
+                    .setTitle(getString(R.string.GrandMother).toUpperCas())
+            }
+            binding.toolbar.toolbarText.text = getString(R.string.settings)
+            setListeners()
         }
-        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather).toLowerCase())) {
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandFather).toUpperCas())
-            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_male))
-        }
-        else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother).toLowerCase())) {
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
-            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandMother).toUpperCas())
-        }
-        binding.toolbar.toolbarText.text = getString(R.string.settings)
-        setListeners()
-    }
 
+    }
     private fun loadFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
