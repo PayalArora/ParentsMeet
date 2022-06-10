@@ -80,4 +80,7 @@
     <dimen name="_50dp">50dp</dimen>
     <dimen name="_15sp">15sp</dimen>
     <dimen name="_170dp">170dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="seekbar_thumb_width">25dp</dimen>
 </resources>

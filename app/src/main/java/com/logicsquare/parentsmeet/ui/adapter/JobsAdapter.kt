@@ -1,6 +1,7 @@
 package com.logicsquare.parentsmeet.ui.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
@@ -36,15 +37,26 @@ class JobsAdapter(private var jobsList: ArrayList<JobsItem>, val context: Contex
             onItemClickListener.onClick(jobsList[position])
         }
         if (jobsList[position].isJobApplied == 1){
-            holder.ivApply.visibility = View.GONE
+            //holder.ivApply.visibility = View.GONE
+            holder.ivSave.visibility = View.GONE
+            holder.ivApply.setColorFilter(context.getColor(R.color.green_1))
+            holder.ivApply.isEnabled = false
+            holder.ivSave.isEnabled = false
         } else{
+            holder.ivApply.isEnabled = true
+            holder.ivSave.isEnabled = true
+            holder.ivApply.setColorFilter(context.getColor(R.color.black_1))
             holder.ivApply.visibility = View.VISIBLE
         }
 
         if (jobsList[position].isJobSaved == 1){
-            holder.ivSave.visibility = View.GONE
-        } else{
+            holder.ivSave.isEnabled = false
             holder.ivSave.visibility = View.VISIBLE
+            holder.ivSave.setColorFilter(context.getColor(R.color.green_1))
+        } else{
+            holder.ivSave.isEnabled = true
+            holder.ivSave.visibility = View.VISIBLE
+            holder.ivSave.setColorFilter(context.getColor(R.color.black_1))
         }
         holder.ivApply.setOnClickListener {
             if (jobsList[position].isJobApplied == 0)
@@ -96,6 +108,7 @@ class JobsAdapter(private var jobsList: ArrayList<JobsItem>, val context: Contex
         fun onClick(job: JobsItem)
         fun applyJob(job: JobsItem):JobsItem
         fun saveJob(job: JobsItem):JobsItem
+
 
     }
 

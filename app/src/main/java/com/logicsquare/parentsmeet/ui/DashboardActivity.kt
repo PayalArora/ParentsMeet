@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ActivityDashboardBinding
 import com.logicsquare.parentsmeet.ui.fragments.MommyFragment
-import com.logicsquare.parentsmeet.ui.fragments.ForumFragment
 import com.logicsquare.parentsmeet.ui.fragments.SettingsFragment
+import com.logicsquare.parentsmeet.ui.fragments.tabPosition
 import com.logicsquare.parentsmeet.utils.SharedPref
 import com.logicsquare.parentsmeet.utils.TITLE
 import com.logicsquare.parentsmeet.utils.toUpperCas
@@ -27,18 +26,24 @@ class DashboardActivity : AppCompatActivity(){
         binding.toolbar.menuOption.setOnClickListener { startActivity(Intent(this@DashboardActivity, DrawerActivity::class.java)) }
        sharedPref = SharedPref(this)
         if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom).toLowerCase())){
+            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_mommy))
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
         } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad).toLowerCase())) {
+            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_male))
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.dad).toUpperCas())
         } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Uncle).toLowerCase())) {
+            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_male))
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Uncle).toUpperCas().toLowerCase())
         }  else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.Aunty).toLowerCase())) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.Aunty).toUpperCas())
         }
         else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandFather).toLowerCase())) {
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandFather).toUpperCas())
+            binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_male))
         }
         else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother).toLowerCase())) {
+            binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.GrandMother).toUpperCas())
         }
         binding.toolbar.toolbarText.text = getString(R.string.settings)
@@ -60,6 +65,7 @@ class DashboardActivity : AppCompatActivity(){
                     val transaction = supportFragmentManager.beginTransaction()
                     val bundle:Bundle= Bundle()
                     bundle.putString(TITLE, binding.navigationView.menu.getItem(0).title.toString())
+                    tabPosition = 0
                     val frag:Fragment = MommyFragment()
                     frag.arguments = bundle
                     transaction.replace(R.id.container,frag)

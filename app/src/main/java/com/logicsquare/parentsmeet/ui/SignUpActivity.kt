@@ -21,13 +21,14 @@ import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class SignUpActivity : AppCompatActivity(), OnDateSetListener {
+class SignUpActivity : AppCompatActivity() {
 
     private lateinit var sharedPref: SharedPref
     private lateinit var binding: ActivitySignupBinding
@@ -91,11 +92,11 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         binding.spinnerOther.setPopupBackgroundDrawable(getDrawable(R.drawable.spinner))
     }
 
-    private fun setDob() {
-        val myFormat = "dd/MM/yyyy"
-        val dateFormat = SimpleDateFormat(myFormat, Locale.US)
-        binding.edtDob.setText(dateFormat.format(myCalendar.time))
-    }
+//    private fun setDob() {
+//        val myFormat = "MM/dd/yyyy"
+//        val dateFormat = SimpleDateFormat(myFormat, Locale.US)
+//        binding.edtDob.setText(dateFormat.format(myCalendar.time))
+//    }
 
     private fun setListener() {
         binding.btnSignIn.setOnClickListener {
@@ -158,16 +159,16 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
             finish()
         }
 
-        binding.edtDob.setOnClickListener {
-            val dialog = DatePickerDialog(
-                this, this,
-                myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-            )
-            dialog.datePicker.maxDate = System.currentTimeMillis() - 568025136000L;
-            dialog.show()
+        //binding.edtDob.setOnClickListener {
+//            val dialog = DatePickerDialog(
+//                this, this,
+//                myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+//                myCalendar.get(Calendar.DAY_OF_MONTH)
+//            )
+//            dialog.datePicker.maxDate = System.currentTimeMillis() - 568025136000L;
+//            dialog.show()
 
-        }
+      //  }
 
         binding.ivDad.setOnClickListener {
             relation = getString(R.string.dad).toLowerCase()
@@ -218,7 +219,12 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         ) {
             showToast(getString(R.string.err_invalid_last_name))
             return false
-        } else if (binding.etEmailId.getText()
+        }else if (binding.edtDob.getText().isNullOrEmpty() || !checkDate(binding.edtDob.getText().toString())
+        ) {
+            showToast(getString(R.string.err_invalid_dob))
+            return false
+        }
+        else if (binding.etEmailId.getText()
                 .isBlank() || !isEmailIdValid(binding.etEmailId.getText())
         ) {
             showToast(getString(R.string.err_invalid_email_id))
@@ -309,12 +315,12 @@ class SignUpActivity : AppCompatActivity(), OnDateSetListener {
         }
     }
 
-    override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        myCalendar.set(Calendar.YEAR, year)
-        myCalendar.set(Calendar.MONTH, month)
-        myCalendar.set(Calendar.DAY_OF_MONTH, day)
-        setDob()
-    }
+//    override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
+//        myCalendar.set(Calendar.YEAR, year)
+//        myCalendar.set(Calendar.MONTH, month)
+//        myCalendar.set(Calendar.DAY_OF_MONTH, day)
+//        setDob()
+//    }
 
 }
 

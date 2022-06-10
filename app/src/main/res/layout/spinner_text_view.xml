@@ -6,7 +6,8 @@
     android:textSize="15sp"
     android:maxLines="1"
     android:gravity="center"
-    android:padding="@dimen/_2dp"
-    android:layout_height="match_parent" />
+    android:paddingVertical="@dimen/_2dp"
+    android:paddingHorizontal="@dimen/_15dp"
+    android:layout_height="wrap_content" />
 
 

@@ -12,6 +12,7 @@ import com.logicsquare.parentsmeet.R
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.lang.Exception
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -100,7 +101,15 @@ fun Context.timeConverter(dateStr:String):String{
    val formattedDate= SimpleDateFormat("dd MMM, yyyy").format(date)
     return formattedDate
 }
-
+fun checkDate(dateStr: String): Boolean {
+    try {
+        var formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val date = formatter.parse(dateStr)
+        return true
+    } catch (parse: ParseException) {
+        return false
+    }
+}
 
 const val ID="_ID"
 const val TITLE="_TITLE"

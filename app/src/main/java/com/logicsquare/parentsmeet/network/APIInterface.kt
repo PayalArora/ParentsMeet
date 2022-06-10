@@ -92,6 +92,11 @@ interface APIInterface {
         @Path("id") id: String
     ): Call<JobsDetailsResponse?>
 
+@GET("/api/v1/settings")
+    fun getSettings(
+        @Header("Authorization") Authorization: String,
+    ): Call<SettingResponse?>
+
     @PUT("/api/v1/job/applied/{id}")
     fun applyJob(
         @Header("Authorization") Authorization: String,

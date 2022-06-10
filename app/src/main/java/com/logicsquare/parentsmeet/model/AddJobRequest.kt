@@ -1,8 +1,10 @@
 package com.logicsquare.parentsmeet.model
 
+import com.google.gson.annotations.SerializedName
+
 class AddJobRequest {
 
-    var limit: Int = 10
+    var limit: Int = 100
     var filters: Filters = Filters()
 
 
@@ -16,12 +18,15 @@ class PayRange {
 }
 class Filters {
     lateinit var category: String
+    @SerializedName("jobType")
     var jobtype: ArrayList<String> = arrayListOf()
     var educationRequirement: ArrayList<String> = arrayListOf()
     var locationPreference: ArrayList<String> = arrayListOf()
     var experienceRequirement: ArrayList<String> = arrayListOf()
-    lateinit  var payRange: PayRange
+    var payRange: PayRange = PayRange()
     var jobCategory: ArrayList<String> = arrayListOf()
+   // var isShowBothType = true
+
 }
 
 

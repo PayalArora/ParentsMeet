@@ -146,29 +146,29 @@ class JobDetailsFragment(id: String) : Fragment() {
         binding.llContainer.addView(
             addJobLocation(
                 "About company : ",
-                "${jobsResponse.job?.aboutCompany} (${jobsResponse.job?.jobType})/${jobsResponse.job?.locationPreference}",
+                "${jobsResponse.job?.aboutCompany}",
                 0
             )
         )
         binding.llContainer.addView(
             addJobLocation(
                 "Position : ",
-                "${jobsResponse.job?.title} (${jobsResponse.job?.experienceRequirement})/${jobsResponse.job?.educationRequirement}",
+                "${jobsResponse.job?.title} (${experienceRequirement})/${educationRequirement}",
                 0
             )
         )
-        binding.llContainer.addView(addJobLocation("Number of opening : ", "1", 0))
+        binding.llContainer.addView(addJobLocation("Number of opening : ", jobsResponse.job?.openings.toString(), 0))
         binding.llContainer.addView(
             addJobLocation(
                 "Experience : ",
-                "${jobsResponse.job?.experienceRequirement}",
+                "${experienceRequirement}",
                 0
             )
         )
         binding.llContainer.addView(
             addJobLocation(
                 "Job Description : ",
-                "${jobsResponse.job?.description}",
+                "${Html.fromHtml(jobsResponse.job?.description)}",
                 1
             )
         )
@@ -189,7 +189,7 @@ class JobDetailsFragment(id: String) : Fragment() {
 
         binding.tvTitle.text = jobsResponse.job?.title
         binding.tvLocation.text = jobsResponse.job?.address?.zip
-        binding.tvDesc.text = Html.fromHtml(jobsResponse.job?.description)
+        binding.tvDesc.text = jobsResponse.job?.companyName
         binding.tvType.text = "${
             jobsResponse.job?.createdAt?.let {
                 requireContext().timeConverter(it)

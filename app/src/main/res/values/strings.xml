@@ -11,7 +11,7 @@
     <string name="first_name">First name</string>
     <string name="name">Name</string>
     <string name="last_name">Last name</string>
-    <string name="dob">Date of birth</string>
+    <string name="dob">Date of birth (dd/MM/YYYY)</string>
     <string name="password">Password</string>
     <string name="new_password">New Password</string>
     <string name="retyp_password">Re-Type Password</string>
@@ -31,6 +31,7 @@
     <string name="err_invalid_code">Please enter valid Code</string>
     <string name="err_invalid_first_name">Please enter valid First Name</string>
     <string name="err_invalid_last_name">Please enter valid Last Name</string>
+    <string name="err_invalid_dob">Please enter valid Date of Birth</string>
     <string name="err_invalid_email_id">Please enter valid Email Id</string>
     <string name="err_invalid_email_phone">Please enter valid Email Id or Phone Number</string>
     <string name="err_invalid_cellphone">Please enter valid Cellphone</string>
@@ -140,9 +141,9 @@
     <string name="contract">Contract</string>
     <string name="all_type">All  Type</string>
     <string name="location_preference">Location Preference</string>
-    <string name="in_person">InPerson</string>
+    <string name="in_person">In Person</string>
     <string name="remote">Remote</string>
-    <string name="no_pref">No Prefference</string>
+    <string name="no_pref">No Preference</string>
     <string name="hybrid">Hybrid</string>
     <string name="salary">Salary</string>
     <string name="education">Education Requirement</string>
@@ -171,4 +172,22 @@
     <string name="all_experience">All Experience</string>
     <string name="show_result">Show Result</string>
     <string name="filters">Filters</string>
+    <string name="filter_pref">Filter Preferences</string>
+    <string name="location_range">Location Range | Distance</string>
+    <string name="activity_interest">Activities/Interests</string>
+    <string name="swim">Swimming</string>
+    <string name="draw">Drawing</string>
+    <string name="read">Reading</string>
+    <string name="playdate">Playdate</string>
+    <string name="studyDate">Studydate</string>
+    <string name="age_range">Age Range</string>
+    <string name="availability">Availablilty</string>
+    <string name="six_nin">6 AM - 9 AM</string>
+    <string name="nin_twelve">9 AM - 12 PM</string>
+    <string name="twelv_three">12 PM - 3 PM</string>
+    <string name="three_six">3 PM - 6 PM</string>
+    <string name="six_nin_pm">6 PM - 9 PM</string>
+    <string name="add_game">Add a game</string>
+    <string name="add_activity">Add an activity</string>
+    <string name="add_need">Add a special need</string>
 </resources>

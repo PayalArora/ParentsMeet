@@ -119,7 +119,6 @@
                     android:layout_toLeftOf="@+id/tv_applied"
                     android:layout_toEndOf="@+id/view"
                     android:text="@string/saved_job"
-                    android:visibility="gone"
                     android:textColor="@color/gray_2"
                     android:textSize="15sp" />
 
@@ -130,7 +129,6 @@
                     android:layout_below="@+id/tv_desc"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@+id/view"
-                    android:visibility="gone"
                     android:text="@string/saved_job"
                     android:textColor="@color/gray_2"
                     android:textSize="15sp" />

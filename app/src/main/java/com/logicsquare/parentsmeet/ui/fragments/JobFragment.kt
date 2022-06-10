@@ -4,35 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentJobBinding
 import com.logicsquare.parentsmeet.databinding.JobFilterBinding
+import com.logicsquare.parentsmeet.databinding.LayoutMeetFilterBinding
 import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
+import com.logicsquare.parentsmeet.ui.adapter.JobFilterAdapter
 import com.logicsquare.parentsmeet.ui.adapter.JobsAdapter
+import com.logicsquare.parentsmeet.ui.adapter.OnItemClickEvent
 import com.logicsquare.parentsmeet.utils.*
-import com.logicsquare.parentsmeet.views.VButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
+class JobFragment : Fragment(), OnItemClickEvent, JobsAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentJobBinding
 
     private var category: JOBTYPE = JOBTYPE.ALL
-    var jobtype:ArrayList<String> = arrayListOf()
-    var experienceRequirement:ArrayList<String> = arrayListOf()
-    var educationRequirement:ArrayList<String> = arrayListOf()
-    var locationPreference:ArrayList<String> = arrayListOf()
-    var jobCategory:ArrayList<String> = arrayListOf()
-    var mPayrange:Int = 50000
+    var jobtype: ArrayList<String> = arrayListOf()
+    var experienceRequirement: ArrayList<String> = arrayListOf()
+    var educationRequirement: ArrayList<String> = arrayListOf()
+    var locationPreference: ArrayList<String> = arrayListOf()
+    var jobCategory: ArrayList<String> = arrayListOf()
+    var mPayrange: Int = 50000
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,13 +75,24 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
 
             getAllJobs(null)
         }
-        binding.ivFilter.setOnClickListener { bottomSheetWork() }
-        checkFilter()
+        binding.ivFilter.setOnClickListener {
+            bottomSheetWork()
+           // checkFilter()
+
+        }
+        //checkFilter()
         getAllJobs(null)
     }
 
     private fun checkFilter() {
-
+        var bottomSheetBinding: LayoutMeetFilterBinding = LayoutMeetFilterBinding.inflate(layoutInflater)
+        val dialog = BottomSheetDialog(requireContext())
+        dialog.setContentView(bottomSheetBinding.root)
+        dialog.show()
+        bottomSheetBinding.seekbarLocation.setIntervals(arrayListOf("5","10","15", "20"))
+        bottomSheetBinding.seekbarRange.setIntervals(arrayListOf("4 Years","5 Years","6 Years", "7 Years","8 Years"))
+        bottomSheetBinding.abc.setMinSeparationValue(5000F)
+        bottomSheetBinding.abc.setValues(1000F,2000F)
     }
 
     fun bottomSheetWork() {
@@ -94,92 +105,167 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
         educationRequirement.clear()
         experienceRequirement.clear()
         jobCategory.clear()
+        getSettings(bottomSheetBinding)
         bottomSheetBinding.showResult.setOnClickListener {
-            if (bottomSheetBinding.fullTime.isChecked){
-                jobtype.add(EnumUtils.jobType.FullTime.type)
-            }else if (bottomSheetBinding.contract.isChecked){
-                jobtype.add(EnumUtils.jobType.Contract.type)
-            }else if (bottomSheetBinding.partTime.isChecked){
-                jobtype.add(EnumUtils.jobType.PartTime.type)
-            }
-
-            if (bottomSheetBinding.remote.isChecked){
+//            if (bottomSheetBinding.fullTime.isChecked){
+//                jobtype.add(EnumUtils.jobType.FullTime.type)
+//            }else if (bottomSheetBinding.contract.isChecked){
+//                jobtype.add(EnumUtils.jobType.Contract.type)
+//            }else if (bottomSheetBinding.partTime.isChecked){
+//                jobtype.add(EnumUtils.jobType.PartTime.type)
+//            }
+            if (bottomSheetBinding.remote.isChecked) {
                 locationPreference.add(EnumUtils.locationPreference.Remote.name)
-            }else if (bottomSheetBinding.inPerson.isChecked){
+            }
+            if (bottomSheetBinding.inPerson.isChecked) {
                 locationPreference.add(EnumUtils.locationPreference.InPerson.name)
-            }else if (bottomSheetBinding.hybrid.isChecked){
+            }
+            if (bottomSheetBinding.hybrid.isChecked) {
                 locationPreference.add(EnumUtils.locationPreference.Hybrid.name)
             }
 
-            if (bottomSheetBinding.allEducation.isChecked){
+            if (bottomSheetBinding.allEducation.isChecked) {
                 educationRequirement.add(EnumUtils.educationRequirement.AllEducationLevels.name)
-            }else if (bottomSheetBinding.master.isChecked){
+            }
+            if (bottomSheetBinding.master.isChecked) {
                 educationRequirement.add(EnumUtils.educationRequirement.MasterDegree.name)
-            }else if (bottomSheetBinding.bachelor.isChecked){
+            }
+            if (bottomSheetBinding.bachelor.isChecked) {
                 educationRequirement.add(EnumUtils.educationRequirement.BachelorDegree.name)
-            }else if (bottomSheetBinding.assosiates.isChecked){
+            }
+            if (bottomSheetBinding.assosiates.isChecked) {
                 educationRequirement.add(EnumUtils.educationRequirement.AssociateDegree.name)
-            }else if (bottomSheetBinding.highSchool.isChecked){
+            }
+            if (bottomSheetBinding.highSchool.isChecked) {
                 educationRequirement.add(EnumUtils.educationRequirement.HighSchoolDegree.name)
             }
 
-            if (bottomSheetBinding.allExperience.isChecked){
+            if (bottomSheetBinding.allExperience.isChecked) {
                 experienceRequirement.add(EnumUtils.experienceRequirement.AllExperience.name)
-            }else if (bottomSheetBinding.entryLevel.isChecked){
+            }
+            if (bottomSheetBinding.entryLevel.isChecked) {
                 experienceRequirement.add(EnumUtils.experienceRequirement.EntryLevel.name)
-            }else if (bottomSheetBinding.midLevel.isChecked){
+            }
+            if (bottomSheetBinding.midLevel.isChecked) {
                 experienceRequirement.add(EnumUtils.experienceRequirement.MidLevel.name)
-            }else if (bottomSheetBinding.seniorLevel.isChecked){
+            }
+            if (bottomSheetBinding.seniorLevel.isChecked) {
                 experienceRequirement.add(EnumUtils.experienceRequirement.SeniorLevel.name)
             }
 
-            if (bottomSheetBinding.market.isChecked){
-                jobCategory.add(getString(R.string.market))
-            }else if (bottomSheetBinding.sales.isChecked){
-                jobCategory.add(getString(R.string.sales))
-            }else if (bottomSheetBinding.tech.isChecked){
-                jobCategory.add(getString(R.string.tech))
-            }else if (bottomSheetBinding.administration.isChecked){
-                jobCategory.add(getString(R.string.administration))
-            }else if (bottomSheetBinding.allJob.isChecked){
-                jobCategory.add(getString(R.string.all_job))
-            }
+//            if (bottomSheetBinding.market.isChecked) {
+//                jobCategory.add(getString(R.string.market))
+//            } else if (bottomSheetBinding.sales.isChecked) {
+//                jobCategory.add(getString(R.string.sales))
+//            } else if (bottomSheetBinding.tech.isChecked) {
+//                jobCategory.add(getString(R.string.tech))
+//            } else if (bottomSheetBinding.administration.isChecked) {
+//                jobCategory.add(getString(R.string.administration))
+//            } else if (bottomSheetBinding.allJob.isChecked) {
+//                jobCategory.add(getString(R.string.all_job))
+//            }
 
-            if (bottomSheetBinding.fifty.isChecked){
+            if (bottomSheetBinding.fifty.isChecked) {
                 mPayrange = 50000
-            }else if (bottomSheetBinding.sixty.isChecked){
+            } else if (bottomSheetBinding.sixty.isChecked) {
                 mPayrange = 60000
-            }else if (bottomSheetBinding.seventyfive.isChecked){
+            } else if (bottomSheetBinding.seventyfive.isChecked) {
                 mPayrange = 75000
-            }else if (bottomSheetBinding.eightyfive.isChecked){
+            } else if (bottomSheetBinding.eightyfive.isChecked) {
                 mPayrange = 85000
-            }else if (bottomSheetBinding.lakh.isChecked){
+            } else if (bottomSheetBinding.lakh.isChecked) {
                 mPayrange = 100000
             }
+
             getAllJobs(dialog)
-           // dialog.dismiss()
+            // dialog.dismiss()
 
         }
+        bottomSheetBinding.salaryGroup.setOnCheckedChangeListener { radioGroup, i ->
+            val idRadioButtonChosen: Int = radioGroup.getCheckedRadioButtonId()
+            if (idRadioButtonChosen > 0) {
+                bottomSheetBinding.salaryGroup2.clearCheck()
+                radioGroup.check(idRadioButtonChosen)
+            }
 
+        }
+        bottomSheetBinding.salaryGroup2.setOnCheckedChangeListener { radioGroup, i ->
+            val idRadioButtonChosen: Int = radioGroup.getCheckedRadioButtonId()
 
-        bottomSheetBinding.close.setOnClickListener{
+            if (idRadioButtonChosen > 0) {
+                bottomSheetBinding.salaryGroup.clearCheck()
+                radioGroup.check(idRadioButtonChosen)
+            }
+        }
+
+        bottomSheetBinding.close.setOnClickListener {
             dialog.dismiss()
+        }
+    }
+
+    fun getSettings(bottomSheetBinding: JobFilterBinding) {
+        val token = "Bearer ${SharedPref(requireContext()).getToken()}"
+        val call: Call<SettingResponse?> =
+            APIClient.client.create(APIInterface::class.java).getSettings(token)
+        showProgressBar()
+        call.enqueue(object : Callback<SettingResponse?> {
+            override fun onResponse(
+                call: Call<SettingResponse?>,
+                response: Response<SettingResponse?>,
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        handleSettingsResponse(response.body()!!, bottomSheetBinding)
+                    }
+                } else {
+                    handleErrorResponse(response.errorBody(), requireContext())
+                }
+                hideProgressBar()
+            }
+
+            override fun onFailure(call: Call<SettingResponse?>, t: Throwable) {
+                hideProgressBar()
+                showToast(t.localizedMessage)
+            }
+        })
+    }
+
+    private fun handleSettingsResponse(
+        body: SettingResponse,
+        bottomSheetBinding: JobFilterBinding,
+    ) {
+        bottomSheetBinding.rvJobType.apply {
+            val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL)
+            layoutManager = gridLayoutManager
+            body?.setting?.preferences?.jobTypes.let {
+                adapter = JobFilterAdapter(0, it as List<Any?> , this@JobFragment)
+            }
+        }
+
+        bottomSheetBinding.rvJobCategory.apply {
+            val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL)
+            layoutManager = gridLayoutManager
+            body?.setting?.preferences?.jobCategories.let {
+                adapter = JobFilterAdapter(1, it as List<Any?>, this@JobFragment)
+            }
         }
     }
 
     private fun getAllJobs(dialog: BottomSheetDialog?) {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-        var addJobRequest= AddJobRequest()
+        var addJobRequest = AddJobRequest()
         addJobRequest.filters.category = category.jobtype
-            addJobRequest.filters.payRange.min = mPayrange
+        addJobRequest.filters.payRange.min = mPayrange
         addJobRequest.filters.experienceRequirement = experienceRequirement
         addJobRequest.filters.educationRequirement = educationRequirement
-        addJobRequest.filters.jobtype =jobtype
-        addJobRequest.filters.locationPreference =locationPreference
-        addJobRequest.filters.jobCategory =jobCategory
+        addJobRequest.filters.jobtype = jobtype
+        addJobRequest.filters.locationPreference = locationPreference
+        addJobRequest.filters.jobCategory = jobCategory
         addJobRequest.limit = 100
         val call: Call<JobsResponse?> =
-             APIClient.client.create(APIInterface::class.java).getJobs(token, addJobRequest)
+            APIClient.client.create(APIInterface::class.java).getJobs(token, addJobRequest)
         showProgressBar()
         call.enqueue(object : Callback<JobsResponse?> {
             override fun onResponse(
@@ -188,7 +274,7 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                       dialog?.dismiss()
+                        dialog?.dismiss()
                         handleResponse(response.body()!!)
                     }
                 } else {
@@ -260,6 +346,7 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
         return job
     }
 
+
     override fun saveJob(job: JobsItem): JobsItem {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
         val call: Call<JobAppliedSavedResponse?> =
@@ -288,6 +375,17 @@ class JobFragment : Fragment(), JobsAdapter.OnItemClickListener {
             }
         })
         return job
+    }
+
+    override fun onItemClick(position: ArrayList<String>, type: Int) {
+        if (type == 0) {
+            jobtype.clear()
+            jobtype.addAll(position)
+        } else {
+            jobCategory.clear()
+            jobCategory.addAll(position)
+
+        }
     }
 
 }

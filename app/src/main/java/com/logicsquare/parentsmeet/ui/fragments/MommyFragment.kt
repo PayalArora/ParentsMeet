@@ -22,7 +22,7 @@ class MommyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initListeners()
+
     }
 
 
@@ -82,14 +82,14 @@ class MommyFragment : Fragment() {
         else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.grandMother).toLowerCase())) {
             binding.toolbarText.setText(getString(R.string.GrandMother).toUpperCas())
         }
-
+        initListeners()
         if (tabPosition == 0) {
-            loadFragment(BlogsFragment(),getString(R.string.blogs))
+            binding.tvBlogs.performClick()
         } else if(tabPosition == 1) {
-            loadFragment(ForumFragment(),getString(R.string.form))
+            binding.tvForm.performClick()
         }
         else if(tabPosition == 2) {
-            loadFragment(JobFragment(),getString(R.string.job))
+            binding.tvJob.performClick()
         }
         return binding.root
     }

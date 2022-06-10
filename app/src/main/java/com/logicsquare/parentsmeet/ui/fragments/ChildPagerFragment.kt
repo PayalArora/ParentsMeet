@@ -5,12 +5,14 @@ import android.app.Dialog
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Point
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
 import android.widget.*
 import androidx.core.view.contains
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
 import com.google.android.material.chip.Chip
@@ -20,19 +22,28 @@ import com.logicsquare.parentsmeet.databinding.SettingsChildBinding
 import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
+import com.logicsquare.parentsmeet.ui.adapter.SpinnerAdapter
+import com.logicsquare.parentsmeet.ui.adapter.onSpinnerItemClick
 import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Fragment() {
+class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val settingResponse: SettingResponse? ) : Fragment(),
+    onSpinnerItemClick {
     private lateinit var mBinding: SettingsChildBinding
     var activitiesList = arrayListOf<String>()
+    var activitiesMainList = arrayListOf<String>()
+    var spinnerList = arrayListOf<String>()
+    var gamesMainList = arrayListOf<String>()
     var gamesList = arrayListOf<String>()
     var needsList = arrayListOf<String>()
+    var needsMainList = arrayListOf<String>()
+    var  adapter:SpinnerAdapter? = null
     private lateinit var colorPickerDialog: ColorPickerDialog
     var colorBar = "#2F8390"
+    var mypopupWindow: PopupWindow? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +65,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Frag
                 colorBar = colorHex
             }.build()
         setSpinnerAdapter()
+        mypopupWindow = setPopUpWindow()
         setListeners()
         kidsItem?.let {
             mBinding.etName.setText(it.name?.capitalizeWords())
@@ -77,22 +89,62 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Frag
                     needsList)
             }
         }
+        settingResponse?.setting?.preferences?.activities.let {
+        activitiesMainList .addAll(it as ArrayList<String>)
+            activitiesMainList.add("Other")
+        }
+        settingResponse?.setting?.preferences?.games.let {
+        gamesMainList .addAll(it as ArrayList<String>)
+            gamesMainList.add("Other")
+        }
+        settingResponse?.setting?.preferences?.specialNeeds.let {
+        needsMainList .addAll(it as ArrayList<String>)
+            needsMainList.add("Other")
+        }
     }
 
     private fun setListeners() {
         mBinding.tagGames.setOnClickListener {
-            showDialog(requireContext(), mBinding.chipGames, gamesList)
+            //showDialog(requireContext(), mBinding.chipGames, gamesList)
+            spinnerList.clear()
+            spinnerList .addAll( gamesMainList)
+            val location = IntArray(2)
+            it.getLocationOnScreen(location)
+            val p = Point()
+            p.x = location[0]
+            p.y = location[1]
+            adapter?.setType(1)
+            mypopupWindow?.showAsDropDown(it);
 
+            adapter?.notifyDataSetChanged()
         }
 
         mBinding.tagActivities.setOnClickListener {
-            //addNewChip(mBinding.chipActivities,"tag", activitiesList)
-            showDialog(requireContext(), mBinding.chipActivities, activitiesList)
+            spinnerList.clear()
+            spinnerList .addAll( activitiesMainList)
+            val location = IntArray(2)
+            it.getLocationOnScreen(location)
+            val p = Point()
+            p.x = location[0]
+            p.y = location[1]
+            adapter?.setType(0)
+            mypopupWindow?.showAsDropDown(it);
+            adapter?.notifyDataSetChanged()
 
         }
 
         mBinding.tagNeeds.setOnClickListener {
-            showDialog(requireContext(), mBinding.chipNeeds, needsList)
+           // showDialog(requireContext(), mBinding.chipNeeds, needsList)
+            spinnerList.clear()
+            spinnerList .addAll( needsMainList)
+            val location = IntArray(2)
+            it.getLocationOnScreen(location)
+            val p = Point()
+            p.x = location[0]
+            p.y = location[1]
+            adapter?.setType(2)
+            mypopupWindow?.showAsDropDown(it);
+            adapter?.notifyDataSetChanged()
         }
         mBinding.btnSave.setOnClickListener { updateKid() }
         mBinding.view.setOnClickListener {
@@ -123,7 +175,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Frag
 
     }
 
-    fun addNewChip(view: ChipGroup, tag: String, list: ArrayList<String>) {
+    fun addNewChip(view: ChipGroup, tag: String, list: ArrayList<String>):ArrayList<String> {
         val chip = Chip(requireContext())
         val paddingDp = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, 10f,
@@ -137,7 +189,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Frag
         chip.setCloseIconTint(csl)
         chip.setTextColor(Color.WHITE)
         chip.setCloseIconEnabled(true)
-        if (tag.trim().length > 0 && !list.contains(tag)) {
+        if (tag.trim().length > 0 && (!list.contains(tag) && !list.contains(tag.toLowerCase()))) {
             list.add(tag.toLowerCase())
             view.addView(chip, view.childCount - 1)
         }
@@ -149,6 +201,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Frag
                 }
             }
         }
+        return list
     }
 
     private fun updateKid() {
@@ -224,7 +277,48 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData ) : Frag
     fun openColorPicker() {
         colorPickerDialog.show()
     }
+    fun setPopUpWindow(): PopupWindow {
+        val inflater: LayoutInflater = layoutInflater
+        requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        val view: View = inflater.inflate(R.layout.layout_recyclerview, null);
+        adapter = SpinnerAdapter(spinnerList, this)
+        view.findViewById<RecyclerView>(R.id.recycler_list).adapter = adapter
+
+        val mypopupWindow = PopupWindow(view, 500, RelativeLayout.LayoutParams.WRAP_CONTENT, true);
+        return mypopupWindow
+    }
+
+    override fun clickItem(position: Int, type:Int) {
+        if (type == 0) {
+            if (position == activitiesMainList.size - 1) {
+                showDialog(requireContext(), mBinding.chipActivities, activitiesList)
+            } else {
+                activitiesList =  addNewChip(mBinding.chipActivities,
+                    activitiesMainList.get(position),
+                    activitiesList)
+            }
+        } else if (type == 1){
+            if (position == gamesMainList.size - 1) {
+                showDialog(requireContext(), mBinding.chipGames, gamesList)
+            } else {
+              gamesList =  addNewChip(mBinding.chipGames,
+                    gamesMainList.get(position),
+                    gamesList)
+            }
+        }else if (type == 2){
+            if (position == needsMainList.size - 1) {
+                showDialog(requireContext(), mBinding.chipNeeds, needsList)
+            } else {
+               needsList= addNewChip(mBinding.chipNeeds,
+                    needsMainList.get(position),
+                    needsList)
+            }
+        }
+        mypopupWindow?.dismiss()
+    }
 }
+
+
 interface KidsData{
     fun kidsData(kid: Kid?);
 }
