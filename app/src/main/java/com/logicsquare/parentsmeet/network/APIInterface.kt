@@ -109,5 +109,12 @@ interface APIInterface {
         @Path("id") id: String
     ): Call<JobAppliedSavedResponse?>
 
+    @POST("api/v1/meet/users/kids")
+    fun getMeetListing(@Header("Authorization") Authorization: String, @Body meetRequest: MeetRequest): Call<MeetListResponse?>
+
+
+    @POST("api/v1/meet/schedule")
+    fun scheduleMeet(@Header("Authorization") Authorization: String, @Body scheduleMeetRequest: ScheduleMeetRequest): Call<ScheduleMeetResponse?>
+
 }
 

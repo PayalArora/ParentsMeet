@@ -38,4 +38,5 @@
     <color name="negativeButtonTextColor">@color/green_1</color>
     <color name="bottomSheetDividerColor">#F5F5F5</color>
     <color name="color_9E9E9E">#9E9E9E</color>
+    <color name="color_F2F2F2">#F2F2F2</color>
 </resources>

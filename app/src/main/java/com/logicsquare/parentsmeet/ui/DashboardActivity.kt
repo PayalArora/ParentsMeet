@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.ActivityDashboardBinding
 import com.logicsquare.parentsmeet.ui.fragments.MommyFragment
+import com.logicsquare.parentsmeet.ui.fragments.ForumFragment
+import com.logicsquare.parentsmeet.ui.fragments.MeetFragment
 import com.logicsquare.parentsmeet.ui.fragments.SettingsFragment
 import com.logicsquare.parentsmeet.ui.fragments.tabPosition
 import com.logicsquare.parentsmeet.utils.SharedPref
@@ -20,13 +22,25 @@ class DashboardActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.navigationView.menu.getItem(0).isCheckable=false
+        binding.navigationView.menu.getItem(0).isCheckable = false
         loadFragment(SettingsFragment())
         binding.toolbar.toolbarText.text = getString(R.string.settings)
         binding.toolbar.menuOption.setOnClickListener { startActivity(Intent(this@DashboardActivity, DrawerActivity::class.java)) }
        sharedPref = SharedPref(this)
         if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.mom).toLowerCase())){
             binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_mommy))
+        binding.toolbar.menuOption.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@DashboardActivity,
+                    DrawerActivity::class.java
+                )
+            )
+        }
+        sharedPref = SharedPref(this)
+        if (sharedPref.getUserRelation()?.toLowerCase()
+                .equals(getString(R.string.mom).toLowerCase())
+        ) {
             binding.navigationView.menu.getItem(0).setTitle(getString(R.string.mommy).toUpperCas())
         } else if (sharedPref.getUserRelation()?.toLowerCase().equals(getString(R.string.dad).toLowerCase())) {
             binding.navigationView.menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_male))
@@ -63,7 +77,7 @@ class DashboardActivity : AppCompatActivity(){
                     binding.navigationView.menu.getItem(0).isCheckable=true
 
                     val transaction = supportFragmentManager.beginTransaction()
-                    val bundle:Bundle= Bundle()
+                    val bundle: Bundle = Bundle()
                     bundle.putString(TITLE, binding.navigationView.menu.getItem(0).title.toString())
                     tabPosition = 0
                     val frag:Fragment = MommyFragment()
@@ -80,7 +94,8 @@ class DashboardActivity : AppCompatActivity(){
 
                 }
                 R.id.menu_meet -> {
-
+                    binding.toolbar.toolbarText.text = getString(R.string.meet)
+                    loadFragment(MeetFragment())
                 }
                 R.id.menu_messages -> {
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 
 import android.content.SharedPreferences
+import com.logicsquare.parentsmeet.model.KidsItem
 import com.logicsquare.parentsmeet.model.User
 
 class SharedPref(context: Context) {
@@ -36,6 +37,13 @@ class SharedPref(context: Context) {
     }
 
 
+    fun setSelectedKid(kidsId: String?){
+        editor.putString(SELECTED_KID_ID, kidsId).apply()
+    }
+
+    fun getSelectedKid(): String? {
+        return sharedPreferences.getString(SELECTED_KID_ID, "")
+    }
 
     fun saveFCMToken(token: String?) {
         editor.putString(FCM_TOKEN, token).apply()
@@ -100,5 +108,6 @@ class SharedPref(context: Context) {
         const val USERTYPE = "userType"
         const val RELATION = "relation"
         const val KEEPME = "keepme"
+        const val SELECTED_KID_ID = "kidId"
     }
 }
