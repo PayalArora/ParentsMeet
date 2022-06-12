@@ -317,7 +317,6 @@
                             android:id="@+id/spinner_activity"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:visibility="gone"
                             android:padding="7dp" />
 
                         <AutoCompleteTextView
@@ -325,6 +324,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="7dp"
+                            android:visibility="gone"
                             android:background="@drawable/background_curve_rectangle_white_filled"
                             android:hint="Search"/>
                     </RelativeLayout>

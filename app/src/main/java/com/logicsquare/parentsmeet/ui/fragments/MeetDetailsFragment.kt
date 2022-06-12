@@ -31,6 +31,7 @@ class MeetDetailsFragment : Fragment() {
     lateinit var userData: UsersItem
     var activitiesMainList = arrayListOf<String>()
     var selectedActivity = ""
+    var adapter:ArrayAdapter<String>? = null
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +43,7 @@ class MeetDetailsFragment : Fragment() {
             settingsResponse?.setting?.preferences?.activities.let {
                 activitiesMainList.add("Search")
                 activitiesMainList.addAll(it as ArrayList<String>)
-//                activitiesMainList.add("Other")
+                activitiesMainList.add("Other")
 
                 setSpinnerAdapter()
             }
@@ -91,8 +92,6 @@ class MeetDetailsFragment : Fragment() {
 
         binding.tvChildInterests.text = childInterests
         binding.tvMeetingAvailability.text = timings
-
-
 
         binding.btnMeet.setOnClickListener {
             if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()) {
@@ -163,10 +162,9 @@ class MeetDetailsFragment : Fragment() {
 
 
     private fun setSpinnerAdapter() {
-        val others = activitiesMainList
-        val adapter = ArrayAdapter(
+        adapter = ArrayAdapter(
             requireContext(),
-            R.layout.spinner_text_gender, others
+            R.layout.spinner_text_gender, activitiesMainList
         )
         binding.spinnerActivity.adapter = adapter
         binding.autoCompleteTextView.setAdapter(adapter)
@@ -177,18 +175,54 @@ class MeetDetailsFragment : Fragment() {
                     parent: AdapterView<*>,
                     view: View, position: Int, id: Long,
                 ) {
+                    if (activitiesMainList[position] == "Other"){
+                        showDialog(requireContext())
+                    }
                     selectedActivity = if (position > 0) {
-                        others[position]
+                        activitiesMainList[position]
                     } else {
                         ""
                     }
-
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
 
+    }
+
+
+    private fun showDialog(context: Context) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.layout_tags_dialog)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.bg_white_rect)
+        val width: Int =
+            (context.getResources().getDisplayMetrics().widthPixels) - 140 //<-- int width=400;
+        dialog.window?.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
+        val skipBtn = dialog.findViewById(R.id.btn_skip) as Button
+        val title = dialog.findViewById(R.id.title) as TextView
+        val submitBtn = dialog.findViewById(R.id.btn_submit) as Button
+        val codeTxt = dialog.findViewById<EditText>(R.id.code_txt)
+
+        title.text = "Add a Activity"
+
+        skipBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+        submitBtn.setOnClickListener {
+            if (codeTxt.text.isNotEmpty()) {
+                activitiesMainList.add(codeTxt.text.toString())
+                adapter?.notifyDataSetChanged()
+                binding.spinnerActivity.setSelection(activitiesMainList.size-1)
+            } else {
+                showToast(getString(R.string.add_tag_error))
+            }
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     override fun onCreateView(
