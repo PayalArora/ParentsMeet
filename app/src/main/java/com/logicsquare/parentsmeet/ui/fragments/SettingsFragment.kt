@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -211,6 +212,7 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsDat
 //        private  const val lunchDate = "LUNCH_DATE"
 //        private  const val parkTrip = "PARK_TRIP"
 private  const val PARENT_INTERESTS = "PARENT_INTERESTS"
+        var settingsResponse:SettingResponse? = null
     }
 
     override fun kidsData(kid: Kid?) {
@@ -227,6 +229,7 @@ private  const val PARENT_INTERESTS = "PARENT_INTERESTS"
 
     fun getSettings() {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
+        Log.e("getSettings","token= $token")
         val call: Call<SettingResponse?> =
             APIClient.client.create(APIInterface::class.java).getSettings(token)
        showProgressBar()
@@ -237,6 +240,7 @@ private  const val PARENT_INTERESTS = "PARENT_INTERESTS"
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
+                        settingsResponse = response.body()
                         getProfile()
                         settingResponse = response.body()
                         handleSettingsResponse(response.body()!!)

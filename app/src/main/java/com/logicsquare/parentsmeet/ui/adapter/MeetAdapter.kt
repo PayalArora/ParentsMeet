@@ -35,7 +35,7 @@ class MeetAdapter(val response: List<UsersItem?>?, var onClickListeners: OnClick
             onClickListeners.onMessageClick(response?.get(position)!!)
         }
         holder.binding.mainLayout.setOnClickListener {
-            onClickListeners.onMeetClick(response?.get(position)!!)
+            onClickListeners.onClick(response?.get(position)!!)
         }
 
     }
