@@ -316,8 +316,17 @@
                         <Spinner
                             android:id="@+id/spinner_activity"
                             android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone"
+                            android:padding="7dp" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:padding="7dp"
-                            android:layout_height="match_parent" />
+                            android:background="@drawable/background_curve_rectangle_white_filled"
+                            android:hint="Search"/>
                     </RelativeLayout>
 
                     <LinearLayout
@@ -333,9 +342,9 @@
                             android:layout_weight="1"
                             android:padding="7dp"
                             android:layout_marginEnd="5dp"
-                            android:hint="M-D-Y"
+                            android:hint="dd/MM/yyyy"
                             android:background="@drawable/background_curve_rectangle_white_filled"
-                            android:drawableEnd="@drawable/ic_calender" />
+                            android:drawableEnd="@drawable/ic_small_calander" />
 
                         <EditText
                             android:id="@+id/edt_time"
@@ -346,7 +355,7 @@
                             android:hint="00:00"
                             android:layout_marginStart="5dp"
                             android:background="@drawable/background_curve_rectangle_white_filled"
-                            android:drawableEnd="@drawable/ic_calender" />
+                            android:drawableEnd="@drawable/ic_small_timer" />
 
                     </LinearLayout>
 

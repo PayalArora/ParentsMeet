@@ -1,15 +1,13 @@
 package com.logicsquare.parentsmeet.ui.fragments
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
+import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.android.material.chip.ChipGroup
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentMeetDetailsBinding
 import com.logicsquare.parentsmeet.model.ScheduleMeetRequest
@@ -17,12 +15,13 @@ import com.logicsquare.parentsmeet.model.ScheduleMeetResponse
 import com.logicsquare.parentsmeet.model.UsersItem
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
-import com.logicsquare.parentsmeet.ui.MeetDetailModule
 import com.logicsquare.parentsmeet.ui.fragments.SettingsFragment.ParentInterent.settingsResponse
 import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MeetDetailsFragment : Fragment() {
@@ -79,8 +78,18 @@ class MeetDetailsFragment : Fragment() {
         binding.tvChildName.text = userData.kidObject?.name
         binding.tvChildAge.text = userData.kidObject?.age.toString()
 
+        var timings: String = ""
+
+        if (!userData.kidObject?.preferences?.timings.isNullOrEmpty())
+            for (item in userData.kidObject?.preferences?.timings!!) {
+                timings = "$timings, ${item.capitalize()} ,"
+            }
+
+        timings = parentInterests.removePrefix(",")
+        timings = parentInterests.removeSuffix(",")
+
         binding.tvChildInterests.text = childInterests
-//        binding.tvMeetingAvailability.text = userData.kidObject?.preferences?.timings?.get(0)
+        binding.tvMeetingAvailability.text = timings
 
 
 
@@ -89,17 +98,27 @@ class MeetDetailsFragment : Fragment() {
                 Toast.makeText(requireContext(),"Please select a Kid from the menu", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
+            var date: Date? = validateDate(binding.edtCalender.text.toString())
+            if (binding.edtCalender.text.toString().isNotEmpty() && date == null) {
+                Toast.makeText(
+                    requireContext(),
+                    "Please enter date with correct format (dd/MM/yyyy)",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
             if (!userData.kidObject?.id.isNullOrEmpty() && !userData.id.isNullOrEmpty()){
-                scheduleMeet(userData.kidObject?.id!!, userData.id!!)
+                scheduleMeet(userData.kidObject?.id!!, userData.id!!,date)
             }
         }
 
     }
 
 
-    private fun scheduleMeet(kidId:String,parentId:String) {
+    private fun scheduleMeet(kidId:String,parentId:String,date:Date?) {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId,selectedActivity,"${binding.edtCalender.text},${binding.edtTime.text}")
+        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId,selectedActivity, date)
 
         val call: Call<ScheduleMeetResponse?> =
             APIClient.client.create(APIInterface::class.java).scheduleMeet(token, scheduleMeetRequest)
@@ -111,8 +130,9 @@ class MeetDetailsFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
+                        hideProgressBar()
                         Toast.makeText(requireContext(),"Meet Scheduled",Toast.LENGTH_LONG).show()
-                        requireActivity().finish()
+                        requireActivity().onBackPressed()
                     }
                 } else {
                     handleErrorResponse(response.errorBody(), requireContext())
@@ -135,6 +155,8 @@ class MeetDetailsFragment : Fragment() {
             R.layout.spinner_text_gender, others
         )
         binding.spinnerActivity.adapter = adapter
+        binding.autoCompleteTextView.setAdapter(adapter)
+        
         binding.spinnerActivity.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
