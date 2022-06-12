@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -85,20 +86,26 @@ class MeetDetailsFragment : Fragment() {
                 timings = "$timings, ${item.capitalize()} ,"
             }
 
-        timings = parentInterests.removePrefix(",")
-        timings = parentInterests.removeSuffix(",")
+        timings = timings.removePrefix(",")
+        timings = timings.removeSuffix(",")
 
         binding.tvChildInterests.text = childInterests
         binding.tvMeetingAvailability.text = timings
 
 
 
-        binding.btnMeet.setOnClickListener{
-            if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()){
-                Toast.makeText(requireContext(),"Please select a Kid from the menu", Toast.LENGTH_LONG).show()
+        binding.btnMeet.setOnClickListener {
+            if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Please select a Kid from the menu",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
-            var date: Date? = validateDate(binding.edtCalender.text.toString())
+            val time: String = binding.edtTime.text.toString().ifEmpty { "00:00" }
+            Log.e("time= ", "$time")
+            var date: Date? = validateDate("${binding.edtCalender.text.toString()} $time}")
             if (binding.edtCalender.text.toString().isNotEmpty() && date == null) {
                 Toast.makeText(
                     requireContext(),
@@ -108,20 +115,27 @@ class MeetDetailsFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (!userData.kidObject?.id.isNullOrEmpty() && !userData.id.isNullOrEmpty()){
-                scheduleMeet(userData.kidObject?.id!!, userData.id!!,date)
+            if (!userData.kidObject?.id.isNullOrEmpty() && !userData.id.isNullOrEmpty()) {
+                scheduleMeet(userData.kidObject?.id!!, userData.id!!, date)
             }
         }
 
     }
 
 
-    private fun scheduleMeet(kidId:String,parentId:String,date:Date?) {
+    private fun scheduleMeet(kidId: String, parentId: String, date: Date?) {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId,selectedActivity, date)
+        var scheduleMeetRequest = ScheduleMeetRequest(
+            SharedPref(requireContext()).getSelectedKid()!!,
+            parentId,
+            kidId,
+            selectedActivity,
+            date
+        )
 
         val call: Call<ScheduleMeetResponse?> =
-            APIClient.client.create(APIInterface::class.java).scheduleMeet(token, scheduleMeetRequest)
+            APIClient.client.create(APIInterface::class.java)
+                .scheduleMeet(token, scheduleMeetRequest)
         showProgressBar()
         call.enqueue(object : Callback<ScheduleMeetResponse?> {
             override fun onResponse(
@@ -131,7 +145,7 @@ class MeetDetailsFragment : Fragment() {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
                         hideProgressBar()
-                        Toast.makeText(requireContext(),"Meet Scheduled",Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Meet Scheduled", Toast.LENGTH_LONG).show()
                         requireActivity().onBackPressed()
                     }
                 } else {
@@ -156,7 +170,7 @@ class MeetDetailsFragment : Fragment() {
         )
         binding.spinnerActivity.adapter = adapter
         binding.autoCompleteTextView.setAdapter(adapter)
-        
+
         binding.spinnerActivity.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
