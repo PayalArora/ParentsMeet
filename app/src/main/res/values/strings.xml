@@ -11,7 +11,7 @@
     <string name="first_name">First name</string>
     <string name="name">Name</string>
     <string name="last_name">Last name</string>
-    <string name="dob">Date of birth (dd/MM/YYYY)</string>
+    <string name="dob">Date of birth \n (DD/MM/YYYY)</string>
     <string name="password">Password</string>
     <string name="new_password">New Password</string>
     <string name="retyp_password">Re-Type Password</string>
@@ -46,7 +46,7 @@
     <string name="mom">Mom</string>
     <string name="dad">Dad</string>
     <string name="Uncle">uncle</string>
-    <string name="Aunty">aunty</string>
+    <string name="Aunty">aunt</string>
     <string name="GrandFather">GrandFather</string>
     <string name="GrandMother">GrandMother</string>
     <string name="grandFather">grandfather</string>
@@ -64,7 +64,7 @@
     <string-array name="Others">
         <item>Other</item>
         <item>Uncle</item>
-        <item>Aunty</item>
+        <item>Aunt</item>
         <item>GrandFather</item>
         <item>GrandMother</item>
     </string-array>
@@ -83,6 +83,34 @@
         <item>Hirs</item>
     </string-array>
 
+    <string-array name="Age">
+        <item>Under 1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="Grades">
+        <item>Pre-K</item>
+        <item>K</item>
+        <item>1st</item>
+        <item>2nd</item>
+        <item>3rd</item>
+        <item>4th</item>
+        <item>5th</item>
+        <item>6th</item>
+        <item>7th</item>
+        <item>8th</item>
+    </string-array>
     <string name="enter_code">Enter Code</string>
     <string name="code_description">For added safety, we need to verify your account. Please enter the code we have texted you below.</string>
     <string name="check_code">Check your text message for the code and enter below your reset password.</string>

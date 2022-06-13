@@ -22,6 +22,9 @@ data class JobsItem(
 	@field:SerializedName("jobCategory")
 	val jobCategory: String? = null,
 
+	@field:SerializedName("companyName")
+	val companyName: String? = null,
+
 	@field:SerializedName("applyJobLink")
 	val applyJobLink: String? = null,
 

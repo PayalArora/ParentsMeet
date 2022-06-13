@@ -68,7 +68,7 @@ class SignUpActivity : AppCompatActivity() {
                     if (position == 1){
                         relation == "uncle"
                     } else if  (position == 2){
-                        relation == "aunty"
+                        relation == "aunt"
                     } else if (position == 3){
                         relation == "grandFather"
                     } else if (position == 4){

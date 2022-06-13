@@ -82,18 +82,47 @@
 
         </RelativeLayout>
 
-        <EditText
+        <RelativeLayout
             android:id="@+id/et_age"
             android:layout_width="0dp"
-            android:inputType="number"
-            android:layout_height="@dimen/_35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/_10dp"
             android:layout_weight="1"
-            android:background="@color/gray_4"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/_10dp"
-            android:textColor="@color/black_2" />
+            android:layout_height="@dimen/_35dp"
+            android:background="@drawable/spinner_grey"
+            android:gravity="center"
+            android:padding="@dimen/five_dp">
+
+            <Spinner
+                android:id="@+id/spinner_age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_down1"
+                android:background="@android:color/transparent"
+                android:dropDownVerticalOffset="20dp"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
+                android:theme="@style/MatchSpinnerTheme" />
+
+            <ImageView
+                android:id="@+id/iv_down1"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/spin" />
+        </RelativeLayout>
+<!--        <EditText-->
+<!--            android:id="@+id/et_age"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:inputType="number"-->
+<!--            android:layout_height="@dimen/_35dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginLeft="@dimen/_10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@color/gray_4"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:paddingLeft="@dimen/_10dp"-->
+<!--            android:textColor="@color/black_2" />-->
 
     </LinearLayout>
 
@@ -182,17 +211,47 @@
 
         </LinearLayout>
 
-        <EditText
+<!--        <EditText-->
+<!--            android:id="@+id/edt_grade"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/_35dp"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginLeft="@dimen/_10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@color/gray_4"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:paddingLeft="@dimen/_10dp"-->
+<!--            android:textColor="@color/black_2" />-->
+
+        <RelativeLayout
             android:id="@+id/edt_grade"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_35dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/_10dp"
             android:layout_weight="1"
-            android:background="@color/gray_4"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/_10dp"
-            android:textColor="@color/black_2" />
+            android:layout_height="@dimen/_35dp"
+            android:background="@drawable/spinner_grey"
+            android:gravity="center"
+            android:padding="@dimen/five_dp">
+
+            <Spinner
+                android:id="@+id/spinner_grade"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_down2"
+                android:background="@android:color/transparent"
+                android:dropDownVerticalOffset="20dp"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown"
+                android:theme="@style/MatchSpinnerTheme" />
+
+            <ImageView
+                android:id="@+id/iv_down2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/spin" />
+        </RelativeLayout>
     </LinearLayout>
 
     <TextView

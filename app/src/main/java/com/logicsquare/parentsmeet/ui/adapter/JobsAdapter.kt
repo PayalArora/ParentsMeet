@@ -31,7 +31,7 @@ class JobsAdapter(private var jobsList: ArrayList<JobsItem>, val context: Contex
         } else {
             holder.tvDesc.text = Html.fromHtml(jobsList[position].description)
         }
-        holder.tvType.text ="${jobsList[position].jobType} | ${jobsList[position].experienceRequirement}"
+        holder.tvType.text ="${jobsList[position].companyName} | ${jobsList[position].jobType} | ${jobsList[position].experienceRequirement} | ${jobsList[position].locationPreference}"
 
         holder.mainLayout.setOnClickListener {
             onItemClickListener.onClick(jobsList[position])
@@ -39,36 +39,32 @@ class JobsAdapter(private var jobsList: ArrayList<JobsItem>, val context: Contex
         if (jobsList[position].isJobApplied == 1){
             //holder.ivApply.visibility = View.GONE
             holder.ivSave.visibility = View.GONE
-            holder.ivApply.setColorFilter(context.getColor(R.color.green_1))
+            holder.ivApply.setImageResource(R.drawable.check_filled)
             holder.ivApply.isEnabled = false
             holder.ivSave.isEnabled = false
         } else{
             holder.ivApply.isEnabled = true
             holder.ivSave.isEnabled = true
-            holder.ivApply.setColorFilter(context.getColor(R.color.black_1))
+            holder.ivApply.setImageResource(R.drawable.ic_apply_job)
             holder.ivApply.visibility = View.VISIBLE
         }
 
         if (jobsList[position].isJobSaved == 1){
             holder.ivSave.isEnabled = false
-            holder.ivSave.visibility = View.VISIBLE
-            holder.ivSave.setColorFilter(context.getColor(R.color.green_1))
+            holder.ivSave.setImageResource(R.drawable.ic_baseline_bookmark_24)
         } else{
             holder.ivSave.isEnabled = true
-            holder.ivSave.visibility = View.VISIBLE
-            holder.ivSave.setColorFilter(context.getColor(R.color.black_1))
+            holder.ivSave.setImageResource(R.drawable.ic_save_job)
         }
         holder.ivApply.setOnClickListener {
             if (jobsList[position].isJobApplied == 0)
                 jobsList[position] =  onItemClickListener.applyJob(jobsList[position])
-            holder.ivApply.visibility = View.GONE
             notifyDataSetChanged()
         }
 
         holder.ivSave.setOnClickListener {
             if (jobsList[position].isJobSaved == 0)
                 onItemClickListener.saveJob(jobsList[position])
-            holder.ivSave.visibility = View.GONE
             notifyDataSetChanged()
         }
         val circularProgressDrawable = context?.getProgressDrawable()
