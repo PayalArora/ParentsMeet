@@ -111,5 +111,15 @@ fun checkDate(dateStr: String): Boolean {
     }
 }
 
+fun validateDate(dateStr: String): Date? {
+    return try {
+        var formatter = SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault())
+        val date = formatter.parse(dateStr)
+        date
+    } catch (parse: ParseException) {
+        null
+    }
+}
+
 const val ID="_ID"
 const val TITLE="_TITLE"

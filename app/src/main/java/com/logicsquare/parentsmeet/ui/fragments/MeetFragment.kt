@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentMeetBinding
 import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
@@ -78,7 +79,7 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
     }
 
     override fun onClick(usersItem: UsersItem) {
-
+        loadFragment(MeetDetailsFragment.newInstance(usersItem))
     }
 
     override fun onMeetClick(usersItem: UsersItem) {
@@ -98,7 +99,7 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
 
     private fun scheduleMeet(kidId:String,parentId:String) {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId)
+        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId,null,null)
 
         val call: Call<ScheduleMeetResponse?> =
             APIClient.client.create(APIInterface::class.java).scheduleMeet(token, scheduleMeetRequest)
@@ -123,5 +124,12 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
                 showToast(t.localizedMessage)
             }
         })
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(fragment.javaClass.name)
+        transaction.commit()
     }
 }

@@ -156,16 +156,16 @@ data class ProfileUser(
 data class Preferences(
 
 	@field:SerializedName("parentInterests")
-	val parentInterests: List<Any?>? = null,
+	val parentInterests: List<String>? = null,
 
 	@field:SerializedName("activities")
-	val activities: List<Any?>? = null,
+	val activities: List<String>? = null,
 
 	@field:SerializedName("games")
-	val games: List<Any?>? = null,
+	val games: List<String>? = null,
 
 	@field:SerializedName("timings")
-	val timings: List<Any?>? = null,
+	val timings: List<String>? = null,
 
 	@field:SerializedName("specialNeeds")
 	val specialNeeds: List<Any?>? = null
