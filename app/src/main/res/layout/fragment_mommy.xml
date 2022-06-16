@@ -51,7 +51,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/notificationOption"
-                android:text="40C"
+                android:text="@string/degree_c"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
