@@ -83,13 +83,15 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
     }
 
     override fun onMeetClick(usersItem: UsersItem) {
-        if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()){
+       /* if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()){
             Toast.makeText(requireContext(),"Please select a Kid from the menu",Toast.LENGTH_LONG).show()
             return
         }
         if (!usersItem.kidObject?.id.isNullOrEmpty() && !usersItem.id.isNullOrEmpty()){
             scheduleMeet(usersItem.kidObject?.id!!,usersItem.id)
-        }
+        }*/
+
+        loadFragment(MeetDetailsFragment.newInstance(usersItem))
 
     }
 
