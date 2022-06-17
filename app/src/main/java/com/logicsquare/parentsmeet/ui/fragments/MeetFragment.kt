@@ -229,56 +229,51 @@ override fun onClick(usersItem: UsersItem) {
     loadFragment(MeetDetailsFragment.newInstance(usersItem))
 }
 
-override fun onMeetClick(usersItem: UsersItem) {
-    if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()) {
-        Toast.makeText(requireContext(), "Please select a Kid from the menu", Toast.LENGTH_LONG)
-            .show()
-        return
+    override fun onMeetClick(usersItem: UsersItem) {
+       /* if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()){
+            Toast.makeText(requireContext(),"Please select a Kid from the menu",Toast.LENGTH_LONG).show()
+            return
+        }
+        if (!usersItem.kidObject?.id.isNullOrEmpty() && !usersItem.id.isNullOrEmpty()){
+            scheduleMeet(usersItem.kidObject?.id!!,usersItem.id)
+        }*/
+
+        loadFragment(MeetDetailsFragment.newInstance(usersItem))
+
     }
-    if (!usersItem.kidObject?.id.isNullOrEmpty() && !usersItem.id.isNullOrEmpty()) {
-        scheduleMeet(usersItem.kidObject?.id!!, usersItem.id)
+
+    override fun onMessageClick(usersItem: UsersItem) {
+
     }
 
-}
+    private fun scheduleMeet(kidId:String,parentId:String) {
+        val token = "Bearer ${SharedPref(requireContext()).getToken()}"
+        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId,null,null)
 
-override fun onMessageClick(usersItem: UsersItem) {
-
-}
-
-private fun scheduleMeet(kidId: String, parentId: String) {
-    val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-    var scheduleMeetRequest =
-        ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,
-            parentId,
-            kidId,
-            null,
-            null)
-
-    val call: Call<ScheduleMeetResponse?> =
-        APIClient.client.create(APIInterface::class.java)
-            .scheduleMeet(token, scheduleMeetRequest)
-    showProgressBar()
-    call.enqueue(object : Callback<ScheduleMeetResponse?> {
-        override fun onResponse(
-            call: Call<ScheduleMeetResponse?>,
-            response: Response<ScheduleMeetResponse?>,
-        ) {
-            if (response.isSuccessful) {
-                if (response.body() != null) {
-                    Toast.makeText(requireContext(), "Meet Scheduled", Toast.LENGTH_LONG).show()
+        val call: Call<ScheduleMeetResponse?> =
+            APIClient.client.create(APIInterface::class.java).scheduleMeet(token, scheduleMeetRequest)
+        showProgressBar()
+        call.enqueue(object : Callback<ScheduleMeetResponse?> {
+            override fun onResponse(
+                call: Call<ScheduleMeetResponse?>,
+                response: Response<ScheduleMeetResponse?>,
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                       Toast.makeText(requireContext(),"Meet Scheduled",Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    handleErrorResponse(response.errorBody(), requireContext())
                 }
-            } else {
-                handleErrorResponse(response.errorBody(), requireContext())
+                hideProgressBar()
             }
-            hideProgressBar()
-        }
 
-        override fun onFailure(call: Call<ScheduleMeetResponse?>, t: Throwable) {
-            hideProgressBar()
-            showToast(t.localizedMessage)
-        }
-    })
-}
+            override fun onFailure(call: Call<ScheduleMeetResponse?>, t: Throwable) {
+                hideProgressBar()
+                showToast(t.localizedMessage)
+            }
+        })
+    }
 
 private fun loadFragment(fragment: Fragment) {
     val transaction = requireActivity().supportFragmentManager.beginTransaction()
