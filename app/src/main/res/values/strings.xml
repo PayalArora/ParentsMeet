@@ -182,7 +182,7 @@
     <string name="seventyfive">$75,000+</string>
     <string name="eightyfive">$85,000+</string>
     <string name="nintyfiv">$95,000+</string>
-    <string name="lakh">$1,00,000+</string>
+    <string name="lakh">$100,000+</string>
     <string name="high_school">High School Degree</string>
     <string name="assosiates">Associate\'s Degree</string>
     <string name="all_educ">All Education Levels</string>

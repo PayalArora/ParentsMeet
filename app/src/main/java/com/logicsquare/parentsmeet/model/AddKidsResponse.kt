@@ -17,13 +17,13 @@ data class AddKidsResponse(
 data class AddKidsPreferences(
 
 	@field:SerializedName("activities")
-	val activities: List<Any?>? = null,
+	var activities: List<Any?>? = null,
 
 	@field:SerializedName("games")
 	val games: List<Any?>? = null,
 
 	@field:SerializedName("timings")
-	val timings: List<Any?>? = null,
+	var timings: List<Any?>? = null,
 
 	@field:SerializedName("specialNeeds")
 	val specialNeeds: List<Any?>? = null,

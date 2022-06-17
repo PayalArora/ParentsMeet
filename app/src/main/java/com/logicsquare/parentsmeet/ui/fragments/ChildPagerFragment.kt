@@ -73,9 +73,13 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
             if (ages.contains(it.age)) {
                 mBinding.spinnerAge.setSelection(ages.indexOf(it.age))
             }
+            if (it.age.equals("Under 1"))
+            {
+                mBinding.spinnerAge.setSelection(0)
+            }
             val grades = resources.getStringArray(R.array.Grades)
             if (grades.contains(it.grade)) {
-                mBinding.spinnerGrade.setSelection(ages.indexOf(it.grade))
+                mBinding.spinnerGrade.setSelection(grades.indexOf(it.grade))
             }
 
             it.colorBar?.let { it1 -> mBinding.view.setBackgroundColor(Color.parseColor(it.colorBar)) }
@@ -174,10 +178,10 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
                     var textView: TextView = view.findViewById(R.id.text1)
                     textView.setTextColor(view.context.getColor(R.color.black_2))
                 }
-
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
+
         val grades = resources.getStringArray(R.array.Grades)
         val gradeAdapter = ArrayAdapter(
             requireContext(),
@@ -225,7 +229,15 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
     private fun updateKid() {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
         var addKidRequest = UpdateKidRequest()
-        addKidRequest.age = mBinding.spinnerAge.selectedItem.toString()
+        var age = "0"
+        if (mBinding.spinnerAge.selectedItem.toString().equals("Under 1"))
+        {
+            age = "0"
+        } else
+        {
+            age =  mBinding.spinnerAge.selectedItem.toString()
+        }
+        addKidRequest.age = age
         addKidRequest.name = mBinding.etName.text.toString()
         addKidRequest.grade = mBinding.spinnerGrade.selectedItem.toString()
         addKidRequest.genderPronouns = mBinding.spinnerOther.selectedItem.toString().toLowerCase()

@@ -84,16 +84,7 @@ class JobFragment : Fragment(), OnItemClickEvent, JobsAdapter.OnItemClickListene
         getAllJobs(null)
     }
 
-    private fun checkFilter() {
-        var bottomSheetBinding: LayoutMeetFilterBinding = LayoutMeetFilterBinding.inflate(layoutInflater)
-        val dialog = BottomSheetDialog(requireContext())
-        dialog.setContentView(bottomSheetBinding.root)
-        dialog.show()
-        bottomSheetBinding.seekbarLocation.setIntervals(arrayListOf("5","10","15", "20"))
-        bottomSheetBinding.seekbarRange.setIntervals(arrayListOf("4 Years","5 Years","6 Years", "7 Years","8 Years"))
-        bottomSheetBinding.abc.setMinSeparationValue(5000F)
-        bottomSheetBinding.abc.setValues(1000F,2000F)
-    }
+
 
     fun bottomSheetWork() {
         var bottomSheetBinding: JobFilterBinding = JobFilterBinding.inflate(layoutInflater)
