@@ -3,7 +3,7 @@ package com.logicsquare.parentsmeet.model
 import com.google.gson.annotations.SerializedName
 
 class MeetRequest {
-    var filters: Filters = Filters()
+   lateinit var filters: Filters
     var limit: Int = 100
 
     class Filters {

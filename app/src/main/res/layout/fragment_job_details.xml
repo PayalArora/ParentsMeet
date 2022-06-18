@@ -178,8 +178,8 @@
                     android:id="@+id/ll_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_15dp"
                     android:layout_below="@+id/tv_type"
+                    android:layout_marginTop="@dimen/_15dp"
                     android:orientation="vertical" />
 
 

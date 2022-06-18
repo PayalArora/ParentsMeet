@@ -218,5 +218,5 @@
     <string name="add_game">Add a game</string>
     <string name="add_activity">Add an activity</string>
     <string name="add_need">Add a special need</string>
-    <string name="degree_c">degree C</string>
+    <string name="degree_c">\u2103</string>
 </resources>

@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -22,29 +22,29 @@ import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
 import com.logicsquare.parentsmeet.ui.DrawerActivity
+import com.logicsquare.parentsmeet.ui.adapter.JobFilterAdapter
 import com.logicsquare.parentsmeet.ui.adapter.MeetAdapter
+import com.logicsquare.parentsmeet.ui.adapter.OnItemClickEvent
 import com.logicsquare.parentsmeet.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
+class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent {
 
     lateinit var binding: FragmentMeetBinding
     private val LOCATION_PERMISSION_REQ_CODE = 1000;
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var latitude: Double?= null
     private var longitude: Double?= null
-
-    // This will store current location info
-    private var currentLocation: Location? = null
-
+    var array: ArrayList<String> = arrayListOf()
+    var arrayActivies: ArrayList<String> = arrayListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         var meetRequest = MeetRequest()
         getMeetListing(meetRequest)
-        checkFilter()
+        //checkFilter()
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
@@ -52,6 +52,7 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
             startActivity(Intent(requireActivity(),
                 DrawerActivity::class.java))
         }
+        binding
     }
 
     private fun getCurrentLocation() {
@@ -105,6 +106,29 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
         bottomSheetBinding.showResult.setOnClickListener {
             filterResults(bottomSheetBinding)
         }
+        bottomSheetBinding.rvActivities.apply {
+            val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL)
+            layoutManager = gridLayoutManager
+            if (SettingsFragment.settingsResponse != null) {
+                SettingsFragment.settingsResponse?.setting?.preferences?.activities.let {
+                    adapter = JobFilterAdapter(0, it as List<Any?> , this@MeetFragment)
+
+                }
+            }
+        }
+
+        bottomSheetBinding.rvAvailability.apply {
+            val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL)
+            layoutManager = gridLayoutManager
+            if (SettingsFragment.settingsResponse != null) {
+                SettingsFragment.settingsResponse?.setting?.preferences?.timings.let {
+                    adapter = JobFilterAdapter(1, it as List<Any?> , this@MeetFragment)
+
+                }
+            }
+        }
         bottomSheetBinding.seekbarLocation.setOnSeekBarChangeListener(object :
 
             SeekBar.OnSeekBarChangeListener {
@@ -129,55 +153,20 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners {
 
 
 private fun filterResults(bottomSheetDialog: LayoutMeetFilterBinding) {
-    var array: ArrayList<String> = arrayListOf()
-    var arrayActivies: ArrayList<String> = arrayListOf()
-    if (bottomSheetDialog.sixNin.isChecked) {
-        array.add(getString(R.string.six_nin))
-    }
-    if (bottomSheetDialog.ninTwelve.isChecked) {
-        array.add(getString(R.string.nin_twelve))
-    }
-    if (bottomSheetDialog.twelvThree.isChecked) {
-        array.add(getString(R.string.twelv_three))
-    }
-    if (bottomSheetDialog.threeSix.isChecked) {
-        array.add(getString(R.string.three_six))
-    }
-    if (bottomSheetDialog.sixNinPm.isChecked) {
-        array.add(getString(R.string.six_nin_pm))
-    }
-    if (bottomSheetDialog.swim.isChecked) {
-        arrayActivies.add(getString(R.string.swim))
-    }
-    if (bottomSheetDialog.Games.isChecked) {
-        arrayActivies.add(getString(R.string.games))
-    }
-    if (bottomSheetDialog.draw.isChecked) {
-        arrayActivies.add(getString(R.string.draw))
-    }
-    if (bottomSheetDialog.read.isChecked) {
-        arrayActivies.add(getString(R.string.read))
-    }
-    if (bottomSheetDialog.playdate.isChecked) {
-        arrayActivies.add(getString(R.string.playdate))
-    }
-    if (bottomSheetDialog.studyDate.isChecked) {
-        arrayActivies.add(getString(R.string.studyDate))
-    }
     var meetRequest = MeetRequest()
-    meetRequest.filters.preferences.activities = arrayActivies
-    meetRequest.filters.preferences.timings = array
+   var filters = MeetRequest.Filters()
+    filters.preferences.activities = arrayActivies
+    filters.preferences.timings = array
 
     if (latitude!=null && longitude != null) {
         for (i in 1..3) {
             if (bottomSheetDialog.seekbarLocation.progress == i) {
-                meetRequest.filters.location.miles = 5 * i
-                meetRequest.filters.location.lat = latitude
-                meetRequest.filters.location.lng = longitude
+                filters.location.miles = 5 * i
+                filters.location.lat = latitude
+                filters.location.lng = longitude
             }
         }
     }
-    // meetRequest.filters.
     getMeetListing(meetRequest)
 }
 
@@ -320,8 +309,18 @@ override fun onRequestPermissionsResult(
                     Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 }
+
+    override fun onItemClick(position: ArrayList<String>, type: Int) {
+        if (type == 0) {
+            arrayActivies.clear()
+            arrayActivies.addAll(position)
+        } else {
+            array.clear()
+            array.addAll(position)
+
+        }
+    }
 }
 
