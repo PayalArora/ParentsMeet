@@ -83,6 +83,9 @@ class DrawerActivity : AppCompatActivity(), KidsAdapter.OnItemClickListener {
         bottomSheetBinding = AddKidBottomSheetBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
         bottomSheetDialog.show()
+        bottomSheetBinding.close.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
 
         bottomSheetBinding.llAddKid.visibility = VISIBLE
         bottomSheetBinding.llViewKid.visibility = GONE

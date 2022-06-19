@@ -318,7 +318,7 @@
             app:label=""
             app:layout_constraintLeft_toLeftOf="@id/guideline1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtProfession"
+            app:layout_constraintTop_toBottomOf="@+id/txtDateOfBirth"
 
             />
 
@@ -335,7 +335,7 @@
             app:label=""
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@id/guideline1"
-            app:layout_constraintTop_toBottomOf="@+id/txtProfession" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDateOfBirth" />
 
         <com.logicsquare.parentsmeet.views.VTextView
             android:id="@+id/txtEmail"
