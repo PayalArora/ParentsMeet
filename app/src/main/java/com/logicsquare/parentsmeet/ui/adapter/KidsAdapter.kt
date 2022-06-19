@@ -27,6 +27,8 @@ class KidsAdapter(private val kidsList: ArrayList<KidsItem>,val context:Context)
 
         if (SharedPref(context).getSelectedKid()!! == kidsList[position].id){
             holder.mainLayout.setBackgroundResource(R.drawable.background_blue_curve_filled)
+        }else{
+            holder.mainLayout.setBackgroundColor(context.getColor(android.R.color.transparent))
         }
         holder.tvName.text = kidsList[position].name?.capitalizeWords()
 

@@ -6,6 +6,7 @@ class ProfileRequest {
     lateinit var phoneCountryCode: String
     lateinit var phone: String
     lateinit var profession: String
+    lateinit var address: Address
     var preferences= ParentInterest()
     var dob: DOB = DOB()
 

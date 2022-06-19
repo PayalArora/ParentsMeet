@@ -79,6 +79,13 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsDat
         profileRequest.dob.month = mBinding.etDob.text.toString().split("/")[1]
         profileRequest.dob.year = mBinding.etDob.text.toString().split("/")[2]
         profileRequest.preferences.parentInterests = interests
+        var address = Address()
+        address.street = mBinding.edtStreet.text.toString().trim()
+        address.city = mBinding.etCity.text.toString().trim()
+        address.state = mBinding.etState.text.toString().trim()
+        address.zip = mBinding.etZip.text.toString().trim()
+        address.country = mBinding.etCountry.text.toString().trim()
+        profileRequest.address = address
 
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
         val call: Call<ProfileResponse?> =
@@ -168,6 +175,7 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsDat
     private fun handleResponse(profileResponse: ProfileResponse) {
         mBinding.etFirstName.setText("${profileResponse.user?.name?.first?.toUpperCas()}")
         mBinding.etLastName.setText("${profileResponse.user?.name?.last?.toUpperCas()}")
+
 
         var day: String? = "00"
         if (profileResponse.user?.dob?.day ?: 0 < 10) {

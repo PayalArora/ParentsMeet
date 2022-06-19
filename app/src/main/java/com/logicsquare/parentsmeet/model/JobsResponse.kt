@@ -121,7 +121,14 @@ data class CreatedBy(
 )
 
 data class Address(
-
 	@field:SerializedName("zip")
-	val zip: String? = null
+	var zip: String? = null,
+	@field:SerializedName("state")
+	var state: String? = null,
+	@field:SerializedName("city")
+	var city: String? = null,
+	@field:SerializedName("street")
+	var street: String? = null,
+	@field:SerializedName("country")
+	var country: String? = null
 )
