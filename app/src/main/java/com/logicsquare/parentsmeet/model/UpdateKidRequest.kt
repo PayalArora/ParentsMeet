@@ -12,6 +12,7 @@ class UpdateKidRequest {
         lateinit var games:ArrayList<String>
         lateinit var specialNeeds:ArrayList<String>
         lateinit var activities:ArrayList<String>
+        lateinit var timings:ArrayList<String>
 
     }
 }

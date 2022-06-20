@@ -6,10 +6,30 @@ data class ProfileResponse(
 
 	@field:SerializedName("error")
 	val error: Boolean? = null,
-
 	@field:SerializedName("user")
 	val user: ProfileUser? = null
-)
+){
+	data class Address(
+
+		@field:SerializedName("zip")
+		val zip: String? = null,
+
+		@field:SerializedName("country")
+		val country: String? = null,
+
+		@field:SerializedName("city")
+		val city: String? = null,
+
+		@field:SerializedName("street")
+		val street: String? = null,
+
+		@field:SerializedName("timeZone")
+		val timeZone: String? = null,
+
+		@field:SerializedName("state")
+		val state: String? = null
+	)
+}
 
 data class UserDob(
 
@@ -139,6 +159,9 @@ data class ProfileUser(
 
 	@field:SerializedName("_id")
 	val id: String? = null,
+
+	@field:SerializedName("address")
+	val address: Address? = null,
 
 	@field:SerializedName("userType")
 	val userType: String? = null,

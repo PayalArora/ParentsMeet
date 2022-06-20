@@ -12,6 +12,7 @@ import android.view.*
 import android.widget.*
 import androidx.core.view.contains
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.dhaval2404.colorpicker.ColorPickerDialog
 import com.github.dhaval2404.colorpicker.model.ColorShape
@@ -22,6 +23,8 @@ import com.logicsquare.parentsmeet.databinding.SettingsChildBinding
 import com.logicsquare.parentsmeet.model.*
 import com.logicsquare.parentsmeet.network.APIClient
 import com.logicsquare.parentsmeet.network.APIInterface
+import com.logicsquare.parentsmeet.ui.adapter.JobFilterAdapter
+import com.logicsquare.parentsmeet.ui.adapter.OnItemClickEvent
 import com.logicsquare.parentsmeet.ui.adapter.SpinnerAdapter
 import com.logicsquare.parentsmeet.ui.adapter.onSpinnerItemClick
 import com.logicsquare.parentsmeet.utils.*
@@ -31,7 +34,7 @@ import retrofit2.Response
 
 
 class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val settingResponse: SettingResponse? ) : Fragment(),
-    onSpinnerItemClick {
+    onSpinnerItemClick , OnItemClickEvent {
     private lateinit var mBinding: SettingsChildBinding
     var activitiesList = arrayListOf<String>()
     var activitiesMainList = arrayListOf<String>()
@@ -40,6 +43,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
     var gamesList = arrayListOf<String>()
     var needsList = arrayListOf<String>()
     var needsMainList = arrayListOf<String>()
+    var timings = arrayListOf<String>()
     var  adapter:SpinnerAdapter? = null
     private lateinit var colorPickerDialog: ColorPickerDialog
     var colorBar = "#2F8390"
@@ -110,6 +114,17 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
         settingResponse?.setting?.preferences?.specialNeeds.let {
         needsMainList .addAll(it as ArrayList<String>)
             needsMainList.add("Other")
+        }
+        mBinding.rvAvailability.apply {
+            val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL)
+            layoutManager = gridLayoutManager
+            if (SettingsFragment.settingsResponse != null) {
+                SettingsFragment.settingsResponse?.setting?.preferences?.timings.let {
+                    adapter = JobFilterAdapter(1, it as List<Any?>, this@ChildPagerFragment)
+
+                }
+            }
         }
     }
 
@@ -242,6 +257,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
         addKidRequest.grade = mBinding.spinnerGrade.selectedItem.toString()
         addKidRequest.genderPronouns = mBinding.spinnerOther.selectedItem.toString().toLowerCase()
         addKidRequest.preferences.activities = activitiesList
+        addKidRequest.preferences.timings = timings
         addKidRequest.preferences.games = gamesList
         addKidRequest.preferences.specialNeeds = needsList
         addKidRequest.colorBar = colorBar
@@ -344,6 +360,13 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
             }
         }
         mypopupWindow?.dismiss()
+    }
+
+    override fun onItemClick(position: ArrayList<String>, type: Int) {
+        if (type == 0) {
+            timings.clear()
+            timings.addAll(position)
+        }
     }
 }
 

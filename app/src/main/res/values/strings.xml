@@ -98,7 +98,14 @@
         <item>11</item>
         <item>12</item>
     </string-array>
+    <string-array name="AgeRange">
+            <item>4 yrs</item>
+            <item>5 yrs</item>
+            <item>6 yrs</item>
+            <item>7 yrs</item>
+            <item>8 yrs</item>
 
+    </string-array>
     <string-array name="Grades">
         <item>Pre-K</item>
         <item>K</item>

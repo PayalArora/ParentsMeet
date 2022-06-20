@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 
 import android.content.SharedPreferences
+import com.google.gson.Gson
 import com.logicsquare.parentsmeet.model.KidsItem
+import com.logicsquare.parentsmeet.model.ProfileUser
 import com.logicsquare.parentsmeet.model.User
 
 class SharedPref(context: Context) {
@@ -35,8 +37,15 @@ class SharedPref(context: Context) {
             editor.putString(RELATION, user.relation).apply()
         }
     }
+    val gson = Gson()
 
 
+    fun setUserData(profileUser: ProfileUser?){
+        editor.putString(PROFILE_USER, gson.toJson(profileUser))
+    }
+    fun getUserData(): ProfileUser?{
+        return gson.fromJson(sharedPreferences.getString(PROFILE_USER, "").toString(), ProfileUser::class.java)
+    }
     fun setSelectedKid(kidsId: String?){
         editor.putString(SELECTED_KID_ID, kidsId).apply()
     }
@@ -109,5 +118,6 @@ class SharedPref(context: Context) {
         const val RELATION = "relation"
         const val KEEPME = "keepme"
         const val SELECTED_KID_ID = "kidId"
+        const val PROFILE_USER = "prof_user"
     }
 }

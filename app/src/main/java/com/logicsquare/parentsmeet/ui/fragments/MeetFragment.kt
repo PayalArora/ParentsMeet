@@ -33,18 +33,14 @@ import retrofit2.Response
 class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent {
 
     lateinit var binding: FragmentMeetBinding
-    private val LOCATION_PERMISSION_REQ_CODE = 1000;
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var latitude: Double?= null
-    private var longitude: Double?= null
+
     var array: ArrayList<String> = arrayListOf()
     var arrayActivies: ArrayList<String> = arrayListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         var meetRequest = MeetRequest()
         getMeetListing(meetRequest)
-        //checkFilter()
+        checkFilter()
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
@@ -55,54 +51,17 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
         binding
     }
 
-    private fun getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location ->
-                // getting the last known or current location
-                if (location!= null) {
-                latitude = location.latitude
-                longitude = location.longitude
-                System.out.println("latitude: $latitude")
-                System.out.println("longitude: $longitude")
-            }
-
-            }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed on getting current location",
-                    Toast.LENGTH_SHORT).show()
-            }
-    }
 
     private fun checkFilter() {
-        if (isLocationPermissionGranted())
-            getCurrentLocation()
         var bottomSheetBinding: LayoutMeetFilterBinding =
             LayoutMeetFilterBinding.inflate(layoutInflater)
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(bottomSheetBinding.root)
         dialog.show()
         bottomSheetBinding.seekbarLocation.setIntervals(arrayListOf("5", "10", "15", "20"))
-        bottomSheetBinding.seekbarRange.setIntervals(arrayListOf("4 Years",
-            "5 Years",
-            "6 Years",
-            "7 Years",
-            "8 Years"))
-        bottomSheetBinding.abc.setMinSeparationValue(5000F)
-        bottomSheetBinding.abc.setValues(1000F, 2000F)
+
+        bottomSheetBinding.seekbarRange.setRange(4F, 8F)
+
         bottomSheetBinding.showResult.setOnClickListener {
             filterResults(bottomSheetBinding)
         }
@@ -112,7 +71,7 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
             layoutManager = gridLayoutManager
             if (SettingsFragment.settingsResponse != null) {
                 SettingsFragment.settingsResponse?.setting?.preferences?.activities.let {
-                    adapter = JobFilterAdapter(0, it as List<Any?> , this@MeetFragment)
+                    adapter = JobFilterAdapter(0, it as List<Any?>, this@MeetFragment)
 
                 }
             }
@@ -124,7 +83,7 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
             layoutManager = gridLayoutManager
             if (SettingsFragment.settingsResponse != null) {
                 SettingsFragment.settingsResponse?.setting?.preferences?.timings.let {
-                    adapter = JobFilterAdapter(1, it as List<Any?> , this@MeetFragment)
+                    adapter = JobFilterAdapter(1, it as List<Any?>, this@MeetFragment)
 
                 }
             }
@@ -152,80 +111,81 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
     }
 
 
-private fun filterResults(bottomSheetDialog: LayoutMeetFilterBinding) {
-    var meetRequest = MeetRequest()
-   var filters = MeetRequest.Filters()
-    filters.preferences.activities = arrayActivies
-    filters.preferences.timings = array
+    private fun filterResults(bottomSheetDialog: LayoutMeetFilterBinding) {
+        var meetRequest = MeetRequest()
+        var filters = MeetRequest.Filters()
+        filters.preferences.activities = arrayActivies
+        filters.preferences.timings = array
 
-    if (latitude!=null && longitude != null) {
         for (i in 1..3) {
             if (bottomSheetDialog.seekbarLocation.progress == i) {
                 filters.location.miles = 5 * i
-                filters.location.lat = latitude
-                filters.location.lng = longitude
+              //  filters.location.lat = latitude
+              //  filters.location.lng = longitude
             }
         }
+
+        filters.age.max = bottomSheetDialog.seekbarRange.maxProgress.toInt()
+        filters.age.min = bottomSheetDialog.seekbarRange.minProgress.toInt()
+        getMeetListing(meetRequest)
     }
-    getMeetListing(meetRequest)
-}
 
-private fun getMeetListing(meetRequest: MeetRequest) {
-    val token = "Bearer ${SharedPref(requireContext()).getToken()}"
+    private fun getMeetListing(meetRequest: MeetRequest) {
+        val token = "Bearer ${SharedPref(requireContext()).getToken()}"
 
-    meetRequest.limit = 100
+        meetRequest.limit = 100
 
-    val call: Call<MeetListResponse?> =
-        APIClient.client.create(APIInterface::class.java).getMeetListing(token, meetRequest)
-    showProgressBar()
-    call.enqueue(object : Callback<MeetListResponse?> {
-        override fun onResponse(
-            call: Call<MeetListResponse?>,
-            response: Response<MeetListResponse?>,
-        ) {
-            if (response.isSuccessful) {
-                if (response.body() != null) {
-                    handleResponse(response.body()!!)
+        val call: Call<MeetListResponse?> =
+            APIClient.client.create(APIInterface::class.java).getMeetListing(token, meetRequest)
+        showProgressBar()
+        call.enqueue(object : Callback<MeetListResponse?> {
+            override fun onResponse(
+                call: Call<MeetListResponse?>,
+                response: Response<MeetListResponse?>,
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        handleResponse(response.body()!!)
+                    }
+                } else {
+                    handleErrorResponse(response.errorBody(), requireContext())
                 }
-            } else {
-                handleErrorResponse(response.errorBody(), requireContext())
+                hideProgressBar()
             }
-            hideProgressBar()
-        }
 
-        override fun onFailure(call: Call<MeetListResponse?>, t: Throwable) {
-            hideProgressBar()
-            showToast(t.localizedMessage)
-        }
-    })
-}
+            override fun onFailure(call: Call<MeetListResponse?>, t: Throwable) {
+                hideProgressBar()
+                showToast(t.localizedMessage)
+            }
+        })
+    }
 
-private fun handleResponse(response: MeetListResponse) {
-    var meetAdapter = MeetAdapter(response.users, this)
-    binding.rvMeet.adapter = meetAdapter
-}
+    private fun handleResponse(response: MeetListResponse) {
+        var meetAdapter = MeetAdapter(response.users, this)
+        binding.rvMeet.adapter = meetAdapter
+    }
 
 
-override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?,
-): View? {
-    binding = FragmentMeetBinding.inflate(layoutInflater)
-    return binding.root
-}
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        binding = FragmentMeetBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
-override fun onClick(usersItem: UsersItem) {
-    loadFragment(MeetDetailsFragment.newInstance(usersItem))
-}
+    override fun onClick(usersItem: UsersItem) {
+        loadFragment(MeetDetailsFragment.newInstance(usersItem))
+    }
 
     override fun onMeetClick(usersItem: UsersItem) {
-       /* if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()){
-            Toast.makeText(requireContext(),"Please select a Kid from the menu",Toast.LENGTH_LONG).show()
-            return
-        }
-        if (!usersItem.kidObject?.id.isNullOrEmpty() && !usersItem.id.isNullOrEmpty()){
-            scheduleMeet(usersItem.kidObject?.id!!,usersItem.id)
-        }*/
+        /* if (SharedPref(requireContext()).getSelectedKid().isNullOrEmpty()){
+             Toast.makeText(requireContext(),"Please select a Kid from the menu",Toast.LENGTH_LONG).show()
+             return
+         }
+         if (!usersItem.kidObject?.id.isNullOrEmpty() && !usersItem.id.isNullOrEmpty()){
+             scheduleMeet(usersItem.kidObject?.id!!,usersItem.id)
+         }*/
 
         loadFragment(MeetDetailsFragment.newInstance(usersItem))
 
@@ -235,12 +195,18 @@ override fun onClick(usersItem: UsersItem) {
 
     }
 
-    private fun scheduleMeet(kidId:String,parentId:String) {
+    private fun scheduleMeet(kidId: String, parentId: String) {
         val token = "Bearer ${SharedPref(requireContext()).getToken()}"
-        var scheduleMeetRequest= ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,parentId,kidId,null,null)
+        var scheduleMeetRequest =
+            ScheduleMeetRequest(SharedPref(requireContext()).getSelectedKid()!!,
+                parentId,
+                kidId,
+                null,
+                null)
 
         val call: Call<ScheduleMeetResponse?> =
-            APIClient.client.create(APIInterface::class.java).scheduleMeet(token, scheduleMeetRequest)
+            APIClient.client.create(APIInterface::class.java)
+                .scheduleMeet(token, scheduleMeetRequest)
         showProgressBar()
         call.enqueue(object : Callback<ScheduleMeetResponse?> {
             override fun onResponse(
@@ -249,7 +215,7 @@ override fun onClick(usersItem: UsersItem) {
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
-                       Toast.makeText(requireContext(),"Meet Scheduled",Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Meet Scheduled", Toast.LENGTH_LONG).show()
                     }
                 } else {
                     handleErrorResponse(response.errorBody(), requireContext())
@@ -264,53 +230,12 @@ override fun onClick(usersItem: UsersItem) {
         })
     }
 
-private fun loadFragment(fragment: Fragment) {
-    val transaction = requireActivity().supportFragmentManager.beginTransaction()
-    transaction.replace(R.id.container, fragment)
-    transaction.addToBackStack(fragment.javaClass.name)
-    transaction.commit()
-}
-
-private fun isLocationPermissionGranted(): Boolean {
-    return if (ActivityCompat.checkSelfPermission(
-            requireContext(),
-            android.Manifest.permission.ACCESS_COARSE_LOCATION
-        ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-            requireContext(),
-            android.Manifest.permission.ACCESS_FINE_LOCATION
-        ) != PackageManager.PERMISSION_GRANTED
-    ) {
-        requestPermissions(
-            arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ),
-            LOCATION_PERMISSION_REQ_CODE
-        )
-        false
-    } else {
-        true
+    private fun loadFragment(fragment: Fragment) {
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(fragment.javaClass.name)
+        transaction.commit()
     }
-}
-
-override fun onRequestPermissionsResult(
-    requestCode: Int, permissions: Array<out String>, grantResults: IntArray,
-) {
-    when (requestCode) {
-        LOCATION_PERMISSION_REQ_CODE -> {
-            if (grantResults.isNotEmpty() &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED
-            ) {
-                // permission granted
-            } else {
-                // permission denied
-                Toast.makeText(requireContext(),
-                    "You need to grant permission to access location",
-                    Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-}
 
     override fun onItemClick(position: ArrayList<String>, type: Int) {
         if (type == 0) {

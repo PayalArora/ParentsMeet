@@ -340,30 +340,49 @@
         android:textColor="@color/black_2"
         android:textSize="@dimen/_14sp"
         android:textStyle="bold" />
+
     <com.google.android.material.chip.ChipGroup
-        android:layout_width="match_parent"
         android:id="@+id/chipNeeds"
-        android:paddingLeft="@dimen/_5dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_curve_rectangle_white_filled"
         android:layout_marginTop="16dp"
+        android:background="@drawable/background_curve_rectangle_white_filled"
+        android:paddingLeft="@dimen/_5dp"
         app:chipSpacing="8dp">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/tagNeeds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5dp"
             android:text="@string/add_need"
-            app:closeIcon="@null"
+            android:textColor="@color/gray_2"
             app:chipBackgroundColor="@android:color/transparent"
             app:chipCornerRadius="@dimen/point_5dp"
-            android:textColor="@color/gray_2"
-            android:layout_margin="@dimen/_5dp"
+            app:closeIcon="@null"
 
             app:closeIconVisible="true" />
 
     </com.google.android.material.chip.ChipGroup>
 
+    <TextView
+        android:id="@+id/availability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/availability"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="@dimen/_5dp"
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/_14sp"
+        android:fontFamily="@string/font_bold"
+        android:gravity="center"
+       />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_availability"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_15dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"/>
     <com.logicsquare.parentsmeet.views.VButton
         android:id="@+id/btnSave"
         style="@style/PrimaryButtonStyle"

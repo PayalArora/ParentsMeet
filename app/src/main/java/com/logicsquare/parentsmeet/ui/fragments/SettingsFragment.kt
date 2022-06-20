@@ -38,12 +38,14 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsDat
     var list: List<KidsItem?>? = null
     var interests: ArrayList<String> = ArrayList()
     var settingResponse:SettingResponse? = null
+    private lateinit var sharedPref: SharedPref
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         mBinding = FragmentSettingsBinding.inflate(inflater, container, false)
+        sharedPref = SharedPref(requireContext())
 
         getSettings()
         setListeners()
@@ -175,7 +177,9 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsDat
     private fun handleResponse(profileResponse: ProfileResponse) {
         mBinding.etFirstName.setText("${profileResponse.user?.name?.first?.toUpperCas()}")
         mBinding.etLastName.setText("${profileResponse.user?.name?.last?.toUpperCas()}")
-
+        sharedPref.apply {
+            setUserData(profileResponse?.user)
+        }
 
         var day: String? = "00"
         if (profileResponse.user?.dob?.day ?: 0 < 10) {
@@ -192,6 +196,12 @@ class SettingsFragment : Fragment(), DatePickerDialog.OnDateSetListener, KidsDat
         mBinding.etEmailId.setText("${profileResponse.user?.email}")
         mBinding.etProfession.setText("${profileResponse.user?.profession?.toUpperCas()}")
         mBinding.etCellphone.setText("${profileResponse.user?.phoneCountryCode}${profileResponse.user?.phone}")
+        mBinding.etCity.setText(("${profileResponse?.user?.address?.city?.toUpperCas()}"))
+        mBinding.etZip.setText(("${profileResponse?.user?.address?.zip}"))
+        mBinding.edtStreet.setText(("${profileResponse?.user?.address?.street?.toUpperCas()}"))
+        mBinding.etState.setText(("${profileResponse?.user?.address?.state?.toUpperCas()}"))
+        mBinding.etCountry.setText(("${profileResponse?.user?.address?.country?.toUpperCas()}"))
+
         (mBinding.rvParentInterests.adapter as CustomInterestAdapter).setSelection(
             profileResponse.user?.preferences?.parentInterests as List<Any>)
 
