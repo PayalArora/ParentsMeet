@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.toLowerCase
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.chip.ChipGroup
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentMeetDetailsBinding
@@ -95,7 +96,27 @@ class MeetDetailsFragment : Fragment() {
         childInterests = childInterests.removeSuffix(", ")
         childInterests = childInterests.capitalizeWords()
 
-        binding.tvParentLocation.text = userData.phoneCountryCode
+
+        var profile = SharedPref(requireContext()).getUserData()
+        var distance = ""
+        if (!userData.location?.coordinates.isNullOrEmpty() && userData.location?.coordinates?.get(0) != null
+            && userData.location?.coordinates?.get(1) != null && profile?.location?.coordinates?.get(0) != null
+            && profile?.location?.coordinates?.get(1) != null
+        ) {
+            var userLatlng: LatLng? = LatLng(
+                profile?.location?.coordinates?.get(0)!!.toDouble(),
+                profile?.location?.coordinates?.get(1)!!.toDouble()
+            )
+            var meetUserLatlng: LatLng? = LatLng(
+                userData.location?.coordinates?.get(0)!!.toDouble(),
+                userData.location?.coordinates?.get(1)!!.toDouble()
+            )
+
+            distance = distanceBetween(userLatlng,meetUserLatlng).toString()
+
+        }
+
+        binding.tvParentLocation.text = "${userData.address?.city}, $distance Miles Away"
         binding.tvParentInterests.text = parentInterests
 
         binding.tvChildName.text = userData.kidObject?.name?.capitalizeWords()

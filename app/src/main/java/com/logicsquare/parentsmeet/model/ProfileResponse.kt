@@ -197,7 +197,7 @@ data class Preferences(
 data class Location(
 
 	@field:SerializedName("coordinates")
-	val coordinates: List<Any?>? = null,
+	val coordinates: List<String?>? = null,
 
 	@field:SerializedName("type")
 	val type: String? = null

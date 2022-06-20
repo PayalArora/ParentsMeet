@@ -133,5 +133,7 @@ data class Address(
 	@field:SerializedName("street")
 	var street: String? = null,
 	@field:SerializedName("country")
-	var country: String? = null
+	var country: String? = null,
+	@field:SerializedName("timeZone")
+	var timeZone: String? = null
 )
