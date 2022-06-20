@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.jaygoo.widget.OnRangeChangedListener
+import com.jaygoo.widget.RangeSeekBar
 import com.logicsquare.parentsmeet.R
 import com.logicsquare.parentsmeet.databinding.FragmentMeetBinding
 import com.logicsquare.parentsmeet.databinding.LayoutMeetFilterBinding
@@ -36,11 +38,17 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
 
     var array: ArrayList<String> = arrayListOf()
     var arrayActivies: ArrayList<String> = arrayListOf()
+    var  dialog:BottomSheetDialog? = null
+   lateinit var pref:SharedPref
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var meetRequest = MeetRequest()
+        pref = SharedPref(requireContext())
         getMeetListing(meetRequest)
-        checkFilter()
+
+        binding.icFilter.setOnClickListener {
+            checkFilter()
+        }
         binding.ivBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
@@ -48,16 +56,16 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
             startActivity(Intent(requireActivity(),
                 DrawerActivity::class.java))
         }
-        binding
+
     }
 
 
     private fun checkFilter() {
         var bottomSheetBinding: LayoutMeetFilterBinding =
             LayoutMeetFilterBinding.inflate(layoutInflater)
-        val dialog = BottomSheetDialog(requireContext())
-        dialog.setContentView(bottomSheetBinding.root)
-        dialog.show()
+        dialog = BottomSheetDialog(requireContext())
+        dialog?.setContentView(bottomSheetBinding.root)
+        dialog?.show()
         bottomSheetBinding.seekbarLocation.setIntervals(arrayListOf("5", "10", "15", "20"))
 
         bottomSheetBinding.seekbarRange.setRange(4F, 8F)
@@ -76,6 +84,9 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
                 }
             }
         }
+        bottomSheetBinding.close.setOnClickListener {
+            dialog?.dismiss()
+        }
 
         bottomSheetBinding.rvAvailability.apply {
             val gridLayoutManager = GridLayoutManager(requireContext(), 3)
@@ -88,21 +99,25 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
                 }
             }
         }
-        bottomSheetBinding.seekbarLocation.setOnSeekBarChangeListener(object :
 
-            SeekBar.OnSeekBarChangeListener {
+        bottomSheetBinding.seekbarRange.setOnRangeChangedListener(object :
 
-            override fun onProgressChanged(
-                seek: SeekBar,
+           OnRangeChangedListener {
 
-                progress: Int, fromUser: Boolean,
+            override fun onRangeChanged(
+                view: RangeSeekBar?,
+                leftValue: Float,
+                rightValue: Float,
+                isFromUser: Boolean,
             ) {
+
             }
 
-            override fun onStartTrackingTouch(seek: SeekBar) {
+            override fun onStartTrackingTouch(view: RangeSeekBar?, isLeft: Boolean) {
+
             }
 
-            override fun onStopTrackingTouch(seek: SeekBar) {
+            override fun onStopTrackingTouch(view: RangeSeekBar?, isLeft: Boolean) {
 
             }
 
@@ -110,23 +125,25 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
 
     }
 
-
     private fun filterResults(bottomSheetDialog: LayoutMeetFilterBinding) {
         var meetRequest = MeetRequest()
         var filters = MeetRequest.Filters()
         filters.preferences.activities = arrayActivies
         filters.preferences.timings = array
 
-        for (i in 1..3) {
-            if (bottomSheetDialog.seekbarLocation.progress == i) {
-                filters.location.miles = 5 * i
-              //  filters.location.lat = latitude
-              //  filters.location.lng = longitude
+        if (pref.getUserData()?.location?.coordinates?.size?:0 > 0) {
+            for (i in 1..3) {
+                if (bottomSheetDialog.seekbarLocation.progress == i) {
+                    filters.location.miles = 5 * i
+                    filters.location.lat = pref.getUserData()?.location?.coordinates?.get(0) as Double?
+                    filters.location.lng = pref.getUserData()?.location?.coordinates?.get(1) as Double?
+                }
             }
         }
 
-        filters.age.max = bottomSheetDialog.seekbarRange.maxProgress.toInt()
-        filters.age.min = bottomSheetDialog.seekbarRange.minProgress.toInt()
+        filters.age.max = bottomSheetDialog.seekbarRange.rightSeekBar.progress.toInt()
+        filters.age.min = bottomSheetDialog.seekbarRange.leftSeekBar.progress.toInt()
+        meetRequest.filters = filters
         getMeetListing(meetRequest)
     }
 
@@ -145,6 +162,7 @@ class MeetFragment : Fragment(), MeetAdapter.OnClickListeners, OnItemClickEvent 
             ) {
                 if (response.isSuccessful) {
                     if (response.body() != null) {
+                        dialog?.dismiss()
                         handleResponse(response.body()!!)
                     }
                 } else {

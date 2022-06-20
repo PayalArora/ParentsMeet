@@ -41,7 +41,7 @@ class SharedPref(context: Context) {
 
 
     fun setUserData(profileUser: ProfileUser?){
-        editor.putString(PROFILE_USER, gson.toJson(profileUser))
+        editor.putString(PROFILE_USER, gson.toJson(profileUser)).apply()
     }
     fun getUserData(): ProfileUser?{
         return gson.fromJson(sharedPreferences.getString(PROFILE_USER, "").toString(), ProfileUser::class.java)

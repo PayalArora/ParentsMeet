@@ -71,6 +71,17 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
         setSpinnerAdapter()
         mypopupWindow = setPopUpWindow()
         setListeners()
+        mBinding.rvAvailability.apply {
+            val gridLayoutManager = GridLayoutManager(requireContext(), 3)
+            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL)
+            layoutManager = gridLayoutManager
+            if (SettingsFragment.settingsResponse != null) {
+                SettingsFragment.settingsResponse?.setting?.preferences?.timings.let {
+                    adapter = JobFilterAdapter(1, it as List<Any?>, this@ChildPagerFragment)
+
+                }
+            }
+        }
         kidsItem?.let {
             mBinding.etName.setText(it.name?.capitalizeWords())
             val ages = resources.getStringArray(R.array.Age)
@@ -102,7 +113,11 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
                     it.toString(),
                     needsList)
             }
+            it.preferences?.timings?.let { it1 ->
+                ((mBinding.rvAvailability.adapter) as JobFilterAdapter).update(it1)
+            }
         }
+
         settingResponse?.setting?.preferences?.activities.let {
         activitiesMainList .addAll(it as ArrayList<String>)
             activitiesMainList.add("Other")
@@ -115,17 +130,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
         needsMainList .addAll(it as ArrayList<String>)
             needsMainList.add("Other")
         }
-        mBinding.rvAvailability.apply {
-            val gridLayoutManager = GridLayoutManager(requireContext(), 3)
-            gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL)
-            layoutManager = gridLayoutManager
-            if (SettingsFragment.settingsResponse != null) {
-                SettingsFragment.settingsResponse?.setting?.preferences?.timings.let {
-                    adapter = JobFilterAdapter(1, it as List<Any?>, this@ChildPagerFragment)
 
-                }
-            }
-        }
     }
 
     private fun setListeners() {
@@ -363,7 +368,7 @@ class ChildPagerFragment(val kidsItem: KidsItem?,val kidsData: KidsData, val set
     }
 
     override fun onItemClick(position: ArrayList<String>, type: Int) {
-        if (type == 0) {
+        if (type == 1) {
             timings.clear()
             timings.addAll(position)
         }
