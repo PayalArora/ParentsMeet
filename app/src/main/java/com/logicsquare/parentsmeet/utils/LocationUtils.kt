@@ -39,5 +39,6 @@ fun convertIntoKm(distance:Double):Double{
 }
 
 fun convertIntoMiles(km: Double): Double {
-    return km / 1.609
+
+    return String.format("%.1f", (km / 1.609)).toDouble()
 }
