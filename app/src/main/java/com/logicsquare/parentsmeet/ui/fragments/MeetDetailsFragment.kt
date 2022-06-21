@@ -99,7 +99,8 @@ class MeetDetailsFragment : Fragment() {
 
         var profile = SharedPref(requireContext()).getUserData()
         var distance = ""
-        if (!userData.location?.coordinates.isNullOrEmpty() && userData.location?.coordinates?.get(0) != null
+        if (!userData.location?.coordinates.isNullOrEmpty() && profile?.location?.coordinates.isNullOrEmpty() &&
+            userData.location?.coordinates?.get(0) != null
             && userData.location?.coordinates?.get(1) != null && profile?.location?.coordinates?.get(0) != null
             && profile?.location?.coordinates?.get(1) != null
         ) {
